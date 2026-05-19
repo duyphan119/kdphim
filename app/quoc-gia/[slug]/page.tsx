@@ -23,10 +23,7 @@ export default async function Page({ params, searchParams }: Props) {
     <div className="_container space-y-4">
       <Breadcrumb items={data.breadCrumb} />
       <div className="">
-        <VideosFilter
-          defaultParams={awaitedSearchParams}
-          isSearchFilter={true}
-        />
+        <VideosFilter defaultParams={awaitedSearchParams} />
       </div>
 
       <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -41,7 +38,10 @@ export default async function Page({ params, searchParams }: Props) {
       </div>
 
       <div className="">
-        <VideosPagination pagination={data.params.pagination} />
+        <VideosPagination
+          pagination={data.params.pagination}
+          searchParams={awaitedSearchParams}
+        />
       </div>
     </div>
   );

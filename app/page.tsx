@@ -31,6 +31,7 @@ export default async function Home() {
           opts={{
             align: "start",
             loop: true,
+            duration: 6789,
           }}
         >
           <CarouselContent>
@@ -109,27 +110,6 @@ export default async function Home() {
           <CarouselNext />
         </Carousel>
       </div>
-      {(recommendVideos as RecommendedVideo[]).length > 0 ? (
-        <section className="space-y-2">
-          <div className="flex items-center justify-between bg-muted p-2">
-            <div className="font-semibold text-lg">Có thể bạn sẽ thích</div>
-            <Link
-              href={`/danh-sach/phim-bo?country=trung-quoc`}
-              className="text-xs flex items-center gap-0.5 hover:text-destructive transition-colors duration-200"
-            >
-              Xem tất cả
-              <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
-            {recommendVideos.map((videoItem) => (
-              <div key={videoItem.slug} className="col-span-1">
-                <VideoCard videoItem={videoItem} />
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
       <section className="space-y-2">
         <div className="flex items-center justify-between bg-muted p-2">
           <div className="font-semibold text-lg">Phim bộ Trung Quốc</div>
@@ -174,6 +154,27 @@ export default async function Home() {
           ))}
         </div>
       </section>
+      {(recommendVideos as RecommendedVideo[]).length > 0 ? (
+        <section className="space-y-2">
+          <div className="flex items-center justify-between bg-muted p-2">
+            <div className="font-semibold text-lg">Có thể bạn sẽ thích</div>
+            <Link
+              href={`/danh-sach/phim-bo?country=trung-quoc`}
+              className="text-xs flex items-center gap-0.5 hover:text-destructive transition-colors duration-200"
+            >
+              Xem tất cả
+              <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
+            {recommendVideos.slice(0, 20).map((videoItem) => (
+              <div key={videoItem.slug} className="col-span-1">
+                <VideoCard videoItem={videoItem} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

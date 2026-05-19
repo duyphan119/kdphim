@@ -6,27 +6,33 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import queryString from "query-string";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   pagination: Pagination;
+  searchParams?: Record<string, string>;
 };
 
 export default function VideosPagination({
   pagination: { currentPage, totalPages },
+  searchParams,
 }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const getHref = (page: number) => {
-    const params = queryString.parse(window.location.search);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
+  const getHref = (page: number) => {
     const queryParams = queryString.stringify({
-      ...params,
+      ...searchParams,
       page,
     });
-
     return `${pathname}?${queryParams}`;
   };
+
+  useEffect(() => {
+    formRef.current?.reset();
+  }, [searchParams]);
 
   return (
     <div className="flex items-center justify-center gap-2">
@@ -38,6 +44,7 @@ export default function VideosPagination({
         </Button>
       )}
       <form
+        ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
           const newPage = document.getElementById("page") as HTMLInputElement;
@@ -56,7 +63,7 @@ export default function VideosPagination({
       <div className="">/{totalPages}</div>
       {currentPage === totalPages ? null : (
         <Button size="icon">
-          <Link href={getHref(totalPages)}>
+          <Link href={getHref(currentPage + 1)}>
             <HugeiconsIcon icon={ArrowRight01Icon} />
           </Link>
         </Button>

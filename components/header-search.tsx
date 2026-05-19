@@ -24,22 +24,23 @@ export default function HeaderSearch({}: Props) {
   const [dataVideos, setDataVideos] = useState<ApiResponse | null>(null);
 
   useEffect(() => {
-    if (!text) return;
+    if (!text) setDataVideos(null);
+    else {
+      const fetchVideos = async () => {
+        try {
+          const res = await searchVideos(text, {
+            page: "1",
+            limit: "20",
+          });
 
-    const fetchVideos = async () => {
-      try {
-        const res = await searchVideos(text, {
-          page: "1",
-          limit: "20",
-        });
+          setDataVideos(res);
+        } catch (error) {
+          console.error("Error fetching videos:", error);
+        }
+      };
 
-        setDataVideos(res);
-      } catch (error) {
-        console.error("Error fetching videos:", error);
-      }
-    };
-
-    fetchVideos();
+      fetchVideos();
+    }
   }, [text]);
 
   useEffect(() => {
@@ -50,29 +51,35 @@ export default function HeaderSearch({}: Props) {
     setOpen(dataVideos?.data ? true : false);
   }, [dataVideos]);
 
+  const handleClose = () => setOpen(false);
+
   return (
     <div className="relative">
       <form
         action={`/tim-kiem?keyword=${keyword}`}
         method="get"
-        className="flex items-center border border-background rounded-sm px-1.5 gap-1"
+        className="flex items-center border border-muted rounded-sm px-1.5 gap-1"
       >
         <HugeiconsIcon icon={Search} color="#fff" size={14} />
         <input
           type="search"
           placeholder="Tìm tên phim"
           name="keyword"
-          autoFocus={true}
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
+          onFocus={() => setOpen(true)}
           className="flex-1 outline-none py-2 w-full"
         />
       </form>
       {open && dataVideos?.data ? (
-        <div className="absolute right-0 top-full bg-muted shadow">
+        <div className="absolute right-0 top-full _container  bg-muted shadow">
           <div className="max-h-[50vh] w-screen overflow-y-auto no-scrollbar space-y-2 py-2">
             {dataVideos.data.items.map((videoItem) => (
-              <div key={videoItem._id} className="flex gap-2">
+              <div
+                key={videoItem._id}
+                className="flex gap-2"
+                onClick={handleClose}
+              >
                 <Link
                   href={`/phim/${videoItem.slug}`}
                   className="w-1/3 md:w-1/4 aspect-video relative shrink-0"
@@ -102,7 +109,7 @@ export default function HeaderSearch({}: Props) {
             <div className="">
               <Link
                 href={`/tim-kiem?keyword=${keyword}&page=2`}
-                onClick={() => setOpen(false)}
+                onClick={handleClose}
                 className="w-full flex items-center justify-center gap-1 hover:text-destructive transition-colors duration-200 p-4"
               >
                 Xem thêm

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-background/80 px-4 md:px-40 lg:px-56 py-8 text-sm text-muted-foreground">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="_container flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="space-y-2">
           <p className="text-foreground font-semibold">KDPHIM</p>
           <p className="max-w-2xl leading-6 text-sm text-muted-foreground">

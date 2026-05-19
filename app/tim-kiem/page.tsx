@@ -38,7 +38,10 @@ export default async function Page({ searchParams }: Props) {
       </div>
 
       <div className="">
-        <VideosPagination pagination={data.params.pagination} />
+        <VideosPagination
+          pagination={data.params.pagination}
+          searchParams={awaitedSearchParams}
+        />
       </div>
     </div>
   );

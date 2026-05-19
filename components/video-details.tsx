@@ -8,6 +8,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
+import VideoCasts from "./video-casts";
+import { Fragment } from "react";
 
 type Props = {
   video: VideoDetailsResponse["movie"];
@@ -83,7 +85,8 @@ export default function VideoDetails({
       </div>
       <div
         className={cn(
-          "flex flex-col gap-3 md:flex-row md:items-start md:justify-between order-2",
+          "flex flex-col gap-3 md:flex-row md:items-start md:justify-between",
+          children ? "order-4" : "order-2",
         )}
       >
         <div>
@@ -91,11 +94,11 @@ export default function VideoDetails({
           <p className="text-sm text-muted-foreground">{video.origin_name}</p>
         </div>
       </div>
-      {children ? <div className="order-3">{children}</div> : null}
+      {children ? <div className="order-2">{children}</div> : null}
       <article
         className={cn(
           "overflow-hidden rounded-sm border border-border bg-card shadow-sm block md:grid md:grid-cols-3",
-          children ? "order-4" : "order-3",
+          children ? "order-5" : "order-3",
         )}
       >
         <div className="relative aspect-2/3 w-full overflow-hidden bg-slate-950 md:col-span-1">
@@ -160,28 +163,32 @@ export default function VideoDetails({
               Quốc gia
             </div>
             <div className="col-span-2 rounded-md bg-muted px-3 py-2">
-              {video.country?.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/quoc-gia/${item.slug}`}
-                  className="hover:underline transition-colors duration-200"
-                >
-                  {item.name}
-                </Link>
+              {video.country?.map((item, index) => (
+                <Fragment key={item.slug}>
+                  {index !== 0 ? <span>,&nbsp;</span> : null}
+                  <Link
+                    href={`/quoc-gia/${item.slug}`}
+                    className="hover:underline transition-colors duration-200"
+                  >
+                    {item.name}
+                  </Link>
+                </Fragment>
               )) || "Đang cập nhật"}
             </div>
             <div className="col-span-1 rounded-md bg-muted px-3 py-2 font-semibold">
               Thể loại
             </div>
             <div className="col-span-2 rounded-md bg-muted px-3 py-2">
-              {video.category.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/the-loai/${item.slug}`}
-                  className="hover:underline transition-colors duration-200"
-                >
-                  {item.name}
-                </Link>
+              {video.category.map((item, index) => (
+                <Fragment key={item.slug}>
+                  {index !== 0 ? <span>,&nbsp;</span> : null}
+                  <Link
+                    href={`/the-loai/${item.slug}`}
+                    className="hover:underline transition-colors duration-200"
+                  >
+                    {item.name}
+                  </Link>
+                </Fragment>
               ))}
             </div>
             <div className="col-span-1 rounded-md bg-muted px-3 py-2 font-semibold">
@@ -220,12 +227,14 @@ export default function VideoDetails({
         </div>
       </article>
 
-      <div className={cn("space-y-4", children ? "order-5" : "order-4")}>
+      <div className={cn("space-y-4", children ? "order-6" : "order-4")}>
         <div className="rounded-sm border border-border bg-card p-6 shadow-sm">
           <h2 className="text-xl font-semibold">Diễn viên</h2>
-          <p className="mt-2 text-sm leading-6 text-foreground">
-            {video.actor.length ? video.actor.join(", ") : "Chưa có"}
-          </p>
+          <VideoCasts
+            castNames={video.actor}
+            tmdbId={video.tmdb.id}
+            tmdbType={video.tmdb.type}
+          />
         </div>
 
         <div className="rounded-sm border border-border bg-card p-6 shadow-sm">
