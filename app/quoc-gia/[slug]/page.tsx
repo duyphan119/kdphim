@@ -3,19 +3,19 @@ import Breadcrumb from "@/components/breadcrumb";
 import VideoCard from "@/components/video-card";
 import VideosFilter from "@/components/videos-filter";
 import VideosPagination from "@/components/videos-pagination";
-import { getVideosByTypeList } from "@/lib/video";
+import { getVideosByCountry } from "@/lib/video";
 
 type Props = {
-  params: Promise<{ type: TypeList }>;
-  searchParams: Promise<VideosParams>;
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<Omit<VideosParams, "type_list" | "country">>;
 };
 
 export default async function Page({ params, searchParams }: Props) {
   const awaitedParams = await params;
   const awaitedSearchParams = await searchParams;
 
-  const { data } = await getVideosByTypeList(
-    awaitedParams.type,
+  const { data } = await getVideosByCountry(
+    awaitedParams.slug,
     awaitedSearchParams,
   );
 

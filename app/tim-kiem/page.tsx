@@ -1,27 +1,24 @@
 import Breadcrumb from "@/components/breadcrumb";
-
 import VideoCard from "@/components/video-card";
 import VideosFilter from "@/components/videos-filter";
 import VideosPagination from "@/components/videos-pagination";
-import { getVideosByTypeList } from "@/lib/video";
+import { searchVideos } from "@/lib/video";
 
 type Props = {
-  params: Promise<{ type: TypeList }>;
-  searchParams: Promise<VideosParams>;
+  searchParams: Promise<VideosParams & { keyword: string }>;
 };
 
-export default async function Page({ params, searchParams }: Props) {
-  const awaitedParams = await params;
+export default async function Page({ searchParams }: Props) {
   const awaitedSearchParams = await searchParams;
 
-  const { data } = await getVideosByTypeList(
-    awaitedParams.type,
-    awaitedSearchParams,
-  );
+  const { keyword, ...otherParams } = awaitedSearchParams;
+
+  const { data } = await searchVideos(keyword, otherParams);
 
   return (
     <div className="_container space-y-4">
       <Breadcrumb items={data.breadCrumb} />
+
       <div className="">
         <VideosFilter
           defaultParams={awaitedSearchParams}

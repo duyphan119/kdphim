@@ -1,11 +1,12 @@
 "use client";
 
-import { VideosParams } from "@/lib/video/data";
+import { exampleCategories } from "@/lib/category";
+import { exampleCountries } from "@/lib/country";
+import { getYears } from "@/lib/year";
 import { Filter } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useFilterStore } from "./providers/filter-store-provider";
 import { Button } from "./ui/button";
 import {
   Drawer,
@@ -16,15 +17,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "./ui/drawer";
-
-type Params = {
-  type_list?: string;
-  category?: string;
-  country?: string;
-  year?: string;
-  sort_field?: string;
-  sort_type?: string;
-};
+import { typeList } from "@/lib/video";
 
 type FilterParams = {
   type_list?: string;
@@ -36,17 +29,18 @@ type FilterParams = {
 };
 
 type Props = {
-  defaultParams?: VideosParams;
+  defaultParams?: VideosParams & { keyword?: string };
+  isSearchFilter?: boolean;
 };
 
-export default function VideosFilter({ defaultParams = {} }: Props) {
+export default function VideosFilter({
+  defaultParams = {},
+  isSearchFilter = false,
+}: Props) {
   const router = useRouter();
 
-  const { categories, countries, years, type_list } = useFilterStore(
-    (state) => state,
-  );
-
   const [filterParams, setFilterParams] = useState<FilterParams>({});
+  const [open, setOpen] = useState<boolean>(false);
 
   const select = (key: keyof FilterParams, value: string) => {
     if (key === "category" || key === "country") {
@@ -95,8 +89,16 @@ export default function VideosFilter({ defaultParams = {} }: Props) {
 
     let pathname = "";
     let query = "";
+    if (isSearchFilter) {
+      pathname = `/tim-kiem`;
 
-    if (type_list) {
+      query = createQuery({
+        keyword: defaultParams.keyword,
+        category: category.length ? category.join(",") : undefined,
+        country: country.length ? country.join(",") : undefined,
+        ...commonParams,
+      });
+    } else if (type_list) {
       pathname = `/danh-sach/${type_list}`;
 
       query = createQuery({
@@ -147,8 +149,8 @@ export default function VideosFilter({ defaultParams = {} }: Props) {
       });
     }
     const url = `${pathname}${query ? `?${query}` : ""}`;
-    console.log(url);
     router.push(url);
+    setOpen(false);
   };
 
   const handleReset = () => {
@@ -177,7 +179,7 @@ export default function VideosFilter({ defaultParams = {} }: Props) {
   }, [defaultParams]);
 
   return (
-    <Drawer direction="top">
+    <Drawer direction="top" open={open} onOpenChange={setOpen}>
       <DrawerTrigger
         asChild
         onClick={(e) => {
@@ -199,27 +201,31 @@ export default function VideosFilter({ defaultParams = {} }: Props) {
         </DrawerHeader>
 
         <div className="grid grid-cols-12 gap-4 no-scrollbar overflow-y-auto">
-          <div className="col-span-12 bg-background rounded-md p-4">
-            <div className="uppercase">Loại phim</div>
-            <div className="mt-2 flex gap-2 items-center flex-wrap">
-              {type_list.map(({ name, slug }) => (
-                <Button
-                  key={slug}
-                  variant={
-                    filterParams?.type_list === slug ? "destructive" : "outline"
-                  }
-                  size="xs"
-                  onClick={() => select("type_list", slug)}
-                >
-                  {name}
-                </Button>
-              ))}
+          {isSearchFilter ? null : (
+            <div className="col-span-12 bg-background rounded-md p-4">
+              <div className="uppercase">Loại phim</div>
+              <div className="mt-2 flex gap-2 items-center flex-wrap">
+                {typeList.map(({ name, slug }) => (
+                  <Button
+                    key={slug}
+                    variant={
+                      filterParams?.type_list === slug
+                        ? "destructive"
+                        : "outline"
+                    }
+                    size="xs"
+                    onClick={() => select("type_list", slug)}
+                  >
+                    {name}
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           <div className="col-span-12 bg-background rounded-md p-4">
             <div className="uppercase">Thể loại</div>
             <div className="mt-2 flex gap-2 items-center flex-wrap">
-              {categories.map(({ name, slug }) => (
+              {exampleCategories.map(({ name, slug }) => (
                 <Button
                   key={slug}
                   variant={
@@ -238,7 +244,7 @@ export default function VideosFilter({ defaultParams = {} }: Props) {
           <div className="col-span-12 bg-background rounded-md p-4">
             <div className="uppercase">Quốc gia</div>
             <div className="mt-2 flex gap-2 items-center flex-wrap">
-              {countries.map(({ name, slug }) => (
+              {exampleCountries.map(({ name, slug }) => (
                 <Button
                   key={slug}
                   variant={
@@ -257,7 +263,7 @@ export default function VideosFilter({ defaultParams = {} }: Props) {
           <div className="col-span-12 bg-background rounded-md p-4">
             <div className="uppercase">Năm</div>
             <div className="mt-2 flex gap-2 items-center flex-wrap">
-              {years.map((year) => (
+              {getYears().map((year) => (
                 <Button
                   key={year}
                   variant={

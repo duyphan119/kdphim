@@ -1,5 +1,3 @@
-import { Category } from "./types";
-
 export const exampleCategories: Category[] = [
   {
     id: "252e74b4c832ddb4233d7499f5ed122e",
@@ -132,17 +130,3 @@ export const exampleCategories: Category[] = [
     slug: "vo-thuat",
   },
 ];
-
-export const getCategories = async () => {
-  try {
-    const res = await fetch(`https://phimapi.com/the-loai`, {
-      next: { revalidate: 60, tags: ["categories"] },
-    });
-    const categories = await res.json();
-    categories.sort((a: Category, b: Category) => a.name.localeCompare(b.name));
-    return categories as Category[];
-  } catch (error) {
-    console.log(error);
-    return exampleCategories;
-  }
-};

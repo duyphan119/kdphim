@@ -1,5 +1,3 @@
-import { Country } from "./types";
-
 export const exampleCountries: Country[] = [
   {
     id: "cc85d02a69f06f7b43ab67f5673604a3",
@@ -177,17 +175,3 @@ export const exampleCountries: Country[] = [
     slug: "y",
   },
 ];
-
-export const getCountries = async () => {
-  try {
-    const res = await fetch(`https://phimapi.com/quoc-gia`, {
-      next: { revalidate: 60, tags: ["countries"] },
-    });
-    const countries = await res.json();
-    countries.sort((a: Country, b: Country) => a.name.localeCompare(b.name));
-    return countries as Country[];
-  } catch (error) {
-    console.log(error);
-    return exampleCountries;
-  }
-};

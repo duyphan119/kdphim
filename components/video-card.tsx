@@ -5,13 +5,13 @@ import Link from "next/link";
 
 type VideoCardProps = {
   videoItem: {
-    _id: string;
+    name: string;
     slug: string;
     poster_url: string;
-    episode_current: string;
-    name: string;
+    episode_current?: string;
+    lang?: string;
   };
-  imageDomain: string;
+  imageDomain?: string;
 };
 
 export default function VideoCard({ videoItem, imageDomain }: VideoCardProps) {
@@ -23,7 +23,7 @@ export default function VideoCard({ videoItem, imageDomain }: VideoCardProps) {
       >
         <Image
           unoptimized
-          src={`https://phimapi.com/image.php?url=${imageDomain}/${videoItem.poster_url}`}
+          src={`https://phimapi.com/image.php?url=${imageDomain ? imageDomain + "/" : ""}${videoItem.poster_url}`}
           alt={videoItem.slug}
           fill
           sizes="(max-width: 1200px) 50vw, 100vw"
@@ -31,9 +31,18 @@ export default function VideoCard({ videoItem, imageDomain }: VideoCardProps) {
           className="rounded-sm object-cover"
         />
 
-        <div className="absolute top-0 right-0 text-xs bg-destructive text-destructive-foreground rounded-tr-sm rounded-bl-sm px-1">
-          {videoItem.episode_current}
-        </div>
+        {videoItem.episode_current ? (
+          <div className="absolute top-0 right-0 text-xs bg-destructive text-destructive-foreground rounded-tr-sm rounded-bl-sm px-1">
+            {videoItem.episode_current}
+          </div>
+        ) : null}
+        {videoItem.lang ? (
+          <div className="absolute bottom-0 left-0 text-xs bg-sky-700 text-destructive-foreground rounded-tr-sm rounded-bl-sm px-1">
+            {videoItem.lang
+              .replace("Thuyết Minh", "TM")
+              .replace("Lồng Tiếng", "LT")}
+          </div>
+        ) : null}
       </Link>
 
       <div>

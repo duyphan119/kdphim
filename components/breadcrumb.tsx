@@ -1,0 +1,41 @@
+"use client";
+
+import {
+  Breadcrumb as ShadcnBreadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import Link from "next/link";
+import { Fragment } from "react";
+
+type Props = { items: BreadcrumbItem[] };
+
+export default function Breadcrumb({ items }: Props) {
+  return (
+    <ShadcnBreadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href="/">Trang chủ</Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        {items.map((item) => (
+          <Fragment key={item.name}>
+            <BreadcrumbSeparator />
+
+            {item.slug ? (
+              <BreadcrumbLink asChild>
+                <Link href={item.slug}>{item.name}</Link>
+              </BreadcrumbLink>
+            ) : (
+              <BreadcrumbPage>{item.name}</BreadcrumbPage>
+            )}
+          </Fragment>
+        ))}
+      </BreadcrumbList>
+    </ShadcnBreadcrumb>
+  );
+}
