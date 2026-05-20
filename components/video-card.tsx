@@ -1,5 +1,6 @@
 // components/video-card.tsx
 
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,15 +13,23 @@ type VideoCardProps = {
     lang?: string;
   };
   imageDomain?: string;
+  direction?: "row" | "col";
 };
 
-export default function VideoCard({ videoItem, imageDomain }: VideoCardProps) {
+export default function VideoCard({
+  videoItem,
+  imageDomain,
+  direction = "col",
+}: VideoCardProps) {
   return (
-    <div className="video-card">
+    <div className={cn("video-card", direction === "row" ? "flex gap-4" : "")}>
       <Link
         href={`/phim/${videoItem.slug}`}
         title={videoItem.name}
-        className="w-full block aspect-2/3 relative"
+        className={cn(
+          "block aspect-2/3 relative",
+          direction === "row" ? "w-1/3 shrink-0" : "w-full",
+        )}
       >
         <Image
           unoptimized
@@ -32,12 +41,12 @@ export default function VideoCard({ videoItem, imageDomain }: VideoCardProps) {
           className="rounded-sm object-cover"
         />
 
-        {videoItem.episode_current ? (
+        {direction === "col" && videoItem.episode_current ? (
           <div className="absolute top-0 right-0 text-xs bg-destructive text-destructive-foreground rounded-tr-sm rounded-bl-sm px-1">
             {videoItem.episode_current}
           </div>
         ) : null}
-        {videoItem.lang ? (
+        {direction === "col" && videoItem.lang ? (
           <div className="absolute bottom-0 left-0 text-xs bg-sky-700 text-destructive-foreground rounded-tr-sm rounded-bl-sm px-1">
             {videoItem.lang
               .replace("Thuyết Minh", "TM")

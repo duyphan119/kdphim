@@ -14,11 +14,13 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { exampleCategories } from "@/lib/category";
+import { exampleCountries } from "@/lib/country";
 import { getYears } from "@/lib/year";
 import {
-  Clock02Icon,
   DashboardSquare01Icon,
   Earth,
+  Fire,
   Home,
   Menu,
   MoleculesIcon,
@@ -26,10 +28,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
-import HeaderSearch from "./header-search";
-import { exampleCategories } from "@/lib/category";
-import { exampleCountries } from "@/lib/country";
 import { Suspense } from "react";
+import HeaderSearch from "./header-search";
 
 type Props = {};
 
@@ -59,6 +59,13 @@ export default function Header({}: Props) {
               >
                 <HugeiconsIcon icon={Home} size={18} />
                 Trang chủ
+              </Link>
+              <Link
+                href="/phim-hot"
+                className="flex items-center gap-1.5 px-2 py-2 rounded-sm text-foreground hover:text-destructive overflow-hidden transition-all duration-200 hover:bg-linear-to-r hover:from-destructive/20 hover:to-transparent relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-0 before:w-1 before:rounded-full before:bg-destructive before:opacity-0 before:transition-all before:duration-100 hover:before:h-full hover:before:opacity-100"
+              >
+                <HugeiconsIcon icon={Fire} size={18} />
+                Phim hot
               </Link>
               <Accordion type="multiple">
                 <AccordionItem value="item-1" className="">
@@ -116,13 +123,6 @@ export default function Header({}: Props) {
                     </div>
                   </AccordionContent>
                 </AccordionItem>
-                <Link
-                  href="/"
-                  className="flex items-center gap-1.5 px-2 py-2 rounded-sm text-foreground hover:text-destructive overflow-hidden transition-all duration-200 hover:bg-linear-to-r hover:from-destructive/20 hover:to-transparent relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-0 before:w-1 before:rounded-full before:bg-destructive before:opacity-0 before:transition-all before:duration-100 hover:before:h-full hover:before:opacity-100"
-                >
-                  <HugeiconsIcon icon={Clock02Icon} size={18} />
-                  Lịch sử xem
-                </Link>
               </Accordion>
             </div>
           </DrawerContent>

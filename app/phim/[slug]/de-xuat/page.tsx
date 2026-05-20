@@ -58,5 +58,5 @@ export default async function Page({ params }: Props) {
   else
     await postData(recommendVideos.filter((item) => item.slug !== movie.slug));
 
-  return redirect(`/phim-de-xuat`);
+  return redirect(`/phim-hot`);
 }

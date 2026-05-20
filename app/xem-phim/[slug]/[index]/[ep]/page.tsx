@@ -1,14 +1,12 @@
-import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowLeft02Icon, ArrowRight02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import type { Metadata } from "next";
+import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
 import VideoDetails from "@/components/video-details";
-import { getVideo } from "@/lib/video";
 import { stripHtml } from "@/lib/utils";
-import EmbedVideo from "@/components/embed-video";
-import VideoPlayer from "@/components/video-player";
+import { getVideo } from "@/lib/video";
 
 type Params = {
   slug: string;
@@ -129,8 +127,15 @@ export default async function Page({ params }: Props) {
       currentEpisodeSlug={currentEpisode.slug}
       serverIndex={serverIndex}
     >
-      <VideoPlayer src={currentEpisode.link_m3u8} />
-      {/* <EmbedVideo linkEmbed={currentEpisode.link_embed} /> */}
+      <div className="aspect-video overflow-hidden rounded-lg bg-slate-950">
+        <iframe
+          src={currentEpisode.link_embed}
+          width="100%"
+          height="100%"
+          allow="fullscreen"
+          className="h-full w-full"
+        />
+      </div>
 
       {(prevLink || nextLink) && (
         <div className="mt-4 flex justify-center gap-4">

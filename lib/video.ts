@@ -31,18 +31,6 @@ export const typeList = [
   },
 ];
 
-export const recommendVideos = [
-  {
-    slug: "phu-nhan-dai-quan-the-ky-21",
-    name: "Phu Nhân Đại Quân Thế Kỷ 21",
-    poster_url:
-      "https://phimimg.com/upload/vod/20260411-1/19fba2a3671a42514f6506f9d5d3534a.jpg",
-    thumb_url:
-      "https://phimimg.com/upload/vod/20260411-1/e6bb5b889cf566a8851149e472bd9a0e.jpg",
-    episode_current: "Hoàn Tất (12/12)",
-  },
-];
-
 export const getLatestVideos = async (params: { page: number }) => {
   try {
     const response = await fetch(

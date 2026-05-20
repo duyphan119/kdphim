@@ -6,12 +6,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getLatestVideos, getVideosByCountry } from "@/lib/video";
-import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight01Icon, Fire } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
 import recommendVideos from "@/lib/recommend-videos.json";
 import VideoCard from "@/components/video-card";
+import CarouselAutoplay from "@/components/carousel-autoplay";
 
 export default async function Home() {
   const dataLatestVideos = await getLatestVideos({ page: 1 });
@@ -27,13 +28,7 @@ export default async function Home() {
   return (
     <div className="_container space-y-4">
       <div className="">
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-            duration: 6789,
-          }}
-        >
+        <CarouselAutoplay delay={4567}>
           <CarouselContent>
             {dataLatestVideos?.items
               ?.filter(
@@ -108,10 +103,43 @@ export default async function Home() {
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
-        </Carousel>
+        </CarouselAutoplay>
       </div>
+      {(recommendVideos as RecommendedVideo[]).length > 0 ? (
+        <section className="space-y-2">
+          <div className="flex items-center justify-between bg-muted p-2 rounded-sm">
+            <div className="font-semibold text-lg flex items-center gap-1">
+              {" "}
+              <HugeiconsIcon icon={Fire} size={18} /> Phim hot
+            </div>
+            <Link
+              href={`/danh-sach/phim-bo?country=trung-quoc`}
+              className="text-xs flex items-center gap-0.5 hover:text-destructive transition-colors duration-200"
+            >
+              Xem tất cả
+              <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
+            </Link>
+          </div>
+          <div className="">
+            <CarouselAutoplay delay={12345}>
+              <CarouselContent>
+                {recommendVideos.slice(0, 20).map((videoItem) => (
+                  <CarouselItem
+                    key={videoItem.slug}
+                    className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+                  >
+                    <VideoCard videoItem={videoItem} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </CarouselAutoplay>
+          </div>
+        </section>
+      ) : null}
       <section className="space-y-2">
-        <div className="flex items-center justify-between bg-muted p-2">
+        <div className="flex items-center justify-between bg-muted p-2 rounded-sm">
           <div className="font-semibold text-lg">Phim bộ Trung Quốc</div>
           <Link
             href={`/danh-sach/phim-bo?country=trung-quoc`}
@@ -133,7 +161,7 @@ export default async function Home() {
         </div>
       </section>
       <section className="space-y-2">
-        <div className="flex items-center justify-between bg-muted p-2">
+        <div className="flex items-center justify-between bg-muted p-2 rounded-sm">
           <div className="font-semibold text-lg">Phim bộ Hàn Quốc</div>
           <Link
             href={`/danh-sach/phim-bo?country=han-quoc`}
@@ -154,27 +182,6 @@ export default async function Home() {
           ))}
         </div>
       </section>
-      {(recommendVideos as RecommendedVideo[]).length > 0 ? (
-        <section className="space-y-2">
-          <div className="flex items-center justify-between bg-muted p-2">
-            <div className="font-semibold text-lg">Có thể bạn sẽ thích</div>
-            <Link
-              href={`/danh-sach/phim-bo?country=trung-quoc`}
-              className="text-xs flex items-center gap-0.5 hover:text-destructive transition-colors duration-200"
-            >
-              Xem tất cả
-              <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
-            {recommendVideos.slice(0, 20).map((videoItem) => (
-              <div key={videoItem.slug} className="col-span-1">
-                <VideoCard videoItem={videoItem} />
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
     </div>
   );
 }

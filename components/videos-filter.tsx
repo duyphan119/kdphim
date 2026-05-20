@@ -18,6 +18,12 @@ import {
   DrawerTrigger,
 } from "./ui/drawer";
 import { typeList } from "@/lib/video";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 type FilterParams = {
   type_list?: string;
@@ -40,7 +46,7 @@ export default function VideosFilter({
   const router = useRouter();
 
   const [filterParams, setFilterParams] = useState<FilterParams>({});
-  const [open, setOpen] = useState<boolean>(false);
+  const [value, setValue] = useState("");
 
   const select = (key: keyof FilterParams, value: string) => {
     if (key === "category" || key === "country") {
@@ -150,7 +156,7 @@ export default function VideosFilter({
     }
     const url = `${pathname}${query ? `?${query}` : ""}`;
     router.push(url);
-    setOpen(false);
+    setValue("");
   };
 
   const handleReset = () => {
@@ -179,178 +185,345 @@ export default function VideosFilter({
   }, [defaultParams]);
 
   return (
-    <Drawer direction="top" open={open} onOpenChange={setOpen}>
-      <DrawerTrigger
-        asChild
-        onClick={(e) => {
-          // chặn warning Blocked aria-hidden on an element...
-          e.currentTarget.blur();
-        }}
-      >
-        <Button variant="outline">
-          <HugeiconsIcon icon={Filter} />
+    <Accordion type="single" collapsible value={value} onValueChange={setValue}>
+      <AccordionItem value="item-1">
+        <AccordionTrigger>
+          <HugeiconsIcon icon={Filter} size={18} />
           Bộ lọc
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent className="bg-secondary">
-        <DrawerHeader className="sr-only">
-          <DrawerTitle>Bộ lọc phim</DrawerTitle>
-          <DrawerDescription>
-            Lọc phim theo loại phim, thể loại, quốc gia, năm
-          </DrawerDescription>
-        </DrawerHeader>
-
-        <div className="grid grid-cols-12 gap-4 no-scrollbar overflow-y-auto">
-          {isSearchFilter ? null : (
+        </AccordionTrigger>
+        <AccordionContent className="py-4">
+          <div className="grid grid-cols-12 gap-4 no-scrollbar overflow-y-auto">
+            {isSearchFilter ? null : (
+              <div className="col-span-12 bg-background rounded-md p-4">
+                <div className="uppercase">Loại phim</div>
+                <div className="mt-2 flex gap-2 items-center flex-wrap">
+                  {typeList.map(({ name, slug }) => (
+                    <Button
+                      key={slug}
+                      variant={
+                        filterParams?.type_list === slug
+                          ? "destructive"
+                          : "outline"
+                      }
+                      size="xs"
+                      onClick={() => select("type_list", slug)}
+                    >
+                      {name}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="col-span-12 bg-background rounded-md p-4">
-              <div className="uppercase">Loại phim</div>
+              <div className="uppercase">Thể loại</div>
               <div className="mt-2 flex gap-2 items-center flex-wrap">
-                {typeList.map(({ name, slug }) => (
+                {exampleCategories.map(({ name, slug }) => (
                   <Button
                     key={slug}
                     variant={
-                      filterParams?.type_list === slug
+                      filterParams?.category?.includes(slug)
                         ? "destructive"
                         : "outline"
                     }
                     size="xs"
-                    onClick={() => select("type_list", slug)}
+                    onClick={() => select("category", slug)}
                   >
                     {name}
                   </Button>
                 ))}
               </div>
             </div>
-          )}
-          <div className="col-span-12 bg-background rounded-md p-4">
-            <div className="uppercase">Thể loại</div>
-            <div className="mt-2 flex gap-2 items-center flex-wrap">
-              {exampleCategories.map(({ name, slug }) => (
+            <div className="col-span-12 bg-background rounded-md p-4">
+              <div className="uppercase">Quốc gia</div>
+              <div className="mt-2 flex gap-2 items-center flex-wrap">
+                {exampleCountries.map(({ name, slug }) => (
+                  <Button
+                    key={slug}
+                    variant={
+                      filterParams?.country?.includes(slug)
+                        ? "destructive"
+                        : "outline"
+                    }
+                    size="xs"
+                    onClick={() => select("country", slug)}
+                  >
+                    {name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            <div className="col-span-12 bg-background rounded-md p-4">
+              <div className="uppercase">Năm</div>
+              <div className="mt-2 flex gap-2 items-center flex-wrap">
+                {getYears().map((year) => (
+                  <Button
+                    key={year}
+                    variant={
+                      filterParams?.year === year + ""
+                        ? "destructive"
+                        : "outline"
+                    }
+                    size="xs"
+                    onClick={() => select("year", year + "")}
+                  >
+                    {year}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            <div className="col-span-12 bg-background rounded-md p-4">
+              <div className="uppercase">Sắp xếp</div>
+              <div className="mt-2 flex gap-2 items-center flex-wrap">
                 <Button
-                  key={slug}
                   variant={
-                    filterParams?.category?.includes(slug)
+                    filterParams?.sort_field === "modified.time" &&
+                    filterParams.sort_type === "desc"
                       ? "destructive"
                       : "outline"
                   }
                   size="xs"
-                  onClick={() => select("category", slug)}
+                  onClick={() => {
+                    select("sort_field", "modified.time");
+                    select("sort_type", "desc");
+                  }}
                 >
-                  {name}
+                  Cập nhật gần đây
                 </Button>
-              ))}
-            </div>
-          </div>
-          <div className="col-span-12 bg-background rounded-md p-4">
-            <div className="uppercase">Quốc gia</div>
-            <div className="mt-2 flex gap-2 items-center flex-wrap">
-              {exampleCountries.map(({ name, slug }) => (
                 <Button
-                  key={slug}
                   variant={
-                    filterParams?.country?.includes(slug)
+                    filterParams?.sort_field === "modified.time" &&
+                    filterParams.sort_type === "asc"
                       ? "destructive"
                       : "outline"
                   }
                   size="xs"
-                  onClick={() => select("country", slug)}
+                  onClick={() => {
+                    select("sort_field", "modified.time");
+                    select("sort_type", "asc");
+                  }}
                 >
-                  {name}
+                  Cập nhật cũ nhất
                 </Button>
-              ))}
-            </div>
-          </div>
-          <div className="col-span-12 bg-background rounded-md p-4">
-            <div className="uppercase">Năm</div>
-            <div className="mt-2 flex gap-2 items-center flex-wrap">
-              {getYears().map((year) => (
                 <Button
-                  key={year}
                   variant={
-                    filterParams?.year === year + "" ? "destructive" : "outline"
+                    filterParams?.sort_field === "year" &&
+                    filterParams.sort_type === "asc"
+                      ? "destructive"
+                      : "outline"
                   }
                   size="xs"
-                  onClick={() => select("year", year + "")}
+                  onClick={() => {
+                    select("sort_field", "year");
+                    select("sort_type", "asc");
+                  }}
                 >
-                  {year}
+                  Năm phát hành tăng dần
                 </Button>
-              ))}
+                <Button
+                  variant={
+                    filterParams?.sort_field === "year" &&
+                    filterParams.sort_type === "asc"
+                      ? "destructive"
+                      : "outline"
+                  }
+                  size="xs"
+                  onClick={() => {
+                    select("sort_field", "year");
+                    select("sort_type", "desc");
+                  }}
+                >
+                  Năm phát hành giảm dần
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="col-span-12 bg-background rounded-md p-4">
-            <div className="uppercase">Sắp xếp</div>
-            <div className="mt-2 flex gap-2 items-center flex-wrap">
-              <Button
-                variant={
-                  filterParams?.sort_field === "modified.time" &&
-                  filterParams.sort_type === "desc"
-                    ? "destructive"
-                    : "outline"
-                }
-                size="xs"
-                onClick={() => {
-                  select("sort_field", "modified.time");
-                  select("sort_type", "desc");
-                }}
-              >
-                Cập nhật gần đây
-              </Button>
-              <Button
-                variant={
-                  filterParams?.sort_field === "modified.time" &&
-                  filterParams.sort_type === "asc"
-                    ? "destructive"
-                    : "outline"
-                }
-                size="xs"
-                onClick={() => {
-                  select("sort_field", "modified.time");
-                  select("sort_type", "asc");
-                }}
-              >
-                Cập nhật cũ nhất
-              </Button>
-              <Button
-                variant={
-                  filterParams?.sort_field === "year" &&
-                  filterParams.sort_type === "asc"
-                    ? "destructive"
-                    : "outline"
-                }
-                size="xs"
-                onClick={() => {
-                  select("sort_field", "year");
-                  select("sort_type", "asc");
-                }}
-              >
-                Năm phát hành tăng dần
-              </Button>
-              <Button
-                variant={
-                  filterParams?.sort_field === "year" &&
-                  filterParams.sort_type === "asc"
-                    ? "destructive"
-                    : "outline"
-                }
-                size="xs"
-                onClick={() => {
-                  select("sort_field", "year");
-                  select("sort_type", "desc");
-                }}
-              >
-                Năm phát hành giảm dần
-              </Button>
-            </div>
+          <div className="mt-4 flex flex-col gap-4">
+            <Button
+              variant="outline"
+              onClick={() => handleReset()}
+              className="rounded-sm"
+            >
+              Đặt lại
+            </Button>
+            <Button onClick={() => handleFilter()} className="rounded-sm">
+              Áp dụng
+            </Button>
           </div>
-        </div>
-
-        <DrawerFooter className="mt-4">
-          <Button variant="outline" onClick={() => handleReset()}>
-            Đặt lại
-          </Button>
-          <Button onClick={() => handleFilter()}>Áp dụng</Button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
+// <Drawer direction="top" open={open} onOpenChange={setOpen}>
+//   <DrawerTrigger
+//     asChild
+//     onClick={(e) => {
+//       // chặn warning Blocked aria-hidden on an element...
+//       e.currentTarget.blur();
+//     }}
+//   >
+//     <Button variant="outline">
+//       <HugeiconsIcon icon={Filter} />
+//       Bộ lọc
+//     </Button>
+//   </DrawerTrigger>
+//   <DrawerContent className="bg-secondary">
+//     <DrawerHeader className="sr-only">
+//       <DrawerTitle>Bộ lọc phim</DrawerTitle>
+//       <DrawerDescription>
+//         Lọc phim theo loại phim, thể loại, quốc gia, năm
+//       </DrawerDescription>
+//     </DrawerHeader>
+
+//     <div className="grid grid-cols-12 gap-4 no-scrollbar overflow-y-auto">
+//       {isSearchFilter ? null : (
+//         <div className="col-span-12 bg-background rounded-md p-4">
+//           <div className="uppercase">Loại phim</div>
+//           <div className="mt-2 flex gap-2 items-center flex-wrap">
+//             {typeList.map(({ name, slug }) => (
+//               <Button
+//                 key={slug}
+//                 variant={
+//                   filterParams?.type_list === slug
+//                     ? "destructive"
+//                     : "outline"
+//                 }
+//                 size="xs"
+//                 onClick={() => select("type_list", slug)}
+//               >
+//                 {name}
+//               </Button>
+//             ))}
+//           </div>
+//         </div>
+//       )}
+//       <div className="col-span-12 bg-background rounded-md p-4">
+//         <div className="uppercase">Thể loại</div>
+//         <div className="mt-2 flex gap-2 items-center flex-wrap">
+//           {exampleCategories.map(({ name, slug }) => (
+//             <Button
+//               key={slug}
+//               variant={
+//                 filterParams?.category?.includes(slug)
+//                   ? "destructive"
+//                   : "outline"
+//               }
+//               size="xs"
+//               onClick={() => select("category", slug)}
+//             >
+//               {name}
+//             </Button>
+//           ))}
+//         </div>
+//       </div>
+//       <div className="col-span-12 bg-background rounded-md p-4">
+//         <div className="uppercase">Quốc gia</div>
+//         <div className="mt-2 flex gap-2 items-center flex-wrap">
+//           {exampleCountries.map(({ name, slug }) => (
+//             <Button
+//               key={slug}
+//               variant={
+//                 filterParams?.country?.includes(slug)
+//                   ? "destructive"
+//                   : "outline"
+//               }
+//               size="xs"
+//               onClick={() => select("country", slug)}
+//             >
+//               {name}
+//             </Button>
+//           ))}
+//         </div>
+//       </div>
+//       <div className="col-span-12 bg-background rounded-md p-4">
+//         <div className="uppercase">Năm</div>
+//         <div className="mt-2 flex gap-2 items-center flex-wrap">
+//           {getYears().map((year) => (
+//             <Button
+//               key={year}
+//               variant={
+//                 filterParams?.year === year + "" ? "destructive" : "outline"
+//               }
+//               size="xs"
+//               onClick={() => select("year", year + "")}
+//             >
+//               {year}
+//             </Button>
+//           ))}
+//         </div>
+//       </div>
+//       <div className="col-span-12 bg-background rounded-md p-4">
+//         <div className="uppercase">Sắp xếp</div>
+//         <div className="mt-2 flex gap-2 items-center flex-wrap">
+//           <Button
+//             variant={
+//               filterParams?.sort_field === "modified.time" &&
+//               filterParams.sort_type === "desc"
+//                 ? "destructive"
+//                 : "outline"
+//             }
+//             size="xs"
+//             onClick={() => {
+//               select("sort_field", "modified.time");
+//               select("sort_type", "desc");
+//             }}
+//           >
+//             Cập nhật gần đây
+//           </Button>
+//           <Button
+//             variant={
+//               filterParams?.sort_field === "modified.time" &&
+//               filterParams.sort_type === "asc"
+//                 ? "destructive"
+//                 : "outline"
+//             }
+//             size="xs"
+//             onClick={() => {
+//               select("sort_field", "modified.time");
+//               select("sort_type", "asc");
+//             }}
+//           >
+//             Cập nhật cũ nhất
+//           </Button>
+//           <Button
+//             variant={
+//               filterParams?.sort_field === "year" &&
+//               filterParams.sort_type === "asc"
+//                 ? "destructive"
+//                 : "outline"
+//             }
+//             size="xs"
+//             onClick={() => {
+//               select("sort_field", "year");
+//               select("sort_type", "asc");
+//             }}
+//           >
+//             Năm phát hành tăng dần
+//           </Button>
+//           <Button
+//             variant={
+//               filterParams?.sort_field === "year" &&
+//               filterParams.sort_type === "asc"
+//                 ? "destructive"
+//                 : "outline"
+//             }
+//             size="xs"
+//             onClick={() => {
+//               select("sort_field", "year");
+//               select("sort_type", "desc");
+//             }}
+//           >
+//             Năm phát hành giảm dần
+//           </Button>
+//         </div>
+//       </div>
+//     </div>
+
+//     <DrawerFooter className="mt-4">
+//       <Button variant="outline" onClick={() => handleReset()}>
+//         Đặt lại
+//       </Button>
+//       <Button onClick={() => handleFilter()}>Áp dụng</Button>
+//     </DrawerFooter>
+//   </DrawerContent>
+// </Drawer>

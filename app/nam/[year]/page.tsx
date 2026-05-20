@@ -41,7 +41,12 @@ export default async function Page({ params, searchParams }: Props) {
     <div className="_container space-y-4 py-4">
       <Breadcrumb items={data.breadCrumb} />
       <div className="">
-        <VideosFilter defaultParams={awaitedSearchParams} />
+        <VideosFilter
+          defaultParams={{
+            ...awaitedSearchParams,
+            year: awaitedParams.year,
+          }}
+        />
       </div>
 
       <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
