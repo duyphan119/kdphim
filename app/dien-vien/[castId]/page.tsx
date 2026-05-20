@@ -1,4 +1,5 @@
 import Breadcrumb from "@/components/breadcrumb";
+import CastVideos from "@/components/cast-videos";
 import VideoCard from "@/components/video-card";
 import { getCastDetails } from "@/lib/cast";
 import { getVideosByCast } from "@/lib/video";
@@ -9,17 +10,30 @@ import {
   Male02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { Metadata } from "next";
 import Image from "next/image";
 
 type Props = {
   params: Promise<{ castId: string }>;
 };
 
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const awaitedParams = await params;
+
+  const castDetails = await getCastDetails(awaitedParams.castId);
+
+  return {
+    title: `KDPhim | Diễn viên ${castDetails.name}`,
+    description: `Thông tin và phim của diễn viên ${castDetails.name}`,
+  };
+};
+
 export default async function Page({ params }: Props) {
   const awaitedParams = await params;
 
   const castDetails = await getCastDetails(awaitedParams.castId);
-  const { movieList, tvList } = await getVideosByCast(awaitedParams.castId);
 
   return (
     <div className="_container py-4">
@@ -118,36 +132,7 @@ export default async function Page({ params }: Props) {
           </div>
         </div>
 
-        <div className="col-span-4 md:col-span-3 space-y-4">
-          {tvList.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
-                <div className="p-4 bg-muted rounded-sm uppercase">
-                  <div className="">Phim bộ</div>
-                </div>
-              </div>
-              {tvList.map((videoItem) => (
-                <div key={videoItem._id} className="col-span-1">
-                  <VideoCard videoItem={videoItem} />
-                </div>
-              ))}
-            </div>
-          ) : null}
-          {movieList.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
-                <div className="p-4 bg-muted rounded-sm uppercase">
-                  <div className="">Phim lẻ</div>
-                </div>
-              </div>
-              {movieList.map((videoItem) => (
-                <div key={videoItem._id} className="col-span-1">
-                  <VideoCard videoItem={videoItem} />
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </div>
+        <CastVideos castId={awaitedParams.castId} />
       </div>
     </div>
   );

@@ -4,9 +4,9 @@ import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Button } from "./ui/button";
 import queryString from "query-string";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { Button } from "./ui/button";
 
 type Props = {
   pagination: Pagination;
@@ -33,6 +33,8 @@ export default function VideosPagination({
   useEffect(() => {
     formRef.current?.reset();
   }, [searchParams]);
+
+  if (totalPages === 1) return null;
 
   return (
     <div className="flex items-center justify-center gap-2">

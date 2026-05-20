@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
@@ -51,6 +52,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <NextTopLoader color="#0369a1" />
           <Header />
           <div className="h-16"></div>
           {children}

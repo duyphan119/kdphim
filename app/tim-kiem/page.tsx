@@ -3,9 +3,24 @@ import VideoCard from "@/components/video-card";
 import VideosFilter from "@/components/videos-filter";
 import VideosPagination from "@/components/videos-pagination";
 import { searchVideos } from "@/lib/video";
+import { Metadata } from "next";
 
 type Props = {
   searchParams: Promise<VideosParams & { keyword: string }>;
+};
+
+export const generateMetadata = async ({
+  searchParams,
+}: Props): Promise<Metadata> => {
+  const awaitedSearchParams = await searchParams;
+
+  const { keyword, ...otherParams } = awaitedSearchParams;
+
+  const { data } = await searchVideos(keyword, otherParams);
+  return {
+    title: `KDPhim | ${data.seoOnPage.titleHead}`,
+    description: data.seoOnPage.descriptionHead,
+  };
 };
 
 export default async function Page({ searchParams }: Props) {
@@ -16,7 +31,7 @@ export default async function Page({ searchParams }: Props) {
   const { data } = await searchVideos(keyword, otherParams);
 
   return (
-    <div className="_container space-y-4">
+    <div className="_container space-y-4 py-4">
       <Breadcrumb items={data.breadCrumb} />
 
       <div className="">

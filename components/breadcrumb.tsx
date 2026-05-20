@@ -19,7 +19,9 @@ export default function Breadcrumb({ items }: Props) {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/">Trang chủ</Link>
+            <Link href="/" title="Đi tới trang chủ">
+              Trang chủ
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         {items.map((item) => (
@@ -28,7 +30,9 @@ export default function Breadcrumb({ items }: Props) {
 
             {item.slug ? (
               <BreadcrumbLink asChild>
-                <Link href={item.slug}>{item.name}</Link>
+                <Link title={item.name} href={item.slug}>
+                  {item.name}
+                </Link>
               </BreadcrumbLink>
             ) : (
               <BreadcrumbPage>{item.name}</BreadcrumbPage>

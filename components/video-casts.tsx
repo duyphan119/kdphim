@@ -34,6 +34,7 @@ export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
         <div key={castItem.id} className="border border-muted">
           <Link
             href={`/dien-vien/${castItem.id}`}
+            title={castItem.name}
             className="relative aspect-2/3 block"
           >
             <Image
@@ -53,6 +54,7 @@ export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
           <div className="p-1 flex flex-col items-center">
             <Link
               href={`/dien-vien/${castItem.id}`}
+              title={castItem.name}
               className="text-sm hover:text-destructive transition-colors duration-200"
             >
               {castItem.name}

@@ -4,10 +4,28 @@ import VideoCard from "@/components/video-card";
 import VideosFilter from "@/components/videos-filter";
 import VideosPagination from "@/components/videos-pagination";
 import { getVideosByCategory } from "@/lib/video";
+import { Metadata } from "next";
 
 type Props = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<Omit<VideosParams, "type_list" | "category">>;
+};
+
+export const generateMetadata = async ({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> => {
+  const awaitedParams = await params;
+  const awaitedSearchParams = await searchParams;
+
+  const { data } = await getVideosByCategory(
+    awaitedParams.slug,
+    awaitedSearchParams,
+  );
+  return {
+    title: `KDPhim | ${data.seoOnPage.titleHead}`,
+    description: data.seoOnPage.descriptionHead,
+  };
 };
 
 export default async function Page({ params, searchParams }: Props) {
@@ -20,7 +38,7 @@ export default async function Page({ params, searchParams }: Props) {
   );
 
   return (
-    <div className="_container space-y-4">
+    <div className="_container space-y-4 py-4">
       <Breadcrumb items={data.breadCrumb} />
       <div className="">
         <VideosFilter defaultParams={awaitedSearchParams} />

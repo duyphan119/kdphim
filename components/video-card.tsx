@@ -19,6 +19,7 @@ export default function VideoCard({ videoItem, imageDomain }: VideoCardProps) {
     <div className="video-card">
       <Link
         href={`/phim/${videoItem.slug}`}
+        title={videoItem.name}
         className="w-full block aspect-2/3 relative"
       >
         <Image
@@ -48,6 +49,7 @@ export default function VideoCard({ videoItem, imageDomain }: VideoCardProps) {
       <div>
         <Link
           href={`/phim/${videoItem.slug}`}
+          title={videoItem.name}
           className="font-medium line-clamp-2 hover:text-destructive transition-colors duration-200 mt-1 text-sm"
         >
           {videoItem.name}

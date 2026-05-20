@@ -82,6 +82,7 @@ export default function HeaderSearch({}: Props) {
               >
                 <Link
                   href={`/phim/${videoItem.slug}`}
+                  title={videoItem.name}
                   className="w-1/3 md:w-1/4 aspect-video relative shrink-0"
                 >
                   <Image
@@ -109,6 +110,7 @@ export default function HeaderSearch({}: Props) {
             <div className="">
               <Link
                 href={`/tim-kiem?keyword=${keyword}&page=2`}
+                title="Xem thêm kết quả"
                 onClick={handleClose}
                 className="w-full flex items-center justify-center gap-1 hover:text-destructive transition-colors duration-200 p-4"
               >

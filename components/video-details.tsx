@@ -118,6 +118,7 @@ export default function VideoDetails({
               <div className="flex items-center gap-2">
                 <Link
                   href={`/phim/${videoSlug}/tai-ve`}
+                  title="Tải phim"
                   className={buttonVariants({
                     size: "lg",
                     variant: "lime",
@@ -130,6 +131,7 @@ export default function VideoDetails({
                 {firstLink ? (
                   <Link
                     href={firstLink}
+                    title="Xem tập đầu tiên"
                     className={buttonVariants({
                       size: "lg",
                       variant: "sky",
@@ -168,6 +170,7 @@ export default function VideoDetails({
                   {index !== 0 ? <span>,&nbsp;</span> : null}
                   <Link
                     href={`/quoc-gia/${item.slug}`}
+                    title={item.name}
                     className="hover:underline transition-colors duration-200"
                   >
                     {item.name}
@@ -184,6 +187,7 @@ export default function VideoDetails({
                   {index !== 0 ? <span>,&nbsp;</span> : null}
                   <Link
                     href={`/the-loai/${item.slug}`}
+                    title={item.name}
                     className="hover:underline transition-colors duration-200"
                   >
                     {item.name}
@@ -289,6 +293,7 @@ export default function VideoDetails({
                       return (
                         <Link
                           key={item.slug || item.filename}
+                          title={item.name}
                           href={`/xem-phim/${videoSlug}/${index}/${item.slug}`}
                           className={buttonVariants({
                             variant: episodeIsActive ? "sky" : "background",

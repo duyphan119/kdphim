@@ -264,3 +264,15 @@ type MovieCredit = {
   credit_id: string;
   order: number;
 };
+
+type WatchedVideo = {
+  name: string;
+  slug: string;
+  poster_url: string;
+
+  server_index: number;
+  server_name: number;
+
+  episode_name: string;
+  episode_slug: string;
+};
