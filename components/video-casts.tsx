@@ -29,7 +29,7 @@ export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
       </p>
     );
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mt-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-4 mt-4">
       {casts.map((castItem) => (
         <div key={castItem.id} className="border border-muted">
           <Link

@@ -159,7 +159,7 @@ export const getVideoByTmdb = async (tmdbType: string, tmdbId: string) => {
 };
 
 export const getVideosByCast = async (castId: string) => {
-  const res = await Promise.allSettled([
+  const [tvRes, movieRes] = await Promise.allSettled([
     fetch(
       `https://api.themoviedb.org/3/person/${castId}/tv_credits?language=vi-VN`,
       {
@@ -180,39 +180,64 @@ export const getVideosByCast = async (castId: string) => {
     ),
   ]);
 
-  const items1: VideoDetailsResponse["movie"][] = [];
-  const items2: VideoDetailsResponse["movie"][] = [];
-  if (res[0].status === "fulfilled") {
-    // items = res[0].value
-    const data: { cast: TvCredit[] } = await res[0].value.json();
-
-    for (let i = 0; i < data.cast.length; i++) {
-      const data1 = await getVideoByTmdb("tv", data.cast[i].id + "");
-      if (data1?.movie) {
-        items1.push(data1.movie);
-      }
-    }
-  }
-  if (res[1].status === "fulfilled") {
-    // items = res[0].value
-    const data: { cast: TvCredit[] } = await res[1].value.json();
-
-    for (let i = 0; i < data.cast.length; i++) {
-      const data1 = await getVideoByTmdb("movie", data.cast[i].id + "");
-      if (data1?.movie) {
-        items2.push(data1.movie);
-      }
-    }
-  }
-
-  items1.sort(
-    (a, b) =>
-      new Date(b.created.time).getTime() - new Date(a.created.time).getTime(),
-  );
-  items2.sort(
-    (a, b) =>
-      new Date(b.created.time).getTime() - new Date(a.created.time).getTime(),
-  );
-
-  return { tvList: items1, movieList: items2 };
+  return [tvRes, movieRes];
 };
+
+// export const getVideosByCast = async (castId: string) => {
+//   const res = await Promise.allSettled([
+//     fetch(
+//       `https://api.themoviedb.org/3/person/${castId}/tv_credits?language=vi-VN`,
+//       {
+//         next: { revalidate: 100 },
+//         headers: {
+//           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+//         },
+//       },
+//     ),
+//     fetch(
+//       `https://api.themoviedb.org/3/person/${castId}/movie_credits?language=vi-VN`,
+//       {
+//         next: { revalidate: 100 },
+//         headers: {
+//           Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+//         },
+//       },
+//     ),
+//   ]);
+
+//   const items1: VideoDetailsResponse["movie"][] = [];
+//   const items2: VideoDetailsResponse["movie"][] = [];
+//   if (res[0].status === "fulfilled") {
+//     // items = res[0].value
+//     const data: { cast: TvCredit[] } = await res[0].value.json();
+
+//     for (let i = 0; i < data.cast.length; i++) {
+//       const data1 = await getVideoByTmdb("tv", data.cast[i].id + "");
+//       if (data1?.movie) {
+//         items1.push(data1.movie);
+//       }
+//     }
+//   }
+//   if (res[1].status === "fulfilled") {
+//     // items = res[0].value
+//     const data: { cast: TvCredit[] } = await res[1].value.json();
+
+//     for (let i = 0; i < data.cast.length; i++) {
+//       const data1 = await getVideoByTmdb("movie", data.cast[i].id + "");
+//       if (data1?.movie) {
+//         items2.push(data1.movie);
+//       }
+//     }
+//   }
+
+//   items1.sort(
+//     (a, b) =>
+//       new Date(b.created.time).getTime() - new Date(a.created.time).getTime(),
+//   );
+//   items2.sort(
+//     (a, b) =>
+//       new Date(b.created.time).getTime() - new Date(a.created.time).getTime(),
+//   );
+
+//   return { tvList: items1, movieList: items2 };
+// };

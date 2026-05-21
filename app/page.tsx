@@ -1,29 +1,32 @@
+import CarouselAutoplay from "@/components/carousel-autoplay";
+import { buttonVariants } from "@/components/ui/button";
 import {
-  Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import VideoCard from "@/components/video-card";
+import recommendVideos from "@/lib/recommend-videos.json";
+import { cn } from "@/lib/utils";
 import { getLatestVideos, getVideosByCountry } from "@/lib/video";
 import { ArrowRight01Icon, Fire } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
-import recommendVideos from "@/lib/recommend-videos.json";
-import VideoCard from "@/components/video-card";
-import CarouselAutoplay from "@/components/carousel-autoplay";
 
 export default async function Home() {
   const dataLatestVideos = await getLatestVideos({ page: 1 });
   const dataVideos1 = await getVideosByCountry("trung-quoc", {
     page: "1",
-    limit: "20",
+    limit: "24",
   });
   const dataVideos2 = await getVideosByCountry("han-quoc", {
     page: "1",
-    limit: "20",
+    limit: "24",
   });
+
+  const currentYear = new Date().getFullYear();
 
   return (
     <div className="_container space-y-4">
@@ -105,11 +108,63 @@ export default async function Home() {
           <CarouselNext />
         </CarouselAutoplay>
       </div>
+      <section className="">
+        <CarouselAutoplay delay={123456}>
+          <CarouselContent>
+            {[
+              {
+                name: "Phim năm " + currentYear,
+                slug: `/nam/${currentYear}`,
+                className: "bg-linear-to-r from-lime-700 to-green-700",
+              },
+              {
+                name: "Phim lẻ",
+                slug: "/danh-sach/phim-le",
+                className: "bg-linear-to-r from-orange-700 to-amber-700",
+              },
+              {
+                name: "Phim tình cảm",
+                slug: "/the-loai/tinh-cam",
+                className: "bg-linear-to-r from-fuchsia-700 to-pink-700",
+              },
+              {
+                name: "Hoạt hình",
+                slug: "/danh-sach/hoat-hinh",
+                className: "bg-linear-to-r from-rose-700 to-red-700",
+              },
+              {
+                name: "Phim lồng tiếng",
+                slug: "/danh-sach/phim-long-tieng",
+                className: "bg-linear-to-r from-sky-700 to-blue-700",
+              },
+              {
+                name: "Phim ma",
+                slug: "/the-loai/kinh-di",
+                className: "bg-linear-to-r from-gray-700 to-neutral-700",
+              },
+            ].map((item: any) => (
+              <CarouselItem
+                key={item.slug}
+                className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+              >
+                <Link
+                  href={item.slug}
+                  className={cn(
+                    "rounded-md p-4 flex items-center justify-center w-full h-16 text-foreground",
+                    item.className,
+                  )}
+                >
+                  {item.name}
+                </Link>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </CarouselAutoplay>
+      </section>
       {(recommendVideos as RecommendedVideo[]).length > 0 ? (
         <section className="space-y-2">
           <div className="flex items-center justify-between bg-muted p-2 rounded-sm">
             <div className="font-semibold text-lg flex items-center gap-1">
-              {" "}
               <HugeiconsIcon icon={Fire} size={18} /> Phim hot
             </div>
             <Link
@@ -149,7 +204,7 @@ export default async function Home() {
             <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
           </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {dataVideos1?.data?.items?.map((videoItem) => (
             <div key={videoItem._id} className="col-span-1">
               <VideoCard
@@ -171,7 +226,7 @@ export default async function Home() {
             <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
           </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {dataVideos2?.data?.items?.map((videoItem) => (
             <div key={videoItem._id} className="col-span-1">
               <VideoCard

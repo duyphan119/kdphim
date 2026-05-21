@@ -1,63 +1,132 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Skeleton } from "./ui/skeleton";
 import VideoCard from "./video-card";
-import { getVideosByCast } from "@/lib/video";
+import { VideoCardSkeleton } from "./video-card-skeleton";
+import { getVideoByTmdb, getVideosByCast } from "@/lib/video";
 
 type Props = {
   castId: string;
 };
 
 export default function CastVideos({ castId }: Props) {
-  const [data, setData] = useState<{
-    tvList: VideoDetailsResponse["movie"][];
-    movieList: VideoDetailsResponse["movie"][];
-  }>({
-    tvList: [],
-    movieList: [],
-  });
+  const [tvList, setTvList] = useState<VideoDetailsResponse["movie"][]>([]);
+  const [movieList, setMovieList] = useState<VideoDetailsResponse["movie"][]>(
+    [],
+  );
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchCastVideos = async () => {
-      const data = await getVideosByCast(castId);
-      setData(data);
+      setIsLoading(true);
+
+      try {
+        const [tvRes, movieRes] = await getVideosByCast(castId);
+
+        // TV
+        if (tvRes.status === "fulfilled") {
+          const data: { cast: TvCredit[] } = await tvRes.value.json();
+
+          data.cast.forEach(async (item) => {
+            const res = await getVideoByTmdb("tv", item.id + "");
+
+            if (res?.movie && isMounted) {
+              setTvList((prev) => {
+                const next = [...prev, res.movie];
+
+                return next.sort(
+                  (a, b) =>
+                    new Date(b.created.time).getTime() -
+                    new Date(a.created.time).getTime(),
+                );
+              });
+            }
+          });
+        }
+
+        // Movie
+        if (movieRes.status === "fulfilled") {
+          const data: { cast: TvCredit[] } = await movieRes.value.json();
+
+          data.cast.forEach(async (item) => {
+            const res = await getVideoByTmdb("movie", item.id + "");
+
+            if (res?.movie && isMounted) {
+              setMovieList((prev) => {
+                const next = [...prev, res.movie];
+
+                return next.sort(
+                  (a, b) =>
+                    new Date(b.created.time).getTime() -
+                    new Date(a.created.time).getTime(),
+                );
+              });
+            }
+          });
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
     };
 
     fetchCastVideos();
-  }, [castId]);
 
-  const { tvList, movieList } = data;
+    return () => {
+      isMounted = false;
+    };
+  }, [castId]);
 
   return (
     <div className="col-span-4 md:col-span-3 space-y-4">
-      {tvList.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {isLoading && tvList.length === 0 && movieList.length === 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
-            <div className="p-4 bg-muted rounded-sm uppercase">
-              <div className="">Phim bộ</div>
-            </div>
+            <Skeleton className="p-4 bg-muted rounded-sm" />
           </div>
-          {tvList.map((videoItem) => (
-            <div key={videoItem._id} className="col-span-1">
-              <VideoCard videoItem={videoItem} />
+
+          {new Array(20).fill("").map((_, index) => (
+            <div key={index} className="col-span-1">
+              <VideoCardSkeleton />
             </div>
           ))}
         </div>
-      ) : null}
-      {movieList.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
-            <div className="p-4 bg-muted rounded-sm uppercase">
-              <div className="">Phim lẻ</div>
+      ) : (
+        <>
+          {tvList.length > 0 && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
+                <div className="p-4 bg-muted rounded-sm uppercase">Phim bộ</div>
+              </div>
+
+              {tvList.map((videoItem) => (
+                <div key={videoItem._id} className="col-span-1">
+                  <VideoCard videoItem={videoItem} />
+                </div>
+              ))}
             </div>
-          </div>
-          {movieList.map((videoItem) => (
-            <div key={videoItem._id} className="col-span-1">
-              <VideoCard videoItem={videoItem} />
+          )}
+
+          {movieList.length > 0 && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
+                <div className="p-4 bg-muted rounded-sm uppercase">Phim lẻ</div>
+              </div>
+
+              {movieList.map((videoItem) => (
+                <div key={videoItem._id} className="col-span-1">
+                  <VideoCard videoItem={videoItem} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      ) : null}
+          )}
+        </>
+      )}
     </div>
   );
 }

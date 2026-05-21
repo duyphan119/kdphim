@@ -30,7 +30,7 @@ export default function HeaderSearch({}: Props) {
         try {
           const res = await searchVideos(text, {
             page: "1",
-            limit: "20",
+            limit: "24",
           });
 
           setDataVideos(res);

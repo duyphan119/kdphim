@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-background/8 py-8 text-sm text-muted-foreground">
-      <div className="_container flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <footer className="_container border-t border-border bg-background/8 py-8 text-sm text-muted-foreground">
+      <div className="flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="space-y-2">
           <p className="text-foreground font-semibold">KDPHIM</p>
           <p className="max-w-2xl leading-6 text-sm text-muted-foreground">

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
 import VideoDetails from "@/components/video-details";
-import { stripHtml } from "@/lib/utils";
+import { getServerName, stripHtml } from "@/lib/utils";
 import { getVideo } from "@/lib/video";
 
 type Params = {
@@ -17,9 +17,6 @@ type Params = {
 type Props = {
   params: Promise<Params>;
 };
-
-const getServerName = (name?: string) =>
-  name?.replace("#Hà Nội (", "").replace(")", "") || "";
 
 const createEpisodeLink = (
   movieSlug: string,
@@ -119,6 +116,8 @@ export default async function Page({ params }: Props) {
       )
     : undefined;
 
+  const serverName = getServerName(episodes?.[serverIndex]?.server_name);
+
   return (
     <VideoDetails
       video={movie}
@@ -126,6 +125,7 @@ export default async function Page({ params }: Props) {
       episodes={episodes}
       currentEpisodeSlug={currentEpisode.slug}
       serverIndex={serverIndex}
+      currentBreadcrumb={`${currentEpisode.name} - ${serverName}`}
     >
       <div className="aspect-video overflow-hidden rounded-lg bg-slate-950">
         <iframe

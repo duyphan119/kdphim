@@ -1,8 +1,6 @@
 import Breadcrumb from "@/components/breadcrumb";
 import CastVideos from "@/components/cast-videos";
-import VideoCard from "@/components/video-card";
 import { getCastDetails } from "@/lib/cast";
-import { getVideosByCast } from "@/lib/video";
 import {
   Birthday,
   Female02Icon,
@@ -64,6 +62,7 @@ export default async function Page({ params }: Props) {
                 alt={castDetails.name}
                 fill
                 className="object-cover transition-transform duration-500 hover:scale-105"
+                loading="eager"
               />
 
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
@@ -131,7 +130,6 @@ export default async function Page({ params }: Props) {
             </div>
           </div>
         </div>
-
         <CastVideos castId={awaitedParams.castId} />
       </div>
     </div>

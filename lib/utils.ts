@@ -7,3 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 
 export const stripHtml = (text?: string) =>
   text?.replace(/<[^>]+>/g, "").trim() || "";
+
+export const getServerName = (name?: string) =>
+  name?.replace("#Hà Nội (", "").replace(")", "") || "";

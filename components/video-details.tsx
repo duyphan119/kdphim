@@ -20,6 +20,7 @@ type Props = {
   children?: React.ReactNode;
   currentEpisodeSlug?: string;
   serverIndex?: number;
+  currentBreadcrumb?: string;
 };
 
 export default function VideoDetails({
@@ -29,6 +30,7 @@ export default function VideoDetails({
   episodes,
   currentEpisodeSlug,
   serverIndex,
+  currentBreadcrumb,
 }: Props) {
   const videoTypeSlug = video.type === "series" ? "phim-bo" : "phim-le";
   const videoTypeName = video.type === "series" ? "Phim bộ" : "Phim lẻ";
@@ -79,10 +81,20 @@ export default function VideoDetails({
                 position: 4,
               },
               {
-                isCurrent: true,
+                isCurrent: children ? false : true,
                 name: video.name,
                 position: 5,
+                slug: children ? `/phim/${video.slug}` : undefined,
               },
+              ...(children && currentBreadcrumb
+                ? [
+                    {
+                      isCurrent: true,
+                      name: currentBreadcrumb,
+                      position: 6,
+                    },
+                  ]
+                : []),
             ]}
           />
         </div>
