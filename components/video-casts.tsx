@@ -28,6 +28,8 @@ export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
         {castNames.length ? castNames.join(", ") : "Đang cập nhật"}
       </p>
     );
+
+  console.log({ casts });
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-4 mt-4">
       {casts.map((castItem) => (
@@ -59,7 +61,7 @@ export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
             >
               {castItem.name}
             </Link>
-            <div className="text-muted-foreground text-xs">
+            <div className="text-muted-foreground text-xs text-center">
               {castItem.character}
             </div>
           </div>

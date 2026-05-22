@@ -1,36 +1,5 @@
 import queryString from "query-string";
 
-export const typeList = [
-  {
-    name: "Phim Bộ",
-    slug: "phim-bo",
-  },
-  {
-    name: "Phim Lẻ",
-    slug: "phim-le",
-  },
-  {
-    name: "TV Shows",
-    slug: "tv-shows",
-  },
-  {
-    name: "Hoạt Hình",
-    slug: "hoat-hinh",
-  },
-  {
-    name: "Phim Vietsub",
-    slug: "phim-vietsub",
-  },
-  {
-    name: "Phim Thuyết Minh",
-    slug: "phim-thuyet-minh",
-  },
-  {
-    name: "Phim Lồng Tiếng",
-    slug: "phim-long-tieng",
-  },
-];
-
 export const getLatestVideos = async (params: { page: number }) => {
   try {
     const response = await fetch(

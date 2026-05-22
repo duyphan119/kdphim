@@ -1,29 +1,18 @@
 "use client";
 
-import { exampleCategories } from "@/lib/category";
-import { exampleCountries } from "@/lib/country";
-import { getYears } from "@/lib/year";
-import { Filter } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "./ui/drawer";
-import { typeList } from "@/lib/video";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { typeList, exampleCategories, exampleCountries } from "@/lib/contants";
+import { getYears } from "@/lib/utils";
+import { Filter } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
 type FilterParams = {
   type_list?: string;

@@ -7,7 +7,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {};
 
@@ -15,13 +15,15 @@ export default function HeaderSearch({}: Props) {
   const searchParams = useSearchParams();
   const [keyword, setKeyword] = useState("");
   const [open, setOpen] = useState(false);
+  const [dataVideos, setDataVideos] = useState<ApiResponse | null>(null);
+
+  const divRef = useRef<HTMLDivElement | null>(null);
 
   const pathname = usePathname();
 
   const queryKeyword = searchParams.get("keyword") || "";
 
   const [text] = useDebounce([keyword], 234);
-  const [dataVideos, setDataVideos] = useState<ApiResponse | null>(null);
 
   useEffect(() => {
     if (!text) setDataVideos(null);
@@ -53,8 +55,24 @@ export default function HeaderSearch({}: Props) {
 
   const handleClose = () => setOpen(false);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      // Nếu click ngoài div
+      if (divRef.current && !divRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative">
+    <div ref={divRef} className="static">
       <form
         action={`/tim-kiem?keyword=${keyword}`}
         method="get"
@@ -72,7 +90,7 @@ export default function HeaderSearch({}: Props) {
         />
       </form>
       {open && dataVideos?.data ? (
-        <div className="absolute right-0 top-full _container  bg-muted shadow">
+        <div className="absolute inset-x-0 top-full bg-muted shadow">
           <div className="max-h-[50vh] w-screen overflow-y-auto no-scrollbar space-y-2 py-2">
             {dataVideos.data.items.map((videoItem) => (
               <div

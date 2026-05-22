@@ -1,5 +1,6 @@
 import CarouselAutoplay from "@/components/carousel-autoplay";
-import { buttonVariants } from "@/components/ui/button";
+import SectionHeader from "@/components/section-header";
+import { hotCasts, sectionTitleVariants } from "@/lib/contants";
 import {
   CarouselContent,
   CarouselItem,
@@ -9,8 +10,20 @@ import {
 import VideoCard from "@/components/video-card";
 import recommendVideos from "@/lib/recommend-videos.json";
 import { cn } from "@/lib/utils";
-import { getLatestVideos, getVideosByCountry } from "@/lib/video";
-import { ArrowRight01Icon, Fire } from "@hugeicons/core-free-icons";
+import {
+  getLatestVideos,
+  getVideosByCountry,
+  getVideosByTypeList,
+} from "@/lib/video";
+import {
+  ArrowRight01Icon,
+  Female02Icon,
+  Fire,
+  Globe02Icon,
+  PlayCircleIcon,
+  SparklesIcon,
+  StarIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,18 +32,23 @@ export default async function Home() {
   const dataLatestVideos = await getLatestVideos({ page: 1 });
   const dataVideos1 = await getVideosByCountry("trung-quoc", {
     page: "1",
-    limit: "24",
+    limit: "12",
   });
   const dataVideos2 = await getVideosByCountry("han-quoc", {
     page: "1",
-    limit: "24",
+    limit: "12",
+  });
+  const dataVideos3 = await getVideosByTypeList("hoat-hinh", {
+    page: "1",
+    limit: "12",
+    country: "nhat-ban",
   });
 
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="_container space-y-4">
-      <div className="">
+    <div className="_container space-y-4 pb-4">
+      <section className="">
         <CarouselAutoplay delay={4567}>
           <CarouselContent>
             {dataLatestVideos?.items
@@ -107,7 +125,7 @@ export default async function Home() {
           <CarouselPrevious />
           <CarouselNext />
         </CarouselAutoplay>
-      </div>
+      </section>
       <section className="">
         <CarouselAutoplay delay={123456}>
           <CarouselContent>
@@ -142,10 +160,10 @@ export default async function Home() {
                 slug: "/the-loai/kinh-di",
                 className: "bg-linear-to-r from-gray-700 to-neutral-700",
               },
-            ].map((item: any) => (
+            ].map((item) => (
               <CarouselItem
                 key={item.slug}
-                className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+                className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
               >
                 <Link
                   href={item.slug}
@@ -163,25 +181,20 @@ export default async function Home() {
       </section>
       {(recommendVideos as RecommendedVideo[]).length > 0 ? (
         <section className="space-y-2">
-          <div className="flex items-center justify-between bg-muted p-2 rounded-sm">
-            <div className="font-semibold text-lg flex items-center gap-1">
-              <HugeiconsIcon icon={Fire} size={18} /> Phim hot
-            </div>
-            <Link
-              href={`/danh-sach/phim-bo?country=trung-quoc`}
-              className="text-xs flex items-center gap-0.5 hover:text-destructive transition-colors duration-200"
-            >
-              Xem tất cả
-              <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
-            </Link>
-          </div>
+          <SectionHeader
+            title="Top phim nổi bật"
+            icon={Fire}
+            iconColor="text-orange-500"
+            gradientClassName={sectionTitleVariants.hot}
+            href="/phim-hot"
+          />
           <div className="">
             <CarouselAutoplay delay={12345}>
               <CarouselContent>
                 {recommendVideos.slice(0, 20).map((videoItem) => (
                   <CarouselItem
                     key={videoItem.slug}
-                    className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+                    className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
                   >
                     <VideoCard videoItem={videoItem} />
                   </CarouselItem>
@@ -194,16 +207,13 @@ export default async function Home() {
         </section>
       ) : null}
       <section className="space-y-2">
-        <div className="flex items-center justify-between bg-muted p-2 rounded-sm">
-          <div className="font-semibold text-lg">Phim bộ Trung Quốc</div>
-          <Link
-            href={`/danh-sach/phim-bo?country=trung-quoc`}
-            className="text-xs flex items-center gap-0.5 hover:text-destructive transition-colors duration-200"
-          >
-            Xem tất cả
-            <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
-          </Link>
-        </div>
+        <SectionHeader
+          title="Hoa ngữ đặc sắc"
+          icon={Globe02Icon}
+          iconColor="text-red-500"
+          gradientClassName={sectionTitleVariants.china}
+          href="/danh-sach/phim-bo?country=trung-quoc"
+        />
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {dataVideos1?.data?.items?.map((videoItem) => (
             <div key={videoItem._id} className="col-span-1">
@@ -216,16 +226,13 @@ export default async function Home() {
         </div>
       </section>
       <section className="space-y-2">
-        <div className="flex items-center justify-between bg-muted p-2 rounded-sm">
-          <div className="font-semibold text-lg">Phim bộ Hàn Quốc</div>
-          <Link
-            href={`/danh-sach/phim-bo?country=han-quoc`}
-            className="text-xs flex items-center gap-0.5 hover:text-destructive transition-colors duration-200"
-          >
-            Xem tất cả
-            <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
-          </Link>
-        </div>
+        <SectionHeader
+          title="K-Drama gây sốt"
+          icon={SparklesIcon}
+          iconColor="text-pink-500"
+          gradientClassName={sectionTitleVariants.korea}
+          href="/danh-sach/phim-bo?country=han-quoc"
+        />
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {dataVideos2?.data?.items?.map((videoItem) => (
             <div key={videoItem._id} className="col-span-1">
@@ -236,6 +243,70 @@ export default async function Home() {
             </div>
           ))}
         </div>
+      </section>
+      <section className="space-y-2">
+        <SectionHeader
+          title="Thế giới Anime"
+          icon={PlayCircleIcon}
+          iconColor="text-violet-500"
+          gradientClassName={sectionTitleVariants.anime}
+          href="/danh-sach/hoat-hinh"
+        />
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+          {dataVideos3?.data?.items?.map((videoItem) => (
+            <div key={videoItem._id} className="col-span-1">
+              <VideoCard
+                videoItem={videoItem}
+                imageDomain={dataVideos3?.data.APP_DOMAIN_CDN_IMAGE}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="space-y-2">
+        <SectionHeader
+          title="Visual nổi bật"
+          icon={StarIcon}
+          iconColor="text-yellow-500"
+          gradientClassName={sectionTitleVariants.star}
+        />
+        <CarouselAutoplay delay={8989}>
+          <CarouselContent>
+            {hotCasts.map((item) => (
+              <CarouselItem
+                key={item.id}
+                className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
+              >
+                <Link
+                  href={`/dien-vien/${item.id}`}
+                  className="relative block aspect-2/3 w-full"
+                >
+                  <Image
+                    src={`https://image.tmdb.org/t/p/h632${item.profile_path}`}
+                    alt={item.name}
+                    unoptimized
+                    fill
+                    sizes="(max-width: 1200px) 50vw, 100vw"
+                    loading="eager"
+                    className="rounded-sm object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-2">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 backdrop-blur-md">
+                      <HugeiconsIcon icon={Female02Icon} size={16} />
+
+                      <h2 className="line-clamp-1 font-semibold">
+                        {item.name}
+                      </h2>
+                    </div>
+                  </div>
+                </Link>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </CarouselAutoplay>
       </section>
     </div>
   );

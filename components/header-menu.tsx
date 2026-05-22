@@ -14,10 +14,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { exampleCategories } from "@/lib/category";
-import { exampleCountries } from "@/lib/country";
-import { typeList } from "@/lib/video";
-import { getYears } from "@/lib/year";
+import { typeList, exampleCategories, exampleCountries } from "@/lib/contants";
+import { getYears } from "@/lib/utils";
 import {
   DashboardSquare01Icon,
   Earth,

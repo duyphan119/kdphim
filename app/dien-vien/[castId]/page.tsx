@@ -34,7 +34,7 @@ export default async function Page({ params }: Props) {
   const castDetails = await getCastDetails(awaitedParams.castId);
 
   return (
-    <div className="_container py-4">
+    <div className="_container-w-full py-4">
       <div className="grid grid-cols-4 gap-4">
         <div className="col-span-4">
           <Breadcrumb
@@ -67,14 +67,14 @@ export default async function Page({ params }: Props) {
 
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
 
-              <div className="absolute bottom-0 left-0 right-0 p-4">
+              <div className="absolute bottom-0 left-0 right-0 p-2">
                 <div className="inline-flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 backdrop-blur-md">
                   <HugeiconsIcon
                     icon={castDetails.gender === 1 ? Female02Icon : Male02Icon}
                     size={16}
                   />
 
-                  <h2 className="line-clamp-1 text-lg font-semibold">
+                  <h2 className="line-clamp-1 font-semibold">
                     {castDetails.name}
                   </h2>
                 </div>
