@@ -12,6 +12,8 @@ import VideoCasts from "./video-casts";
 import { Fragment } from "react";
 import recommendVideos from "@/lib/recommend-videos.json";
 import VideoCard from "./video-card";
+import { sectionTitleVariants } from "@/lib/contants";
+import SectionHeader from "./section-header";
 
 type Props = {
   video: VideoDetailsResponse["movie"];
@@ -338,9 +340,12 @@ export default function VideoDetails({
           </div>
         </div>
         <div className="col-span-4 sm:col-span-1">
-          <div className="font-semibold text-lg p-2 bg-muted rounded-sm flex items-center gap-1">
-            <HugeiconsIcon icon={Fire} size={18} /> Phim hot
-          </div>
+          <SectionHeader
+            title="Top phim nổi bật"
+            icon={Fire}
+            iconColor="text-orange-500"
+            gradientClassName={sectionTitleVariants.hot}
+          />
           <div className="space-y-4 py-4">
             {recommendVideos.map((videoItem) => (
               <div key={videoItem.slug} className="">
