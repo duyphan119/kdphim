@@ -29,7 +29,7 @@ export const searchVideos = async (
 ) => {
   const query = queryString.stringify({
     keyword,
-    limit: 20,
+    limit: 24,
     ...params,
   });
   const res = await fetch(`https://phimapi.com/v1/api/tim-kiem?${query}`, {
@@ -43,7 +43,7 @@ export const getVideosByTypeList = async (
   params?: Omit<VideosParams, "type_list">,
 ) => {
   const query = queryString.stringify({
-    limit: 20,
+    limit: 24,
     ...params,
   });
 
@@ -62,7 +62,7 @@ export const getVideosByCountry = async (
   params?: Omit<VideosParams, "type_list" | "country">,
 ) => {
   const query = queryString.stringify({
-    limit: 20,
+    limit: 24,
     ...params,
   });
 
@@ -81,7 +81,7 @@ export const getVideosByCategory = async (
   params?: Omit<VideosParams, "type_list" | "category">,
 ) => {
   const query = queryString.stringify({
-    limit: 20,
+    limit: 24,
     ...params,
   });
 
@@ -100,7 +100,7 @@ export const getVideosByYear = async (
   params?: Omit<VideosParams, "type_list" | "year">,
 ) => {
   const query = queryString.stringify({
-    limit: 20,
+    limit: 24,
     ...params,
   });
 
