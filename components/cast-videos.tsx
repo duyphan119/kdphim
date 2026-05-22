@@ -5,6 +5,9 @@ import { Skeleton } from "./ui/skeleton";
 import VideoCard from "./video-card";
 import { VideoCardSkeleton } from "./video-card-skeleton";
 import { getVideoByTmdb, getVideosByCast } from "@/lib/video";
+import SectionHeader from "./section-header";
+import { Books, Book } from "@hugeicons/core-free-icons";
+import { sectionTitleVariants } from "@/lib/contants";
 
 type Props = {
   castId: string;
@@ -25,7 +28,9 @@ export default function CastVideos({ castId }: Props) {
       setIsLoading(true);
 
       try {
-        const [tvRes, movieRes] = await getVideosByCast(castId);
+        const data = await getVideosByCast(castId);
+        if (!data) return;
+        const [tvRes, movieRes] = data;
 
         // TV
         if (tvRes.status === "fulfilled") {
@@ -86,7 +91,7 @@ export default function CastVideos({ castId }: Props) {
     <div className="col-span-4 md:col-span-3 space-y-4">
       {isLoading && tvList.length === 0 && movieList.length === 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
+          <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-6">
             <Skeleton className="p-4 bg-muted rounded-sm" />
           </div>
 
@@ -100,8 +105,13 @@ export default function CastVideos({ castId }: Props) {
         <>
           {tvList.length > 0 && (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
-                <div className="p-4 bg-muted rounded-sm uppercase">Phim bộ</div>
+              <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-6">
+                <SectionHeader
+                  title="Phim bộ"
+                  icon={Books}
+                  gradientClassName={sectionTitleVariants.china}
+                  iconColor="text-red-500"
+                />
               </div>
 
               {tvList.map((videoItem) => (
@@ -114,8 +124,13 @@ export default function CastVideos({ castId }: Props) {
 
           {movieList.length > 0 && (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-5">
-                <div className="p-4 bg-muted rounded-sm uppercase">Phim lẻ</div>
+              <div className="col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-6">
+                <SectionHeader
+                  title="Phim lẻ"
+                  icon={Book}
+                  gradientClassName={sectionTitleVariants.china}
+                  iconColor="text-red-500"
+                />
               </div>
 
               {movieList.map((videoItem) => (

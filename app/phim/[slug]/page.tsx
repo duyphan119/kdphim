@@ -2,6 +2,7 @@ import VideoDetails from "@/components/video-details";
 import { stripHtml } from "@/lib/utils";
 import { getVideo } from "@/lib/video";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -32,7 +33,7 @@ export default async function Page({ params }: Props) {
 
   const { movie, episodes } = await getVideo(awaitedParams.slug);
 
-  if (!movie) return null;
+  if (!movie) return notFound();
 
   return <VideoDetails video={movie} episodes={episodes} />;
 }

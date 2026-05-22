@@ -1,5 +1,3 @@
-import { searchVideos } from "./video";
-
 export const getCasts = async (tmdbType: string, tmdbId: string | number) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/${tmdbType}/${tmdbId}/credits?language=vi-VN`,

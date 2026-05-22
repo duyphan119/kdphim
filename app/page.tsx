@@ -277,8 +277,9 @@ export default async function Home() {
                 key={item.id}
                 className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
               >
-                <Link
+                <a
                   href={`/dien-vien/${item.id}`}
+                  target="_blank"
                   className="relative block aspect-2/3 w-full"
                 >
                   <Image
@@ -302,7 +303,7 @@ export default async function Home() {
                       </h2>
                     </div>
                   </div>
-                </Link>
+                </a>
               </CarouselItem>
             ))}
           </CarouselContent>
