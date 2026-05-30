@@ -1,5 +1,25 @@
 [
   {
+    "name": "Cơn Say Mùa Xuân",
+    "slug": "con-say-mua-xuan",
+    "poster_url": "https://phimimg.com/upload/vod/20260106-1/deeaf96194e9eb72cc990cb4747536e6.jpg"
+  },
+  {
+    "name": "Tử Dạ Quy",
+    "slug": "tu-da-quy",
+    "poster_url": "https://phimimg.com/upload/vod/20250818-1/e6c2b3826944f2ba9b4de8f526620ad2.jpg"
+  },
+  {
+    "name": "Khánh Dư Niên (Phần 2)",
+    "slug": "khanh-du-nien-phan-2",
+    "poster_url": "https://phimimg.com/upload/vod/20240516-1/e63204ec4c8e01363683674fa2eccf71.jpg"
+  },
+  {
+    "name": "Khánh Dư Niên (Phần 1)",
+    "slug": "khanh-du-nien-phan-1",
+    "poster_url": "https://phimimg.com/upload/vod/20240515-1/3e20c1557d928528553e7823d45c3ee1.jpg"
+  },
+  {
     "name": "Rất Nhớ, Rất Nhớ Anh",
     "slug": "rat-nho-rat-nho-anh",
     "poster_url": "https://phimimg.com/upload/vod/20240909-1/8d879cde2d1eac8bd25aee89b5b78854.jpg"
@@ -18,16 +38,6 @@
     "name": "Thiên Đóa Đào Hoa Nhất Thế Khai",
     "slug": "thien-doa-dao-hoa-nhat-the-khai",
     "poster_url": "https://phimimg.com/upload/vod/20250102-1/0e8290d94ab105fa3b85dac5cda3d2db.jpg"
-  },
-  {
-    "name": "Chợ Đen Thời Tận Thế",
-    "slug": "cho-den-thoi-tan-the",
-    "poster_url": "https://phimimg.com/upload/vod/20251225-1/5b1903e5f16b8aab2c1e3d34db208957.jpg"
-  },
-  {
-    "name": "Chợ Đen Thời Tận Thế",
-    "slug": "cho-den-thoi-tan-the-2025",
-    "poster_url": "https://phimimg.com/upload/vod/20260402-1/731e2598c87f4a7ff8220b94f0757afe.jpg"
   },
   {
     "name": "Đường Cung Kỳ Án: Thanh Vụ Phong Minh",
