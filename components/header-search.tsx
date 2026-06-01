@@ -37,6 +37,11 @@ export default function HeaderSearch({}: Props) {
 
           setDataVideos(res);
         } catch (error) {
+           setDataVideos({
+            data:null as any,
+            msg: "",
+            status: false,
+           });
           console.error("Error fetching videos:", error);
         }
       };
@@ -89,7 +94,7 @@ export default function HeaderSearch({}: Props) {
           className="flex-1 outline-none py-2 w-full"
         />
       </form>
-      {open && dataVideos?.data ? (
+      {open && dataVideos?.data?.items ? (
         <div className="absolute inset-x-0 top-full bg-muted shadow">
           <div className="max-h-[50vh] w-screen overflow-y-auto no-scrollbar space-y-2 py-2">
             {dataVideos.data.items.map((videoItem) => (
