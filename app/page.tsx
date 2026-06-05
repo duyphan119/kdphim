@@ -133,32 +133,32 @@ export default async function Home() {
               {
                 name: "Phim năm " + currentYear,
                 slug: `/nam/${currentYear}`,
-                className: "bg-linear-to-r from-lime-700 to-green-700",
+                className: "bg-gradient-to-r from-lime-700 to-green-700",
               },
               {
                 name: "Phim lẻ",
                 slug: "/danh-sach/phim-le",
-                className: "bg-linear-to-r from-orange-700 to-amber-700",
+                className: "bg-gradient-to-r from-orange-700 to-amber-700",
               },
               {
                 name: "Phim tình cảm",
                 slug: "/the-loai/tinh-cam",
-                className: "bg-linear-to-r from-fuchsia-700 to-pink-700",
+                className: "bg-gradient-to-r from-fuchsia-700 to-pink-700",
               },
               {
                 name: "Hoạt hình",
                 slug: "/danh-sach/hoat-hinh",
-                className: "bg-linear-to-r from-rose-700 to-red-700",
+                className: "bg-gradient-to-r from-rose-700 to-red-700",
               },
               {
                 name: "Phim lồng tiếng",
                 slug: "/danh-sach/phim-long-tieng",
-                className: "bg-linear-to-r from-sky-700 to-blue-700",
+                className: "bg-gradient-to-r from-sky-700 to-blue-700",
               },
               {
                 name: "Phim ma",
                 slug: "/the-loai/kinh-di",
-                className: "bg-linear-to-r from-gray-700 to-neutral-700",
+                className: "bg-gradient-to-r from-gray-700 to-neutral-700",
               },
             ].map((item) => (
               <CarouselItem
@@ -292,7 +292,7 @@ export default async function Home() {
                     className="rounded-sm object-cover"
                   />
 
-                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
                   <div className="absolute bottom-0 left-0 right-0 p-2">
                     <div className="inline-flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 backdrop-blur-md">

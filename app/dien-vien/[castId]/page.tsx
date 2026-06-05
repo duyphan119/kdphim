@@ -65,7 +65,7 @@ export default async function Page({ params }: Props) {
                 loading="eager"
               />
 
-              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
               <div className="absolute bottom-0 left-0 right-0 p-2">
                 <div className="inline-flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 backdrop-blur-md">

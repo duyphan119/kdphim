@@ -56,7 +56,7 @@ export default function HeaderMenu({}: Props) {
           <Link
             href="/"
             onClick={handleClose}
-            className="flex items-center gap-1.5 px-2 py-2 rounded-sm text-foreground hover:text-destructive transition-colors duration-200 overflow-hidden  hover:bg-linear-to-r hover:from-destructive/20 hover:to-transparent relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-0 before:w-1 before:rounded-full before:bg-destructive before:opacity-0 before:transition-all before:duration-100 hover:before:h-full hover:before:opacity-100"
+            className="flex items-center gap-1.5 px-2 py-2 rounded-sm text-foreground hover:text-destructive transition-colors duration-200 overflow-hidden  hover:bg-gradient-to-r hover:from-destructive/20 hover:to-transparent relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-0 before:w-1 before:rounded-full before:bg-destructive before:opacity-0 before:transition-all before:duration-100 hover:before:h-full hover:before:opacity-100"
           >
             <HugeiconsIcon icon={Home} size={18} />
             Trang chủ
@@ -64,7 +64,7 @@ export default function HeaderMenu({}: Props) {
           <Link
             href="/phim-hot"
             onClick={handleClose}
-            className="flex items-center gap-1.5 px-2 py-2 rounded-sm text-foreground hover:text-destructive overflow-hidden transition-all duration-200 hover:bg-linear-to-r hover:from-destructive/20 hover:to-transparent relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-0 before:w-1 before:rounded-full before:bg-destructive before:opacity-0 before:transition-all before:duration-100 hover:before:h-full hover:before:opacity-100"
+            className="flex items-center gap-1.5 px-2 py-2 rounded-sm text-foreground hover:text-destructive overflow-hidden transition-all duration-200 hover:bg-gradient-to-r hover:from-destructive/20 hover:to-transparent relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-0 before:w-1 before:rounded-full before:bg-destructive before:opacity-0 before:transition-all before:duration-100 hover:before:h-full hover:before:opacity-100"
           >
             <HugeiconsIcon icon={Fire} size={18} />
             Phim hot
