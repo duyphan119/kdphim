@@ -14,8 +14,9 @@ export const getCasts = async (tmdbType: string, tmdbId: string | number) => {
 
 export const getCastDetails = async (
   castId: string | number,
-): Promise<CastProfile> => {
-  const res = await fetch(
+): Promise<CastProfile | null> => {
+  try {
+    const res = await fetch(
     `https://api.themoviedb.org/3/person/${castId}?language=vi-VN`,
     {
       next: { revalidate: 100 },
@@ -25,6 +26,10 @@ export const getCastDetails = async (
     },
   );
   return res.json();
+  } catch (error) {
+    console.log(error)
+    return null;
+  }
 };
 
 // const fetchCreditVideos = async <T extends TvCredit | MovieCredit>(

@@ -21,6 +21,7 @@ export const generateMetadata = async ({
   const awaitedParams = await params;
 
   const castDetails = await getCastDetails(awaitedParams.castId);
+  if(!castDetails) return {title: "KDPhim | Diễn viên", description: "Thông tin và phim của diễn viên"};
 
   return {
     title: `KDPhim | Diễn viên ${castDetails.name}`,
@@ -32,6 +33,7 @@ export default async function Page({ params }: Props) {
   const awaitedParams = await params;
 
   const castDetails = await getCastDetails(awaitedParams.castId);
+  if(!castDetails) return null;
 
   return (
     <div className="_container-w-full py-4">
