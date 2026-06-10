@@ -6,7 +6,7 @@ import { searchVideos } from "@/lib/video";
 import { Metadata } from "next";
 
 type Props = {
-  searchParams: Promise<VideosParams & { keyword: string }>;
+  searchParams: Promise<TVideosParams & { keyword: string }>;
 };
 
 export const generateMetadata = async ({

@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
-  const [casts, setCasts] = useState<Cast[]>([]);
+  const [casts, setCasts] = useState<TCast[]>([]);
   useEffect(() => {
     (async () => {
       if (tmdbType && tmdbId) {

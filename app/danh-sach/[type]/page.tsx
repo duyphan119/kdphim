@@ -7,8 +7,8 @@ import { getVideosByTypeList } from "@/lib/video";
 import { Metadata } from "next";
 
 type Props = {
-  params: Promise<{ type: TypeList }>;
-  searchParams: Promise<VideosParams>;
+  params: Promise<{ type: TTypeList }>;
+  searchParams: Promise<TVideosParams>;
 };
 
 export const generateMetadata = async ({

@@ -1,4 +1,4 @@
-import { typeList } from "@/lib/contants";
+import { typeList } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,7 +22,7 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-background/50 backdrop-blur">
-      <div className="_container-w-full py-12">
+      <div className="_container py-12">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_2fr]">
           {/* Left */}
           <div className="space-y-5">

@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { typeList, exampleCategories, exampleCountries } from "@/lib/contants";
+import { typeList, exampleCategories, exampleCountries } from "@/lib/constants";
 import { getYears } from "@/lib/utils";
 import { Filter } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -24,7 +24,7 @@ type FilterParams = {
 };
 
 type Props = {
-  defaultParams?: VideosParams & { keyword?: string };
+  defaultParams?: TVideosParams & { keyword?: string };
   isSearchFilter?: boolean;
 };
 
@@ -266,7 +266,7 @@ export default function VideosFilter({
                 <Button
                   variant={
                     filterParams?.sort_field === "modified.time" &&
-                    filterParams.sort_type === "desc"
+                      filterParams.sort_type === "desc"
                       ? "destructive"
                       : "outline"
                   }
@@ -281,7 +281,7 @@ export default function VideosFilter({
                 <Button
                   variant={
                     filterParams?.sort_field === "modified.time" &&
-                    filterParams.sort_type === "asc"
+                      filterParams.sort_type === "asc"
                       ? "destructive"
                       : "outline"
                   }
@@ -296,7 +296,7 @@ export default function VideosFilter({
                 <Button
                   variant={
                     filterParams?.sort_field === "year" &&
-                    filterParams.sort_type === "asc"
+                      filterParams.sort_type === "asc"
                       ? "destructive"
                       : "outline"
                   }
@@ -311,7 +311,7 @@ export default function VideosFilter({
                 <Button
                   variant={
                     filterParams?.sort_field === "year" &&
-                    filterParams.sort_type === "asc"
+                      filterParams.sort_type === "asc"
                       ? "destructive"
                       : "outline"
                   }

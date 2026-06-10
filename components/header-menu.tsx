@@ -14,7 +14,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { typeList, exampleCategories, exampleCountries } from "@/lib/contants";
+import { typeList, exampleCategories, exampleCountries } from "@/lib/constants";
 import { getYears } from "@/lib/utils";
 import {
   DashboardSquare01Icon,
@@ -31,7 +31,7 @@ import { useState } from "react";
 
 type Props = {};
 
-export default function HeaderMenu({}: Props) {
+export default function HeaderMenu({ }: Props) {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);

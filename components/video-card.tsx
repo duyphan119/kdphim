@@ -27,7 +27,7 @@ export default function VideoCard({
         href={`/phim/${videoItem.slug}`}
         title={videoItem.name}
         className={cn(
-          "block aspect-2/3 relative",
+          "block aspect-[2/3] relative",
           direction === "row" ? "w-1/3 shrink-0" : "w-full",
         )}
       >

@@ -5,12 +5,26 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "phimapi.com",
+        hostname: "**",
       },
     ],
   },
-  allowedDevOrigins: [
-    "6265-2405-4803-50cc-56c0-7ca6-e8d9-1b30-c8ed.ngrok-free.app",
+  env: {
+    TMDB_TOKEN: process.env.TMDB_TOKEN,
+  },
+  experimental: {
+    scrollRestoration: true,
+  },
+  headers: async () => [
+    {
+      source: "/:path*",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "no-store",
+        },
+      ],
+    },
   ],
 };
 

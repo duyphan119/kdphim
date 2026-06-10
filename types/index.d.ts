@@ -1,21 +1,21 @@
-type ApiResponse = {
+type TApiResponse = {
   status: boolean;
   msg: string;
-  data: Data;
+  data: TData;
 };
 
-type Data = {
-  seoOnPage: SeoOnPage;
-  breadCrumb: BreadcrumbItem[];
+type TData = {
+  seoOnPage: TSeoOnPage;
+  breadCrumb: TBreadcrumbItem[];
   titlePage: string;
-  items: MovieItem[];
-  params: Params;
+  items: TMovieItem[];
+  params: TParams;
   type_list: string;
   APP_DOMAIN_FRONTEND: string;
   APP_DOMAIN_CDN_IMAGE: string;
 };
 
-type VideoDetailsResponse = {
+type TVideoDetailsResponse = {
   status: boolean;
   msg: string;
   movie: {
@@ -59,18 +59,18 @@ type VideoDetailsResponse = {
     view: number;
     actor: string[];
     director: string[];
-    category: Category[];
-    country: Country[];
+    category: TCategory[];
+    country: TCountry[];
   };
-  episodes: Episode[];
+  episodes: TEpisode[];
 };
 
-type Episode = {
+type TEpisode = {
   server_name: string;
-  server_data: ServerData[];
+  server_data: TServerData[];
 };
 
-type ServerData = {
+type TServerData = {
   name: string;
   slug: string;
   filename: string;
@@ -78,7 +78,7 @@ type ServerData = {
   link_m3u8: string;
 };
 
-type TypeList =
+type TTypeList =
   | "phim-bo"
   | "phim-le"
   | "tv-shows"
@@ -87,8 +87,8 @@ type TypeList =
   | "phim-thuyet-minh"
   | "phim-long-tieng";
 
-type VideosParams = {
-  type_list?: TypeList;
+type TVideosParams = {
+  type_list?: TTypeList;
   page?: string;
   sort_field?: string;
   sort_type?: "desc" | "asc";
@@ -99,7 +99,7 @@ type VideosParams = {
   limit?: string;
 };
 
-type SeoOnPage = {
+type TSeoOnPage = {
   og_type: string;
   titleHead: string;
   descriptionHead: string;
@@ -107,18 +107,18 @@ type SeoOnPage = {
   og_url: string;
 };
 
-type BreadcrumbItem = {
+type TBreadcrumbItem = {
   name: string;
   slug?: string;
   isCurrent: boolean;
   position: number;
 };
 
-type MovieItem = {
-  tmdb: Tmdb;
-  imdb: Imdb;
-  created: TimeObject;
-  modified: TimeObject;
+type TMovieItem = {
+  tmdb: TTmdb;
+  imdb: TImdb;
+  created: TTimeObject;
+  modified: TTimeObject;
   _id: string;
   name: string;
   slug: string;
@@ -133,11 +133,11 @@ type MovieItem = {
   quality: string;
   lang: string;
   year: number;
-  category: Category[];
-  country: Country[];
+  category: TCategory[];
+  country: TCountry[];
 };
 
-type Tmdb = {
+type TTmdb = {
   type: string | null;
   id: string | number | null;
   season: number | null;
@@ -145,27 +145,27 @@ type Tmdb = {
   vote_count: number;
 };
 
-type Imdb = {
+type TImdb = {
   id: string | null;
 };
 
-type TimeObject = {
+type TTimeObject = {
   time: string;
 };
 
-type Category = {
+type TCategory = {
   id: string;
   name: string;
   slug: string;
 };
 
-type Country = {
+type TCountry = {
   id: string;
   name: string;
   slug: string;
 };
 
-type Params = {
+type TParams = {
   type_slug: string;
   slug: string;
   filterCategory: string[];
@@ -174,23 +174,23 @@ type Params = {
   filterType: string[];
   sortField: string;
   sortType: "asc" | "desc";
-  pagination: Pagination;
+  pagination: TPagination;
 };
 
-type Pagination = {
+type TPagination = {
   totalItems: number;
   totalItemsPerPage: number;
   currentPage: number;
   totalPages: number;
 };
 
-type RecommendedVideo = {
+type TRecommendedVideo = {
   name: string;
   slug: string;
   poster_url: string;
 };
 
-type Cast = {
+type TCast = {
   adult: boolean;
   gender: number; // 1 = Nữ, 2 = Nam, 0 = Không xác định
   id: number;
@@ -204,7 +204,7 @@ type Cast = {
   order: number;
 };
 
-type CastProfile = {
+type TCastProfile = {
   adult: boolean;
   also_known_as: string[];
   biography: string;
@@ -221,7 +221,7 @@ type CastProfile = {
   profile_path: string | null;
 };
 
-type TvCredit = {
+type TTvCredit = {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
@@ -243,7 +243,7 @@ type TvCredit = {
   episode_count: number;
 };
 
-type MovieCredit = {
+type TMovieCredit = {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
@@ -265,7 +265,7 @@ type MovieCredit = {
   order: number;
 };
 
-type WatchedVideo = {
+type TWatchedVideo = {
   name: string;
   slug: string;
   poster_url: string;

@@ -11,11 +11,11 @@ import { useEffect, useRef, useState } from "react";
 
 type Props = {};
 
-export default function HeaderSearch({}: Props) {
+export default function HeaderSearch({ }: Props) {
   const searchParams = useSearchParams();
   const [keyword, setKeyword] = useState("");
   const [open, setOpen] = useState(false);
-  const [dataVideos, setDataVideos] = useState<ApiResponse | null>(null);
+  const [dataVideos, setDataVideos] = useState<TApiResponse | null>(null);
 
   const divRef = useRef<HTMLDivElement | null>(null);
 
@@ -37,11 +37,11 @@ export default function HeaderSearch({}: Props) {
 
           setDataVideos(res);
         } catch (error) {
-           setDataVideos({
-            data:null as any,
+          setDataVideos({
+            data: null as any,
             msg: "",
             status: false,
-           });
+          });
           console.error("Error fetching videos:", error);
         }
       };
@@ -91,7 +91,7 @@ export default function HeaderSearch({}: Props) {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           onFocus={() => setOpen(true)}
-          className="flex-1 outline-none py-2 w-full"
+          className="flex-1 outline-none py-2 w-full bg-background"
         />
       </form>
       {open && dataVideos?.data?.items ? (

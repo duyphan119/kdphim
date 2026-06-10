@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import { Fragment } from "react";
 
-type Props = { items: BreadcrumbItem[] };
+type Props = { items: TBreadcrumbItem[] };
 
 export default function Breadcrumb({ items }: Props) {
   return (

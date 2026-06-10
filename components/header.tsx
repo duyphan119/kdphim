@@ -10,7 +10,7 @@ import Image from "next/image";
 
 type Props = {};
 
-export default function Header({}: Props) {
+export default function Header({ }: Props) {
   return (
     <header className="bg-background fixed top-0 inset-x-0 z-10">
       <div className="flex justify-between items-center gap-2 h-16 _container relative">
@@ -19,7 +19,7 @@ export default function Header({}: Props) {
           <Link
             href="/"
             title="Đi tới trang chủ"
-            className="aspect-1983/793 block relative h-12"
+            className="aspect-[1983/793] block relative h-12"
           >
             <Image
               src={"/images/logo.png"}

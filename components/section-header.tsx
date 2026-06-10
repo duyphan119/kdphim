@@ -28,10 +28,8 @@ export default function SectionHeader({
         />
 
         <span
-          className={cn(
-            "bg-gradient-to-r bg-clip-text text-transparent tracking-wide bg-size-[200%_200%] animate-gradient",
-            gradientClassName,
-          )}
+          className={
+            gradientClassName}
         >
           {title}
         </span>

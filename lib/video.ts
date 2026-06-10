@@ -13,8 +13,8 @@ export const getLatestVideos = async (params: { page: number }) => {
     }: {
       status: boolean;
       msg: string;
-      items: MovieItem[];
-      pagination: Pagination;
+      items: TMovieItem[];
+      pagination: TPagination;
     } = await response.json();
     return { items, pagination };
   } catch (error) {
@@ -25,7 +25,7 @@ export const getLatestVideos = async (params: { page: number }) => {
 
 export const searchVideos = async (
   keyword: string,
-  params?: Omit<VideosParams, "type_list">,
+  params?: Omit<TVideosParams, "type_list">,
 ) => {
   const query = queryString.stringify({
     keyword,
@@ -35,12 +35,12 @@ export const searchVideos = async (
   const res = await fetch(`https://phimapi.com/v1/api/tim-kiem?${query}`, {
     next: { revalidate: 60, tags: ["search-videos"] },
   });
-  return res.json() as Promise<ApiResponse>;
+  return res.json() as Promise<TApiResponse>;
 };
 
 export const getVideosByTypeList = async (
-  typeList: TypeList,
-  params?: Omit<VideosParams, "type_list">,
+  typeList: TTypeList,
+  params?: Omit<TVideosParams, "type_list">,
 ) => {
   const query = queryString.stringify({
     limit: 24,
@@ -54,12 +54,12 @@ export const getVideosByTypeList = async (
     },
   );
 
-  return res.json() as Promise<ApiResponse>;
+  return res.json() as Promise<TApiResponse>;
 };
 
 export const getVideosByCountry = async (
   countrySlug: string,
-  params?: Omit<VideosParams, "type_list" | "country">,
+  params?: Omit<TVideosParams, "type_list" | "country">,
 ) => {
   const query = queryString.stringify({
     limit: 24,
@@ -73,12 +73,12 @@ export const getVideosByCountry = async (
     },
   );
 
-  return res.json() as Promise<ApiResponse>;
+  return res.json() as Promise<TApiResponse>;
 };
 
 export const getVideosByCategory = async (
   categorySlug: string,
-  params?: Omit<VideosParams, "type_list" | "category">,
+  params?: Omit<TVideosParams, "type_list" | "category">,
 ) => {
   const query = queryString.stringify({
     limit: 24,
@@ -92,12 +92,12 @@ export const getVideosByCategory = async (
     },
   );
 
-  return res.json() as Promise<ApiResponse>;
+  return res.json() as Promise<TApiResponse>;
 };
 
 export const getVideosByYear = async (
   year: string | number,
-  params?: Omit<VideosParams, "type_list" | "year">,
+  params?: Omit<TVideosParams, "type_list" | "year">,
 ) => {
   const query = queryString.stringify({
     limit: 24,
@@ -108,7 +108,7 @@ export const getVideosByYear = async (
     next: { revalidate: 60, tags: ["year-videos"] },
   });
 
-  return res.json() as Promise<ApiResponse>;
+  return res.json() as Promise<TApiResponse>;
 };
 
 export const getVideo = async (slug: string) => {
@@ -116,7 +116,7 @@ export const getVideo = async (slug: string) => {
     next: { revalidate: 60, tags: ["video", slug] },
   });
 
-  return res.json() as Promise<VideoDetailsResponse>;
+  return res.json() as Promise<TVideoDetailsResponse>;
 };
 
 export const getVideoByTmdb = async (tmdbType: string, tmdbId: string) => {
@@ -124,7 +124,7 @@ export const getVideoByTmdb = async (tmdbType: string, tmdbId: string) => {
     next: { revalidate: 60, tags: ["video-tmdb", tmdbType, tmdbId] },
   });
 
-  return res.json() as Promise<VideoDetailsResponse>;
+  return res.json() as Promise<TVideoDetailsResponse>;
 };
 
 export const getVideosByCast = async (castId: string) => {

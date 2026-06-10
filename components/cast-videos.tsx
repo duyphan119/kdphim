@@ -7,15 +7,15 @@ import { VideoCardSkeleton } from "./video-card-skeleton";
 import { getVideoByTmdb, getVideosByCast } from "@/lib/video";
 import SectionHeader from "./section-header";
 import { Books, Book } from "@hugeicons/core-free-icons";
-import { sectionTitleVariants } from "@/lib/contants";
+import { sectionTitleVariants } from "@/lib/constants";
 
 type Props = {
   castId: string;
 };
 
 export default function CastVideos({ castId }: Props) {
-  const [tvList, setTvList] = useState<VideoDetailsResponse["movie"][]>([]);
-  const [movieList, setMovieList] = useState<VideoDetailsResponse["movie"][]>(
+  const [tvList, setTvList] = useState<TVideoDetailsResponse["movie"][]>([]);
+  const [movieList, setMovieList] = useState<TVideoDetailsResponse["movie"][]>(
     [],
   );
 
@@ -34,7 +34,7 @@ export default function CastVideos({ castId }: Props) {
 
         // TV
         if (tvRes.status === "fulfilled") {
-          const data: { cast: TvCredit[] } = await tvRes.value.json();
+          const data: { cast: TTvCredit[] } = await tvRes.value.json();
 
           data.cast.forEach(async (item) => {
             const res = await getVideoByTmdb("tv", item.id + "");
@@ -55,7 +55,7 @@ export default function CastVideos({ castId }: Props) {
 
         // Movie
         if (movieRes.status === "fulfilled") {
-          const data: { cast: TvCredit[] } = await movieRes.value.json();
+          const data: { cast: TTvCredit[] } = await movieRes.value.json();
 
           data.cast.forEach(async (item) => {
             const res = await getVideoByTmdb("movie", item.id + "");
@@ -109,7 +109,7 @@ export default function CastVideos({ castId }: Props) {
                 <SectionHeader
                   title="Phim bộ"
                   icon={Books}
-                  gradientClassName={sectionTitleVariants.china}
+                  gradientClassName="bg-gradient-to-r from-red-500 via-rose-500 to-orange-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
                   iconColor="text-red-500"
                 />
               </div>
@@ -128,7 +128,7 @@ export default function CastVideos({ castId }: Props) {
                 <SectionHeader
                   title="Phim lẻ"
                   icon={Book}
-                  gradientClassName={sectionTitleVariants.china}
+                  gradientClassName="bg-gradient-to-r from-red-500 via-rose-500 to-orange-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
                   iconColor="text-red-500"
                 />
               </div>

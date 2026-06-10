@@ -12,12 +12,12 @@ import VideoCasts from "./video-casts";
 import { Fragment } from "react";
 import recommendVideos from "@/lib/recommend-videos.json";
 import VideoCard from "./video-card";
-import { sectionTitleVariants } from "@/lib/contants";
+import { sectionTitleVariants } from "@/lib/constants";
 import SectionHeader from "./section-header";
 
 type Props = {
-  video: VideoDetailsResponse["movie"];
-  episodes: VideoDetailsResponse["episodes"];
+  video: TVideoDetailsResponse["movie"];
+  episodes: TVideoDetailsResponse["episodes"];
   hideButtons?: boolean;
   children?: React.ReactNode;
   currentEpisodeSlug?: string;
@@ -90,12 +90,12 @@ export default function VideoDetails({
               },
               ...(children && currentBreadcrumb
                 ? [
-                    {
-                      isCurrent: true,
-                      name: currentBreadcrumb,
-                      position: 6,
-                    },
-                  ]
+                  {
+                    isCurrent: true,
+                    name: currentBreadcrumb,
+                    position: 6,
+                  },
+                ]
                 : []),
             ]}
           />
@@ -344,7 +344,7 @@ export default function VideoDetails({
             title="Top phim nổi bật"
             icon={Fire}
             iconColor="text-orange-500"
-            gradientClassName={sectionTitleVariants.hot}
+            gradientClassName="bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           />
           <div className="space-y-4 py-4">
             {recommendVideos.map((videoItem) => (

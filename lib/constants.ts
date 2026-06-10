@@ -29,7 +29,7 @@ export const typeList = [
   },
 ];
 
-export const exampleCountries: Country[] = [
+export const exampleCountries: TCountry[] = [
   {
     id: "cc85d02a69f06f7b43ab67f5673604a3",
     name: "Ả Rập Xê Út",
@@ -207,7 +207,7 @@ export const exampleCountries: Country[] = [
   },
 ];
 
-export const exampleCategories: Category[] = [
+export const exampleCategories: TCategory[] = [
   {
     id: "252e74b4c832ddb4233d7499f5ed122e",
     name: "Âm Nhạc",

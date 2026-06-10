@@ -9,7 +9,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "./ui/button";
 
 type Props = {
-  pagination: Pagination;
+  pagination: TPagination;
   searchParams?: Record<string, string>;
 };
 

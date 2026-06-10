@@ -1,6 +1,6 @@
 import CarouselAutoplay from "@/components/carousel-autoplay";
 import SectionHeader from "@/components/section-header";
-import { hotCasts, sectionTitleVariants } from "@/lib/contants";
+import { hotCasts, sectionTitleVariants } from "@/lib/constants";
 import {
   CarouselContent,
   CarouselItem,
@@ -16,7 +16,6 @@ import {
   getVideosByTypeList,
 } from "@/lib/video";
 import {
-  ArrowRight01Icon,
   Female02Icon,
   Fire,
   Globe02Icon,
@@ -179,39 +178,38 @@ export default async function Home() {
           </CarouselContent>
         </CarouselAutoplay>
       </section>
-      {(recommendVideos as RecommendedVideo[]).length > 0 ? (
-        <section className="space-y-2">
-          <SectionHeader
-            title="Top phim nổi bật"
-            icon={Fire}
-            iconColor="text-orange-500"
-            gradientClassName={sectionTitleVariants.hot}
-            href="/phim-hot"
-          />
-          <div className="">
-            <CarouselAutoplay delay={12345}>
-              <CarouselContent>
-                {recommendVideos.slice(0, 20).map((videoItem) => (
-                  <CarouselItem
-                    key={videoItem.slug}
-                    className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
-                  >
-                    <VideoCard videoItem={videoItem} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </CarouselAutoplay>
-          </div>
-        </section>
-      ) : null}
+      <section className="space-y-2">
+
+        <SectionHeader
+          title="Top phim nổi bật"
+          icon={Fire}
+          iconColor="text-orange-500"
+          gradientClassName="bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
+          href="/phim-hot"
+        />
+        <div className="">
+          <CarouselAutoplay delay={12345}>
+            <CarouselContent>
+              {recommendVideos.slice(0, 20).map((videoItem) => (
+                <CarouselItem
+                  key={videoItem.slug}
+                  className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
+                >
+                  <VideoCard videoItem={videoItem} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </CarouselAutoplay>
+        </div>
+      </section>
       <section className="space-y-2">
         <SectionHeader
           title="Hoa ngữ đặc sắc"
           icon={Globe02Icon}
           iconColor="text-red-500"
-          gradientClassName={sectionTitleVariants.china}
+          gradientClassName="bg-gradient-to-r from-red-500 via-rose-500 to-orange-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           href="/danh-sach/phim-bo?country=trung-quoc"
         />
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
@@ -230,7 +228,7 @@ export default async function Home() {
           title="K-Drama gây sốt"
           icon={SparklesIcon}
           iconColor="text-pink-500"
-          gradientClassName={sectionTitleVariants.korea}
+          gradientClassName="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           href="/danh-sach/phim-bo?country=han-quoc"
         />
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
@@ -249,7 +247,7 @@ export default async function Home() {
           title="Thế giới Anime"
           icon={PlayCircleIcon}
           iconColor="text-violet-500"
-          gradientClassName={sectionTitleVariants.anime}
+          gradientClassName="bg-gradient-to-r from-violet-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           href="/danh-sach/hoat-hinh"
         />
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
@@ -268,7 +266,7 @@ export default async function Home() {
           title="Visual nổi bật"
           icon={StarIcon}
           iconColor="text-yellow-500"
-          gradientClassName={sectionTitleVariants.star}
+          gradientClassName="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
         />
         <CarouselAutoplay delay={8989}>
           <CarouselContent>
@@ -280,7 +278,7 @@ export default async function Home() {
                 <a
                   href={`/dien-vien/${item.id}`}
                   target="_blank"
-                  className="relative block aspect-2/3 w-full"
+                  className="relative block aspect-[2/3] w-full"
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/h632${item.profile_path}`}

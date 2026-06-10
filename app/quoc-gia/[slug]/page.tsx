@@ -8,7 +8,7 @@ import { Metadata } from "next";
 
 type Props = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<Omit<VideosParams, "type_list" | "country">>;
+  searchParams: Promise<Omit<TVideosParams, "type_list" | "country">>;
 };
 
 export const generateMetadata = async ({

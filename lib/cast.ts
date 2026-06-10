@@ -8,26 +8,26 @@ export const getCasts = async (tmdbType: string, tmdbId: string | number) => {
       },
     },
   );
-  const data: { cast: Cast[] } = await res.json();
+  const data: { cast: TCast[] } = await res.json();
   return data.cast;
 };
 
 export const getCastDetails = async (
   castId: string | number,
-): Promise<CastProfile | null> => {
+): Promise<TCastProfile | null> => {
   try {
     const res = await fetch(
-    `https://api.themoviedb.org/3/person/${castId}?language=vi-VN`,
-    {
-      next: { revalidate: 100 },
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+      `https://api.themoviedb.org/3/person/${castId}?language=vi-VN`,
+      {
+        next: { revalidate: 100 },
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+        },
       },
-    },
-  );
-  return res.json();
+    );
+    return res.json();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return null;
   }
 };
