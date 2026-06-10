@@ -29,7 +29,7 @@ export default function Footer() {
             <Link
               href="/"
               title="Đi tới trang chủ"
-              className="relative block h-12 aspect-1983/793"
+              className="relative block h-12 aspect-[1983/793]"
             >
               <Image
                 src="/images/logo.png"

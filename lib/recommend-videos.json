@@ -1,5 +1,51 @@
 [
   {
+    "name": "Tiêu Nhân",
+    "slug": "tieu-nhan",
+    "poster_url": "https://phimimg.com/upload/vod/20241030-1/c4374b025295bfcdc72fa85a2e86adf3.jpg"
+  },
+  {
+    "name": "Mạc Ly",
+    "slug": "mac-ly",
+    "poster_url": "https://phimimg.com/upload/vod/20260609-1/ae12c9e970982d4ce4c70e9633b5d2cc.jpg"
+  },
+  {
+    "name": "Rất Nhớ, Rất Nhớ Anh",
+    "slug": "rat-nho-rat-nho-anh",
+    "poster_url": "https://phimimg.com/upload/vod/20240909-1/8d879cde2d1eac8bd25aee89b5b78854.jpg"
+  },
+  {
+    "name": "Triều Tuyết Lục",
+    "slug": "trieu-tuyet-luc",
+    "poster_url": "https://phimimg.com/upload/vod/20250713-1/464d72c09e1e3934b2bf37d7e6afdf4c.jpg"
+  },
+  {
+    "name": "Đại Đường Mê Vụ",
+    "slug": "dai-duong-me-vu",
+    "poster_url": "https://phimimg.com/upload/vod/20260523-1/9c3cb3ed23c307846bb50a71bf78acf5.jpg"
+  },
+  {
+    "name": "Đường Triều Quỷ Sự Lục 3 : Trường An",
+    "slug": "duong-trieu-quy-su-luc-3-truong-an",
+    "poster_url": "https://phimimg.com/upload/vod/20251109-1/5781527777b542b1baa40f57e5e02caa.jpg"
+  },
+  {
+    "name": "Đường Triều Quỷ Sự Lục 2: Tây Hành",
+    "slug": "duong-trieu-quy-su-luc-2-tay-hanh-2024",
+    "poster_url": "https://phimimg.com/upload/vod/20251109-1/8d8989a8b5314d20dee4c702210a6df9.jpg"
+  },
+  {
+    "name": "Đường Triều Quỷ Sự Lục",
+    "slug": "duong-trieu-quy-su-luc",
+    "poster_url": "https://phimimg.com/upload/vod/20251109-1/de26b8e18e972b63119a5554cd617cde.jpg"
+  },
+  {
+    "name": "Kiều Sở",
+    "slug": "kieu-so",
+    "poster_url": "https://phimimg.com/upload/vod/20260602-1/b87ac3cb735ca1bbeb9ef74670272e0e.jpg"
+  },
+
+  {
     "name": "Cơn Say Mùa Xuân",
     "slug": "con-say-mua-xuan",
     "poster_url": "https://phimimg.com/upload/vod/20260106-1/deeaf96194e9eb72cc990cb4747536e6.jpg"
@@ -10,19 +56,14 @@
     "poster_url": "https://phimimg.com/upload/vod/20250818-1/e6c2b3826944f2ba9b4de8f526620ad2.jpg"
   },
   {
-    "name": "Rất Nhớ, Rất Nhớ Anh",
-    "slug": "rat-nho-rat-nho-anh",
-    "poster_url": "https://phimimg.com/upload/vod/20240909-1/8d879cde2d1eac8bd25aee89b5b78854.jpg"
-  },
-  {
     "name": "Khói Lửa Nhân Gian Của Tôi",
     "slug": "khoi-lua-nhan-gian-cua-toi",
     "poster_url": "https://phimimg.com/upload/vod/20240815-1/008e6a063b10e760b0fcd86a72f85708.jpg"
   },
   {
-    "name": "Triều Tuyết Lục",
-    "slug": "trieu-tuyet-luc",
-    "poster_url": "https://phimimg.com/upload/vod/20250713-1/464d72c09e1e3934b2bf37d7e6afdf4c.jpg"
+    "name": "Giai Ngẫu Thiên Thành",
+    "slug": "giai-ngau-thien-thanh",
+    "poster_url": "https://phimimg.com/upload/vod/20260425-1/e4618fe07df335795ba86b3241b1d57c.jpg"
   },
   {
     "name": "Thiên Đóa Đào Hoa Nhất Thế Khai",

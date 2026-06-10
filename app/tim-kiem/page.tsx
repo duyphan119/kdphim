@@ -4,6 +4,7 @@ import VideosFilter from "@/components/videos-filter";
 import VideosPagination from "@/components/videos-pagination";
 import { searchVideos } from "@/lib/video";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 type Props = {
   searchParams: Promise<TVideosParams & { keyword: string }>;
@@ -17,6 +18,10 @@ export const generateMetadata = async ({
   const { keyword, ...otherParams } = awaitedSearchParams;
 
   const { data } = await searchVideos(keyword, otherParams);
+  if (!data || !data.seoOnPage) return {
+    title: "KDPhim | Tìm kiếm",
+    description: "Kết quả tìm kiếm",
+  }
   return {
     title: `KDPhim | ${data.seoOnPage.titleHead}`,
     description: data.seoOnPage.descriptionHead,
@@ -30,34 +35,36 @@ export default async function Page({ searchParams }: Props) {
 
   const { data } = await searchVideos(keyword, otherParams);
 
-  return (
-    <div className="_container space-y-4 py-4">
-      <Breadcrumb items={data.breadCrumb} />
+  if (!data || !data.items) redirect("/");
+  else
+    return (
+      <div className="_container space-y-4 py-4">
+        <Breadcrumb items={data.breadCrumb} />
 
-      <div className="">
-        <VideosFilter
-          defaultParams={awaitedSearchParams}
-          isSearchFilter={true}
-        />
-      </div>
+        <div className="">
+          <VideosFilter
+            defaultParams={awaitedSearchParams}
+            isSearchFilter={true}
+          />
+        </div>
 
-      <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {data.items.map((videoItem) => (
-          <div key={videoItem._id} className="col-span-1">
-            <VideoCard
-              videoItem={videoItem}
-              imageDomain={data.APP_DOMAIN_CDN_IMAGE}
-            />
-          </div>
-        ))}
-      </div>
+        <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {data.items?.map((videoItem) => (
+            <div key={videoItem._id} className="col-span-1">
+              <VideoCard
+                videoItem={videoItem}
+                imageDomain={data.APP_DOMAIN_CDN_IMAGE}
+              />
+            </div>
+          ))}
+        </div>
 
-      <div className="">
-        <VideosPagination
-          pagination={data.params.pagination}
-          searchParams={awaitedSearchParams}
-        />
+        <div className="">
+          <VideosPagination
+            pagination={data.params.pagination}
+            searchParams={awaitedSearchParams}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
 }

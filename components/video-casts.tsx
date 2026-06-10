@@ -37,7 +37,7 @@ export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
           <Link
             href={`/dien-vien/${castItem.id}`}
             title={castItem.name}
-            className="relative aspect-2/3 block"
+            className="relative aspect-[2/3] block"
           >
             <Image
               unoptimized

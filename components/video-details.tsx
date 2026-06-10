@@ -124,7 +124,7 @@ export default function VideoDetails({
                 children ? "order-4" : "order-2",
               )}
             >
-              <div className="relative aspect-2/3 w-full overflow-hidden bg-slate-950 md:col-span-1">
+              <div className="relative aspect-[2/3] w-full overflow-hidden bg-slate-950 md:col-span-1">
                 <Image
                   unoptimized
                   src={`https://phimapi.com/image.php?url=${video.poster_url}`}
