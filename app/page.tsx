@@ -133,7 +133,7 @@ export default async function Home() {
           gradientClassName="bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           href="/phim-hot"
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {recommendVideos.slice(0, 12).map((videoItem) => (
             <div key={videoItem.slug} className="col-span-1">
               <VideoCard
@@ -151,7 +151,7 @@ export default async function Home() {
           gradientClassName="bg-gradient-to-r from-red-500 via-rose-500 to-orange-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           href="/danh-sach/phim-bo?country=trung-quoc"
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {dataVideos1?.data?.items?.map((videoItem) => (
             <div key={videoItem._id} className="col-span-1">
               <VideoCard
@@ -170,7 +170,7 @@ export default async function Home() {
           gradientClassName="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           href="/danh-sach/phim-bo?country=han-quoc"
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {dataVideos2?.data?.items?.map((videoItem) => (
             <div key={videoItem._id} className="col-span-1">
               <VideoCard
@@ -189,7 +189,7 @@ export default async function Home() {
           gradientClassName="bg-gradient-to-r from-violet-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           href="/danh-sach/hoat-hinh"
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {dataVideos3?.data?.items?.map((videoItem) => (
             <div key={videoItem._id} className="col-span-1">
               <VideoCard
