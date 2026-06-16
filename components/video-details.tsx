@@ -269,7 +269,7 @@ export default function VideoDetails({
                   dangerouslySetInnerHTML={{
                     __html: video.content || "Chưa có mô tả cho phim này.",
                   }}
-                  className="mt-4 whitespace-pre-line leading-7 text-muted-foreground"
+                  className="mt-4 whitespace-pre-line leading-7 text-muted-foreground text-sm"
                 ></p>
               </div>
             </div>

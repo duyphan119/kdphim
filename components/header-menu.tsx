@@ -72,7 +72,9 @@ export default function HeaderMenu({ }: Props) {
           <Accordion type="multiple">
             <AccordionItem value="type_list" className="">
               <AccordionTrigger className="pl-2 py-2 cursor-pointer">
-                <HugeiconsIcon icon={Video} size={18} /> Loại phim
+                <div className="flex items-center gap-2">
+                  <HugeiconsIcon icon={Video} size={18} /> Loại phim
+                </div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2">
@@ -91,8 +93,8 @@ export default function HeaderMenu({ }: Props) {
             </AccordionItem>
             <AccordionItem value="the-loai" className="">
               <AccordionTrigger className="pl-2 py-2 cursor-pointer">
-                <HugeiconsIcon icon={DashboardSquare01Icon} size={18} /> Thể
-                loại
+                <div className="flex items-center gap-2"><HugeiconsIcon icon={DashboardSquare01Icon} size={18} /> Thể
+                  loại</div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2">
@@ -111,7 +113,7 @@ export default function HeaderMenu({ }: Props) {
             </AccordionItem>
             <AccordionItem value="quoc-gia" className="">
               <AccordionTrigger className="pl-2 py-2 cursor-pointer">
-                <HugeiconsIcon icon={Earth} size={18} /> Quốc gia
+                <div className="flex items-center gap-2"><HugeiconsIcon icon={Earth} size={18} /> Quốc gia</div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2">
@@ -130,7 +132,9 @@ export default function HeaderMenu({ }: Props) {
             </AccordionItem>
             <AccordionItem value="nam" className="">
               <AccordionTrigger className="pl-2 py-2 cursor-pointer">
-                <HugeiconsIcon icon={MoleculesIcon} size={18} /> Năm
+                <div className="flex items-center gap-2">
+                  <HugeiconsIcon icon={MoleculesIcon} size={18} /> Năm
+                </div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-3">

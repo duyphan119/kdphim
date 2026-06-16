@@ -29,7 +29,9 @@ export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
       </p>
     );
 
-  console.log({ casts });
+  if (casts.length === 0) return <div className="mt-4 text-sm text-muted-foreground">
+    Vui lòng bật 1.1.1.1 để tải thông tin diễn viên.
+  </div>
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-4 mt-4">
       {casts.map((castItem) => (

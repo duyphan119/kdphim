@@ -3,6 +3,8 @@ import VideoCard from "@/components/video-card";
 import VideosFilter from "@/components/videos-filter";
 import VideosPagination from "@/components/videos-pagination";
 import { searchVideos } from "@/lib/video";
+import { Clapperboard, Film01FreeIcons, HugeiconsFreeIcons, SearchRemoveIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
@@ -35,7 +37,20 @@ export default async function Page({ searchParams }: Props) {
 
   const { data } = await searchVideos(keyword, otherParams);
 
-  if (!data || !data.items) redirect("/");
+  if (!data || !data.items) return <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed bg-muted/20 px-6 text-center">
+    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+      <HugeiconsIcon icon={Clapperboard} className="h-8 w-8 text-muted-foreground" />
+    </div>
+
+    <h3 className="mt-5 text-xl font-bold">
+      Không tìm thấy phim
+    </h3>
+
+    <p className="mt-2 max-w-md text-sm text-muted-foreground">
+      Rất tiếc, chúng tôi không tìm thấy bộ phim nào phù hợp.
+      Hãy thử tìm kiếm với từ khóa khác.
+    </p>
+  </div>
   else
     return (
       <div className="_container space-y-4 py-4">
