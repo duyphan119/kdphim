@@ -68,19 +68,15 @@ export default async function Page({ params }: Props) {
                 loading="eager"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-x-2 bottom-2 bg-background/80 text-muted-foreground p-2 rounded-lg text-center flex items-center justify-center gap-2 font-semibold">
+                <HugeiconsIcon
+                  icon={castDetails.gender === 1 ? Female02Icon : Male02Icon}
+                  size={16}
+                />
 
-              <div className="absolute bottom-0 left-0 right-0 p-2">
-                <div className="inline-flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 backdrop-blur-md">
-                  <HugeiconsIcon
-                    icon={castDetails.gender === 1 ? Female02Icon : Male02Icon}
-                    size={16}
-                  />
-
-                  <h2 className="line-clamp-1 font-semibold">
-                    {castDetails.name}
-                  </h2>
-                </div>
+                <span className="font-semibold">
+                  {castDetails.name}
+                </span>
               </div>
             </div>
 

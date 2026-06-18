@@ -16,11 +16,14 @@ import {
   getVideosByTypeList,
 } from "@/lib/video";
 import {
+  Female02Icon,
   Fire,
   Globe02Icon,
+  Male02Icon,
   PlayCircleIcon,
   SparklesIcon
 } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -189,7 +192,7 @@ export default async function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4">
               {hotCasts.map((cast) => (
                 <div key={cast.id} className="col-span-1 relative aspect-[2/3]">
-                  <Link href={`/dien-vien/${cast.id}`} title={cast.name} className="block size-full">
+                  <Link href={`/dien-vien/${cast.id}`} title={cast.name} className="relative block size-full">
                     <Image
                       src={`${TMDB_IMAGE_DOMAIN}${cast.profile_path}`}
                       alt={cast.name}
@@ -201,8 +204,14 @@ export default async function Home() {
                     />
 
                   </Link>
-                  <Link href={`/dien-vien/${cast.id}`} title={cast.name} className="absolute inset-x-2 bottom-2 bg-background/80 text-muted-foreground p-2 rounded-lg text-center">
-                    {cast.name}
+                  <Link href={`/dien-vien/${cast.id}`} title={cast.name} className="absolute inset-x-2 bottom-2 bg-background/80 text-muted-foreground p-2 rounded-lg text-center flex items-center justify-center gap-2">
+                    <HugeiconsIcon
+                      icon={cast.gender === 1 ? Female02Icon : Male02Icon}
+                      size={16}
+                    />
+                    <span className="font-semibold">
+                      {cast.name}
+                    </span>
                   </Link>
                 </div>
               ))}
