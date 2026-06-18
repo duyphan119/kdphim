@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import queryString from "query-string";
 import { useEffect, useRef } from "react";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 
 type Props = {
   pagination: TPagination;
@@ -39,11 +39,10 @@ export default function VideosPagination({
   return (
     <div className="flex items-center justify-center gap-2">
       {currentPage === 1 ? null : (
-        <Button size="icon">
-          <Link href={getHref(1)}>
-            <HugeiconsIcon icon={ArrowLeft01Icon} />
-          </Link>
-        </Button>
+        <Link href={getHref(1)} className={buttonVariants({})}>
+          <HugeiconsIcon icon={ArrowLeft01Icon} />
+          Trang trước
+        </Link>
       )}
       <form
         ref={formRef}
@@ -59,16 +58,15 @@ export default function VideosPagination({
           max={totalPages}
           id="page"
           placeholder={currentPage.toString()}
-          className="border border-foreground rounded-md h-9 w-12 text-right px-1"
+          className="border border-foreground rounded-md h-7 w-12 text-sm text-right px-1"
         />
       </form>
-      <div className="">/{totalPages}</div>
+      <div className="text-sm">/{totalPages}</div>
       {currentPage === totalPages ? null : (
-        <Button size="icon">
-          <Link href={getHref(currentPage + 1)}>
-            <HugeiconsIcon icon={ArrowRight01Icon} />
-          </Link>
-        </Button>
+        <Link href={getHref(currentPage + 1)} className={buttonVariants({})}>
+          Trang tiếp theo
+          <HugeiconsIcon icon={ArrowRight01Icon} />
+        </Link>
       )}
     </div>
   );

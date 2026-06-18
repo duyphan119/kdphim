@@ -12,7 +12,7 @@ import { Filter } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 
 type FilterParams = {
   type_list?: string;
@@ -176,7 +176,7 @@ export default function VideosFilter({
   return (
     <Accordion type="single" collapsible value={value} onValueChange={setValue}>
       <AccordionItem value="item-1">
-        <AccordionTrigger>
+        <AccordionTrigger className={buttonVariants({ variant: "outline", className: "justify-between" })}>
           <HugeiconsIcon icon={Filter} size={18} />
           Bộ lọc
         </AccordionTrigger>

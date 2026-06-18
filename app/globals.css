@@ -67,7 +67,7 @@
     @apply bg-background text-foreground;
   }
   ._container {
-    @apply mx-auto max-w-[1350px] px-4 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-[1200px] sm:px-6 lg:px-8 px-4;
   }
 
   ._bg-container {

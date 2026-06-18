@@ -1,6 +1,7 @@
 import Breadcrumb from "@/components/breadcrumb";
 import CastVideos from "@/components/cast-videos";
 import { getCastDetails } from "@/lib/cast";
+import { TMDB_IMAGE_DOMAIN } from "@/lib/constants";
 import {
   Birthday,
   Female02Icon,
@@ -21,7 +22,7 @@ export const generateMetadata = async ({
   const awaitedParams = await params;
 
   const castDetails = await getCastDetails(awaitedParams.castId);
-  if(!castDetails) return {title: "KDPhim | Diễn viên", description: "Thông tin và phim của diễn viên"};
+  if (!castDetails) return { title: "KDPhim | Diễn viên", description: "Thông tin và phim của diễn viên" };
 
   return {
     title: `KDPhim | Diễn viên ${castDetails.name}`,
@@ -33,7 +34,7 @@ export default async function Page({ params }: Props) {
   const awaitedParams = await params;
 
   const castDetails = await getCastDetails(awaitedParams.castId);
-  if(!castDetails) return null;
+  if (!castDetails) return null;
 
   return (
     <div className="_container-w-full py-4">
@@ -56,7 +57,7 @@ export default async function Page({ params }: Props) {
                 unoptimized
                 src={
                   castDetails.profile_path
-                    ? `https://image.tmdb.org/t/p/h632${castDetails.profile_path}`
+                    ? `${TMDB_IMAGE_DOMAIN}${castDetails.profile_path}`
                     : castDetails.gender === 1
                       ? "/images/placeholder-cast-female.png"
                       : "/images/placeholder-cast-male.png"

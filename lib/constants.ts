@@ -352,6 +352,8 @@ export const sectionTitleVariants = {
   anime: "from-violet-500 via-blue-500 to-cyan-400",
 };
 
+export const TMDB_IMAGE_DOMAIN = "https://image.tmdb.org/t/p/h632";
+
 export const hotCasts = [
   {
     id: 2440951,
@@ -379,20 +381,10 @@ export const hotCasts = [
     profile_path: "/xbyH30PEsDMFf1JP3BNYCegkDLP.jpg",
   },
   {
-    id: 1523579,
-    name: "신혜선",
-    profile_path: "/cuCFjBn3SpWyhIfBy9TupzvTrmp.jpg",
-  },
-  {
     id: 2430198,
 
     name: "Điền Hi Vi",
     profile_path: "/ci7uOTYUSk4Utg9gHvqVnqCPIUn.jpg",
-  },
-  {
-    id: 1329984,
-    name: "임지연",
-    profile_path: "/gAwwi5fBxCKLnrP9bjOQFtMUs6j.jpg",
   },
   {
     id: 3287640,

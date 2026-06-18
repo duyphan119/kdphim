@@ -1,5 +1,10 @@
 [
   {
+    "name": "Tình Yêu Có Pháo Hoa",
+    "slug": "tinh-yeu-co-phao-hoa",
+    "poster_url": "https://phimimg.com/upload/vod/20260615-1/db63587e4b529e6604d423307c8d0258.jpg"
+  },
+  {
     "name": "Tiêu Nhân",
     "slug": "tieu-nhan",
     "poster_url": "https://phimimg.com/upload/vod/20241030-1/c4374b025295bfcdc72fa85a2e86adf3.jpg"
@@ -44,7 +49,6 @@
     "slug": "kieu-so",
     "poster_url": "https://phimimg.com/upload/vod/20260602-1/b87ac3cb735ca1bbeb9ef74670272e0e.jpg"
   },
-
   {
     "name": "Cơn Say Mùa Xuân",
     "slug": "con-say-mua-xuan",
