@@ -1,6 +1,5 @@
 import CarouselAutoplay from "@/components/carousel-autoplay";
 import SectionHeader from "@/components/section-header";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   CarouselContent,
   CarouselItem,
