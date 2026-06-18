@@ -346,7 +346,7 @@ export default function VideoDetails({
             title="Top phim nổi bật"
             icon={Fire}
             iconColor="text-orange-500"
-            gradientClassName="bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
+            gradientClassName="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           />
           <div className="space-y-4 py-4">
             {recommendVideos.slice(0, 24).map((videoItem) => (

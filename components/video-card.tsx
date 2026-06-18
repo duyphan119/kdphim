@@ -58,7 +58,7 @@ export default function VideoCard({
         <Link
           href={`/phim/${videoItem.slug}`}
           title={videoItem.name}
-          className="font-medium line-clamp-2 group-hover:text-yellow group-hover:underline group-hover:underline-offset-2 transition-colors duration-200 mt-1 text-sm"
+          className="font-medium line-clamp-2 group-hover:text-primary group-hover:underline group-hover:underline-offset-2 transition-colors duration-200 mt-1 text-sm"
         >
           {videoItem.name}
         </Link>

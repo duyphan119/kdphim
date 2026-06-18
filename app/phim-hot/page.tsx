@@ -15,7 +15,7 @@ export const generateMetadata = async ({
   const currentPage = Number(awaitedSearchParams.page);
 
   return {
-    title: `KDPhim | Phim đề xuất${currentPage === 1 ? "" : " | Trang " + currentPage}`,
+    title: `KDPhim | Phim hot${currentPage === 1 ? "" : " | Trang " + currentPage}`,
     description: "Danh sách phim KDPhim đề xuất",
   };
 };
