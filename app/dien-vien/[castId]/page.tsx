@@ -37,7 +37,7 @@ export default async function Page({ params }: Props) {
   if (!castDetails) return null;
 
   return (
-    <div className="_container-w-full py-4">
+    <div className="_container py-4">
       <div className="grid grid-cols-4 gap-4">
         <div className="col-span-4">
           <Breadcrumb
@@ -52,7 +52,7 @@ export default async function Page({ params }: Props) {
         </div>
         <div className="col-span-4 md:col-span-1">
           <div className="overflow-hidden rounded-xl border border-border/50 bg-card shadow-sm">
-            <div className="relative aspect-2/3 overflow-hidden">
+            <div className="relative aspect-[2/3] overflow-hidden">
               <Image
                 unoptimized
                 src={
