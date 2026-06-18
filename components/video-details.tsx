@@ -14,6 +14,7 @@ import recommendVideos from "@/lib/recommend-videos.json";
 import VideoCard from "./video-card";
 import { sectionTitleVariants } from "@/lib/constants";
 import SectionHeader from "./section-header";
+import RelatedVideos from "./related-videos";
 
 type Props = {
   video: TVideoDetailsResponse["movie"];
@@ -100,7 +101,7 @@ export default function VideoDetails({
             ]}
           />
         </div>
-        <div className="col-span-4 sm:col-span-3">
+        <div className="col-span-4 sm:col-span-3 space-y-4">
           <div className="flex flex-col gap-4">
             <div
               className={cn(
@@ -269,7 +270,7 @@ export default function VideoDetails({
                   dangerouslySetInnerHTML={{
                     __html: video.content || "Chưa có mô tả cho phim này.",
                   }}
-                  className="mt-4 whitespace-pre-line leading-7 text-muted-foreground text-sm"
+                  className="mt-4 leading-7 text-muted-foreground text-sm text-justify"
                 ></p>
               </div>
             </div>
@@ -338,6 +339,7 @@ export default function VideoDetails({
               </div>
             ) : null}
           </div>
+          <RelatedVideos currentSlug={video.slug} categories={video.category} countries={video.country} year={video.year} typelist={video.type === 'series' ? "phim-bo" : "phim-le"} />
         </div>
         <div className="col-span-4 sm:col-span-1">
           <SectionHeader
@@ -347,13 +349,14 @@ export default function VideoDetails({
             gradientClassName="bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
           />
           <div className="space-y-4 py-4">
-            {recommendVideos.map((videoItem) => (
+            {recommendVideos.slice(0, 24).map((videoItem) => (
               <div key={videoItem.slug} className="">
                 <VideoCard videoItem={videoItem} direction="row" />
               </div>
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-// components/video-card.tsx
-
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,15 +12,16 @@ type VideoCardProps = {
   };
   imageDomain?: string;
   direction?: "row" | "col";
+  className?: string;
 };
 
 export default function VideoCard({
   videoItem,
   imageDomain,
-  direction = "col",
+  direction = "col", className = ''
 }: VideoCardProps) {
   return (
-    <div className={cn("video-card", direction === "row" ? "flex gap-4" : "")}>
+    <div className={cn("video-card group", direction === "row" ? "flex gap-4" : "", className)}>
       <Link
         href={`/phim/${videoItem.slug}`}
         title={videoItem.name}
@@ -59,7 +58,7 @@ export default function VideoCard({
         <Link
           href={`/phim/${videoItem.slug}`}
           title={videoItem.name}
-          className="font-medium line-clamp-2 hover:text-destructive transition-colors duration-200 mt-1 text-sm"
+          className="font-medium line-clamp-2 group-hover:text-yellow group-hover:underline group-hover:underline-offset-2 transition-colors duration-200 mt-1 text-sm"
         >
           {videoItem.name}
         </Link>

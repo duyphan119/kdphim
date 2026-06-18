@@ -19,7 +19,7 @@ export default function SectionHeader({
   href,
 }: SectionHeaderProps) {
   return (
-    <div className="flex items-center justify-between rounded-md bg-muted/60 px-3 py-2 backdrop-blur">
+    <div className="flex items-center justify-between rounded-md bg-muted/60 px-3 py-2">
       <div className="flex items-center gap-2 text-lg font-semibold">
         <HugeiconsIcon
           icon={icon}

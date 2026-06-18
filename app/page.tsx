@@ -167,7 +167,7 @@ export default async function Home() {
               title="Thế giới Anime"
               icon={PlayCircleIcon}
               iconColor="text-violet-500"
-              gradientClassName="bg-gradient-to-r from-violet-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
+              gradientClassName="bg-gradient-to-r from-violet-500 via-blue-500 to-sky-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
               href="/danh-sach/hoat-hinh"
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4">
@@ -185,8 +185,8 @@ export default async function Home() {
             <SectionHeader
               title="Visual nổi bật"
               icon={PlayCircleIcon}
-              iconColor="text-violet-500"
-              gradientClassName="bg-gradient-to-r from-violet-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
+              iconColor="text-lime-500"
+              gradientClassName="bg-gradient-to-r from-lime-500 via-green-500 to-cyan-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4">
               {hotCasts.map((cast) => (
@@ -226,11 +226,16 @@ export default async function Home() {
               gradientClassName="bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400 bg-clip-text text-transparent tracking-wide bg-[length:200%_200%] animate-gradient"
               href="/phim-hot"
             />
-            <div className="space-y-2 lg:space-y-4">
+            <div className="gap-2 lg:gap-4 grid grid-cols-2">
               {recommendVideos.slice(0, 24).map((videoItem) => (
-                <div key={videoItem.slug} className="col-span-1">
+                <div key={videoItem.slug} className="col-span-1 lg:col-span-2">
+                  <VideoCard
+                    videoItem={videoItem}
+                    className="lg:hidden"
+                  />
                   <VideoCard direction="row"
                     videoItem={videoItem}
+                    className="lg:flex hidden"
                   />
                 </div>
               ))}
