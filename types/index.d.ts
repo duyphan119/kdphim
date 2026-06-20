@@ -205,19 +205,12 @@ type TCast = {
 };
 
 type TCastProfile = {
-  adult: boolean;
-  also_known_as: string[];
-  biography: string;
-  birthday: string | null; // có thể null nếu không rõ
-  deathday: string | null; // có thể null nếu người đó còn sống
-  gender: 0 | 1 | 2 | 3; // theo TMDB docs
-  homepage: string | null;
+  biography?: string;
+  birthday?: string | null; // có thể null nếu không rõ
+  gender: number; // theo TMDB docs
   id: number;
-  imdb_id: string | null;
-  known_for_department: string;
   name: string;
-  place_of_birth: string | null;
-  popularity: number;
+  place_of_birth?: string | null;
   profile_path: string | null;
 };
 

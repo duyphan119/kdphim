@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/carousel";
 import Image from "next/image";
 import Link from "next/link";
+import { buttonVariants } from "./ui/button";
 
 type HeroCarouselProps = {
   items: TMovieItem[];
@@ -39,7 +40,7 @@ export default function HeroCarousel({ items }: HeroCarouselProps) {
                   <div className="absolute left-0 bottom-0 max-w-[60%] bg-black/40 p-4 text-white shadow-xl flex flex-col justify-end">
                     <Link
                       href={`/phim/${videoItem.slug}`}
-                      className="text-sm font-semibold line-clamp-2 hover:text-destructive transition-colors duration-200"
+                      className="text-sm font-semibold line-clamp-2 hover:text-primary hover:underline hover:underline-offset-2 transition-colors duration-200"
                     >
                       {videoItem.name}
                     </Link>
@@ -50,7 +51,7 @@ export default function HeroCarousel({ items }: HeroCarouselProps) {
                           <span key={category.id}>
                             <Link
                               href={`/the-loai/${category.slug}`}
-                              className=" hover:text-destructive transition-colors duration-200"
+                              className="hover:text-primary hover:underline hover:underline-offset-2 transition-colors duration-200"
                             >
                               {category.name}
                             </Link>
@@ -66,7 +67,7 @@ export default function HeroCarousel({ items }: HeroCarouselProps) {
                           <span key={country.id}>
                             <Link
                               href={`/quoc-gia/${country.slug}`}
-                              className=" hover:text-destructive transition-colors duration-200"
+                              className="hover:text-primary hover:underline hover:underline-offset-2 transition-colors duration-200"
                             >
                               {country.name}
                             </Link>
@@ -78,7 +79,8 @@ export default function HeroCarousel({ items }: HeroCarouselProps) {
                     <div className="mt-4">
                       <Link
                         href={`/phim/${videoItem.slug}`}
-                        className="rounded-full bg-destructive px-4 md:px-40 lg:px-56 py-2 text-xs font-semibold text-destructive-foreground shadow-lg transition-colors duration-200 hover:bg-destructive/90"
+                        className={buttonVariants({ className: "px-40 lg:px-56" })}
+
                       >
                         Xem ngay
                       </Link>
