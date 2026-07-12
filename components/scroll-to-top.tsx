@@ -32,7 +32,7 @@ export default function ScrollToTop() {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 rounded-full bg-primary text-primary-foreground p-3 shadow-lg hover:bg-primary/80 transition-all duration-200 hover:scale-110 active:scale-95"
+          className="fixed bottom-6 right-6 z-50 rounded-full bg-red-500 text-white p-3 shadow-lg hover:bg-red-500/80 transition-all duration-200 hover:scale-110 active:scale-95"
           title="Cuộn lên đầu trang"
           aria-label="Scroll to top"
         >
