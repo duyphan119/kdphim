@@ -60,7 +60,7 @@ const getCastsByVideoSlug = async (
       if (peoples.length === 0) {
         const countriesInTmdb = await countriesApi.itemsInTmdb();
 
-        console.log({ countriesInTmdb });
+        // console.log({ countriesInTmdb });
 
         const countries = countriesInTmdb
           .filter(
@@ -90,9 +90,8 @@ const getCastsByVideoSlug = async (
 
         const newJsonData = await newResponse.json();
 
-        console.log({ newJsonData });
-
         const { results } = newJsonData;
+        console.log({ results });
 
         const index = results.findIndex(
           (item: any) =>
@@ -102,6 +101,8 @@ const getCastsByVideoSlug = async (
               countries && item.first_air_date.startsWith(options.year + ""),
             ),
         );
+
+        console.log({ index });
 
         if (index !== -1) {
           const newPeoples = await getCastsByTmdb(
