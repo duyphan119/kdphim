@@ -61,6 +61,8 @@ const getCastsByVideoSlug = async (
       if (!tmdb_id) {
         const countriesInTmdb = await countriesApi.itemsInTmdb();
 
+        console.log({ countriesInTmdb });
+
         const countries = countriesInTmdb
           .filter(
             (item) =>
@@ -89,6 +91,8 @@ const getCastsByVideoSlug = async (
 
         const newJsonData = await newResponse.json();
 
+        console.log({ newJsonData });
+
         const { results } = newJsonData;
 
         const index = results.findIndex(
@@ -104,11 +108,13 @@ const getCastsByVideoSlug = async (
           newTmdbId = results[index].id;
         }
       }
+      console.log({ peoples, newTmdbId });
       if (peoples.length === 0 && newTmdbId) {
         const newPeoples = await getCastsByTmdb(
           newTmdbId,
           options.type === "series" ? "tv" : "movie",
         );
+        console.log({ newPeoples });
         return {
           ...json.data,
           peoples: newPeoples,
