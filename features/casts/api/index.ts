@@ -96,10 +96,8 @@ const getCastsByVideoSlug = async (
         const index = results.findIndex(
           (item: any) =>
             item.name === options.keyword &&
-            isEqualArray(
-              item.origin_country,
-              countries && item.first_air_date.startsWith(options.year + ""),
-            ),
+            isEqualArray(item.origin_country, countries) &&
+            item.first_air_date.startsWith(options.year + ""),
         );
 
         console.log({ index });
