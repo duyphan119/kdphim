@@ -259,10 +259,10 @@ export default function MovieDetails({
               <div className="rounded-sm border border-border bg-card p-6 shadow-sm">
                 <h2 className="text-xl font-semibold">Diễn viên</h2>
                 {peoplesData && peoplesData.peoples.length > 0 ? <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-4 mt-4">
-                  {peoplesData.peoples.map((item) => (
-                    <div key={item.tmdb_people_id} className="border border-muted">
+                  {peoplesData.peoples.map((item, index) => (
+                    <div key={index} className="border border-muted">
                       <Link
-                        href={`/dien-vien/${item.tmdb_people_id}`}
+                        href={`/dien-vien/${item.tmdb_people_id || item.id}`}
                         title={item.name}
                         className="relative aspect-[2/3] block"
                       >

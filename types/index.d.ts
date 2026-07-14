@@ -117,6 +117,7 @@ type T_Filter = {
 
 type T_People = {
   tmdb_people_id: number;
+  id: number;
   adult: boolean;
   gender: 1 | 2;
   gender_name: string;
