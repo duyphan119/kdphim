@@ -58,7 +58,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextTopLoader color="#0369a1" />
+          <NextTopLoader color="#ef4444" />
           <Header countries={countries} categories={categories} />
           {children}
           <Footer />

@@ -33,8 +33,8 @@ export default function HeroBanner({ movie, episodes }: HeroBannerProps) {
       <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
 
       <div className="container relative z-10 mx-auto flex h-full items-center px-4">
-        <div className="max-w-2xl">
-          <h1 className="text-4xl md:text-5xl font-black leading-tight text-white lg:text-7xl">
+        <div className="max-w-3xl">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-white">
             {movie.name}
           </h1>
 
@@ -44,7 +44,7 @@ export default function HeroBanner({ movie, episodes }: HeroBannerProps) {
             {movie.category.map(({ name, slug }) => <Link key={name} href={`/the-loai/${slug}`}>{name}</Link>)}
           </div>
 
-          <div dangerouslySetInnerHTML={{ __html: movie.content }} className="mt-5 max-w-xl leading-8 text-zinc-300 line-clamp-3 hidden md:block">
+          <div dangerouslySetInnerHTML={{ __html: movie.content }} className="mt-5 max-w-xl leading-8 text-zinc-300 [&_p]:line-clamp-5 hidden md:block">
           </div>
 
           <div className="mt-8 flex gap-4">
@@ -53,7 +53,7 @@ export default function HeroBanner({ movie, episodes }: HeroBannerProps) {
                 icon={PlayCircleIcon}
                 className="size-4 md:size-5"
               />
-              Watch Now
+              Xem ngay
             </Link>
           </div>
         </div>

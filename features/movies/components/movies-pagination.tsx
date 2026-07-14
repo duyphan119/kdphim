@@ -8,7 +8,7 @@ import queryString from "query-string";
 import { useEffect, useRef } from "react";
 
 type Props = {
-  pagination: TPagination;
+  pagination: T_Pagination;
   searchParams?: Record<string, string>;
 };
 

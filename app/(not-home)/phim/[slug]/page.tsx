@@ -1,8 +1,7 @@
 import { castsApi } from "@/features/casts/api";
 import { moviesApi } from "@/features/movies/api";
-import VideoDetails from "@/features/movies/components/video-details";
+import MovieDetails from "@/features/movies/components/movie-details";
 import { stripHtml } from "@/lib/utils";
-import { getVideo } from "@/lib/video";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -11,16 +10,18 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const awaitedParams = await params;
+  const { slug } = await params;
 
-  const { movie } = await getVideo(awaitedParams.slug);
+  const data = await moviesApi.detailsBySlug(slug);
 
-  if (!movie) {
+  if (!data || !data.movie) {
     return {
       title: "KDPhim | Không tìm thấy phim",
       description: "Phim không tồn tại hoặc đã bị xoá.",
     };
   }
+
+  const { movie } = data;
 
   const title = `KDPhim |  ${movie.name}`;
 
@@ -42,13 +43,18 @@ export default async function Page({ params }: Props) {
   const [related, top, casts] = await Promise.allSettled([
     moviesApi.related({ countrySlug: movie.country[0].slug, categorySlug: movie.category.map(({ slug }) => slug), currentSlug: slug }),
     moviesApi.hot({ limit: 24 }),
-    castsApi.casts(slug)
+    castsApi.casts(slug, {
+      year: data.movie.year,
+      type: data.movie.type,
+      keyword: data.movie.name,
+      countries: data.movie.country
+    })
   ]);
 
   const relatedMovies = related.status === 'fulfilled' ? related.value : [];
   const hotMovies = (top.status === 'fulfilled' ? top.value?.items : null) || []
   const peoplesData = casts.status === 'fulfilled' ? casts.value : null;
 
-  return <VideoDetails movie={movie} episodes={episodes} hotMovies={hotMovies} relatedMovies={relatedMovies} peoplesData={peoplesData} />;
+  return <MovieDetails movie={movie} episodes={episodes} hotMovies={hotMovies} relatedMovies={relatedMovies} peoplesData={peoplesData} />;
 }
 

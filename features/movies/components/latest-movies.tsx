@@ -22,7 +22,7 @@ export default function LatestMovies({ movies }: LatestMoviesProps) {
           </Link>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {movies.map((movie) => (
             <LatestMovieItem
               key={movie._id}

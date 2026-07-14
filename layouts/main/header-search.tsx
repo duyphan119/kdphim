@@ -2,7 +2,6 @@
 
 import { moviesApi } from "@/features/movies/api";
 import { APP_DOMAIN_CDN_IMAGE } from "@/lib/constants";
-import { searchVideos } from "@/lib/video";
 import { ArrowRight, Search } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useDebounce } from "@uidotdev/usehooks";

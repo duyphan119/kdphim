@@ -70,7 +70,7 @@ type T_Movie = {
   created: T_Created;
   modified: T_Modified;
   content: string;
-  type: string;
+  type: "series" | "single";
   status: string;
   thumb_url: string;
   poster_url: string;
@@ -128,199 +128,19 @@ type T_People = {
   also_known_as: string[] | null;
 };
 
-type TApiResponse = {
-  status: boolean;
-  msg: string;
-  data: TData;
-};
-
-type TData = {
-  seoOnPage: TSeoOnPage;
-  breadCrumb: TBreadcrumbItem[];
-  titlePage: string;
-  items: TMovieItem[];
-  params: TParams;
-  type_list: string;
-  APP_DOMAIN_FRONTEND: string;
-  APP_DOMAIN_CDN_IMAGE: string;
-};
-
-type TVideoDetailsResponse = {
-  status: boolean;
-  msg: string;
-  movie: {
-    tmdb: {
-      type: string | null;
-      id: string | number | null;
-      season: number | null;
-      vote_average: number;
-      vote_count: number;
-    };
-    imdb: {
-      id: string | null;
-    };
-    created: {
-      time: string;
-    };
-    modified: {
-      time: string;
-    };
-    _id: string;
-    name: string;
-    slug: string;
-    origin_name: string;
-    content: string;
-    type: "series" | "single";
-    status: "ongoing" | "completed";
-    poster_url: string;
-    thumb_url: string;
-    is_copyright: boolean;
-    sub_docquyen: boolean;
-    chieurap: boolean;
-    trailer_url: string;
-    time: string;
-    episode_current: string;
-    episode_total: string;
-    quality: string;
-    lang: string;
-    notify: string;
-    showtimes: string;
-    year: number;
-    view: number;
-    actor: string[];
-    director: string[];
-    category: TCategory[];
-    country: TCountry[];
-  };
-  episodes: TEpisode[];
-};
-
-type TEpisode = {
-  server_name: string;
-  server_data: TServerData[];
-};
-
-type TServerData = {
+type T_WatchedMovie = {
   name: string;
   slug: string;
-  filename: string;
-  link_embed: string;
-  link_m3u8: string;
-};
-
-type TTypeList =
-  | "phim-bo"
-  | "phim-le"
-  | "tv-shows"
-  | "hoat-hinh"
-  | "phim-vietsub"
-  | "phim-thuyet-minh"
-  | "phim-long-tieng";
-
-type TVideosParams = {
-  type_list?: TTypeList;
-  page?: string;
-  sort_field?: string;
-  sort_type?: "desc" | "asc";
-  sort_lang?: "vietsub" | "thuyetminh" | "longtieng";
-  category?: string;
-  country?: string;
-  year?: string;
-  limit?: string;
-};
-
-type TSeoOnPage = {
-  og_type: string;
-  titleHead: string;
-  descriptionHead: string;
-  og_image: string[];
-  og_url: string;
-};
-
-type TBreadcrumbItem = {
-  name: string;
-  slug?: string;
-  isCurrent: boolean;
-  position: number;
-};
-
-type TMovieItem = {
-  tmdb: TTmdb;
-  imdb: TImdb;
-  created: TTimeObject;
-  modified: TTimeObject;
-  _id: string;
-  name: string;
-  slug: string;
-  origin_name: string;
-  type: "series" | "single";
   poster_url: string;
   thumb_url: string;
-  sub_docquyen: boolean;
-  chieurap: boolean;
-  time: string;
-  episode_current: string;
-  quality: string;
-  lang: string;
-  year: number;
-  category: TCategory[];
-  country: TCountry[];
+
+  server_index: number;
+
+  episode_slug: string;
+  episode_name: string;
 };
 
-type TTmdb = {
-  type: string | null;
-  id: string | number | null;
-  season: number | null;
-  vote_average: number;
-  vote_count: number;
-};
-
-type TImdb = {
-  id: string | null;
-};
-
-type TTimeObject = {
-  time: string;
-};
-
-type TCategory = {
-  id: string;
-  name: string;
-  slug: string;
-};
-
-type TCountry = {
-  id: string;
-  name: string;
-  slug: string;
-};
-
-type TParams = {
-  type_slug: string;
-  slug: string;
-  filterCategory: string[];
-  filterCountry: string[];
-  filterYear: string[];
-  filterType: string[];
-  sortField: string;
-  sortType: "asc" | "desc";
-  pagination: TPagination;
-};
-
-type TPagination = {
-  totalItems: number;
-  totalItemsPerPage: number;
-  currentPage: number;
-  totalPages: number;
-};
-
-type TRecommendedVideo = {
-  name: string;
-  slug: string;
-  poster_url: string;
-};
-
-type TCast = {
+type T_Cast = {
   adult: boolean;
   gender: number; // 1 = Nữ, 2 = Nam, 0 = Không xác định
   id: number;
@@ -334,7 +154,7 @@ type TCast = {
   order: number;
 };
 
-type TCastProfile = {
+type T_CastProfile = {
   biography?: string;
   birthday?: string | null; // có thể null nếu không rõ
   gender: number; // theo TMDB docs
@@ -344,7 +164,7 @@ type TCastProfile = {
   profile_path: string | null;
 };
 
-type TTvCredit = {
+type T_TvCredit = {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
@@ -366,7 +186,7 @@ type TTvCredit = {
   episode_count: number;
 };
 
-type TMovieCredit = {
+type T_MovieCredit = {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
@@ -386,16 +206,4 @@ type TMovieCredit = {
   character: string;
   credit_id: string;
   order: number;
-};
-
-type TWatchedVideo = {
-  name: string;
-  slug: string;
-  poster_url: string;
-
-  server_index: number;
-  server_name: number;
-
-  episode_name: string;
-  episode_slug: string;
 };

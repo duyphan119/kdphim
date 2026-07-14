@@ -1,6 +1,6 @@
 "use client";
 
-import { getCasts } from "@/lib/cast";
+// import { getCastsByVideoSlug } from "@/lib/cast";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -12,15 +12,15 @@ type Props = {
 };
 
 export default function VideoCasts({ tmdbId, tmdbType, castNames }: Props) {
-  const [casts, setCasts] = useState<TCast[]>([]);
-  useEffect(() => {
-    (async () => {
-      if (tmdbType && tmdbId) {
-        const data = await getCasts(tmdbType, tmdbId);
-        setCasts(data);
-      }
-    })();
-  }, [tmdbType, tmdbId]);
+  const [casts, setCasts] = useState<any[]>([]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (tmdbType && tmdbId) {
+  //       const data = await getCastsByVideoSlug(tmdbType, tmdbId);
+  //       setCasts(data);
+  //     }
+  //   })();
+  // }, [tmdbType, tmdbId]);
 
   if (!tmdbId || !tmdbType)
     return (

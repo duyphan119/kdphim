@@ -17,7 +17,7 @@ export default function LatestMovieItem({
       title={movie.name}
       className="group flex gap-4 rounded-xl border border-zinc-800 bg-zinc-950 p-4 transition hover:border-red-600"
     >
-      <div className="relative h-36 w-24 shrink-0 overflow-hidden rounded-lg">
+      <div className="relative w-1/4 aspect-[2/3] shrink-0 overflow-hidden rounded-lg">
         <Image
           src={movie.poster_url.startsWith("https") ? movie.poster_url : `${APP_DOMAIN_CDN_IMAGE}/${movie.poster_url}`}
           alt={movie.name}
@@ -29,7 +29,7 @@ export default function LatestMovieItem({
 
       <div className="flex flex-1 flex-col justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-white transition group-hover:text-red-500">
+          <h3 className="font-semibold text-white transition group-hover:text-red-500">
             {movie.name}
           </h3>
 
@@ -55,9 +55,6 @@ export default function LatestMovieItem({
             {movie.year}
           </Badge>
 
-          {movie.imdb.vote_average ? <Badge className="bg-yellow-500 text-black hover:bg-yellow-500">
-            ⭐ {movie.imdb.vote_average}
-          </Badge> : null}
 
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { API_DOMAIN } from "@/lib/constants";
+import { API_DOMAIN, TMDB_API_DOMAIN, TMDB_API_KEY } from "@/lib/constants";
 import qs from "query-string";
 
 export const countriesApi = {
@@ -44,6 +44,28 @@ export const countriesApi = {
       }
     } catch (error) {
       console.log("countriesApi,items,error", error);
+    }
+
+    return [];
+  },
+  itemsInTmdb: async (): Promise<
+    { iso_3166_1: string; english_name: string; native_name: string }[]
+  > => {
+    try {
+      const response = await fetch(
+        `${TMDB_API_DOMAIN}/configuration/countries?language=vi-VN`,
+        {
+          headers: {
+            Authorization: `Bearer ${TMDB_API_KEY}`,
+            accept: "application/json",
+          },
+        },
+      );
+
+      const json = await response.json();
+      return json;
+    } catch (error) {
+      console.log("countriesApi,itemsInTmdb,error", error);
     }
 
     return [];

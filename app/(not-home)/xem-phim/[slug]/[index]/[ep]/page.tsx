@@ -5,11 +5,10 @@ import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
 import { getServerName, stripHtml } from "@/lib/utils";
-import { getVideo } from "@/lib/video";
 import { moviesApi } from "@/features/movies/api";
 import { notFound } from "next/navigation";
 import { castsApi } from "@/features/casts/api";
-import VideoDetails from "@/features/movies/components/video-details";
+import MovieDetails from "@/features/movies/components/movie-details";
 
 type Params = {
   slug: string;
@@ -27,10 +26,19 @@ const createEpisodeLink = (
   episodeSlug?: string,
 ) => `/xem-phim/${movieSlug}/${serverIndex}/${episodeSlug}`;
 
-async function getPageData(params: Promise<Params>) {
-  const { slug, ep: episodeSlug, index } = await params;
 
-  const { movie, episodes } = await getVideo(slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug, ep: episodeSlug, index } = await params;
+  const data = await moviesApi.detailsBySlug(slug);
+
+  if (!data || !data.movie) {
+    return {
+      title: "KDPhim | Không tìm thấy phim",
+      description: "Phim không tồn tại hoặc đã bị xoá.",
+    };
+  }
+
+  const { movie, episodes } = data;
 
   const serverIndex = Number(index);
 
@@ -40,28 +48,6 @@ async function getPageData(params: Promise<Params>) {
     (ep) => ep.slug === episodeSlug,
   );
 
-  return {
-    slug,
-    index,
-    episodeSlug,
-    movie,
-    episodes,
-    serverIndex,
-    currentServer,
-    currentEpisode,
-  };
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { movie, episodes, currentEpisode, serverIndex, index, episodeSlug } =
-    await getPageData(params);
-
-  if (!movie) {
-    return {
-      title: "KDPhim | Không tìm thấy phim",
-      description: "Phim không tồn tại hoặc đã bị xoá.",
-    };
-  }
 
   const episodeName =
     currentEpisode?.name || currentEpisode?.filename || "Xem phim";
@@ -101,7 +87,12 @@ export default async function Page({ params }: Props) {
   const [related, top, casts] = await Promise.allSettled([
     moviesApi.related({ countrySlug: movie.country[0].slug, categorySlug: movie.category.map(({ slug }) => slug), currentSlug: slug }),
     moviesApi.hot({ limit: 24 }),
-    castsApi.casts(slug)
+    castsApi.casts(slug, {
+      year: data.movie.year,
+      type: data.movie.type,
+      keyword: data.movie.name,
+      countries: data.movie.country
+    })
   ]);
 
   const relatedMovies = related.status === 'fulfilled' ? related.value : [];
@@ -147,7 +138,7 @@ export default async function Page({ params }: Props) {
   const serverName = getServerName(episodes?.[serverIndex]?.server_name);
 
   return (
-    <VideoDetails
+    <MovieDetails
       movie={movie} hotMovies={hotMovies} relatedMovies={relatedMovies} peoplesData={peoplesData}
       hideButtons
       episodes={episodes}
@@ -194,6 +185,6 @@ export default async function Page({ params }: Props) {
           )}
         </div>
       )}
-    </VideoDetails>
+    </MovieDetails>
   );
 }

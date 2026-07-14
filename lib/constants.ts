@@ -2,6 +2,7 @@ export const APP_DOMAIN_CDN_IMAGE = process.env.APP_DOMAIN_CDN_IMAGE;
 export const API_DOMAIN = process.env.API_DOMAIN;
 export const APP_DOMAIN = process.env.APP_DOMAIN;
 export const TMDB_API_KEY = process.env.TMDB_API_KEY;
+export const TMDB_API_DOMAIN = process.env.TMDB_API_DOMAIN;
 
 export const sectionTitleVariants = {
   hot: "from-orange-400 via-red-500 to-yellow-400",

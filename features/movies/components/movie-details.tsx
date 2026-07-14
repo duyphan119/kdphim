@@ -6,17 +6,18 @@ import { buttonVariants } from "@/components/ui/button";
 import { CastsResponse } from "@/features/casts/api";
 import { APP_DOMAIN_CDN_IMAGE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { Download, Play } from "@hugeicons/core-free-icons";
+import { Play } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import MovieCard from "./movie-card";
 import RelatedMovies from "./related-movies";
+import { watchedMoviesApi } from "@/features/watched-movies/api";
 
 type Props = {
   movie: T_Movie;
-  episodes: TVideoDetailsResponse["episodes"];
+  episodes: T_Episode[];
   hideButtons?: boolean;
   children?: React.ReactNode;
   currentEpisodeSlug?: string;
@@ -24,10 +25,10 @@ type Props = {
   currentBreadcrumb?: string;
   relatedMovies: T_Movie[];
   hotMovies: T_Movie[];
-  peoplesData: CastsResponse
+  peoplesData: CastsResponse | null;
 };
 
-export default function VideoDetails({
+export default function MovieDetails({
   movie,
   hideButtons,
   children,
@@ -53,6 +54,28 @@ export default function VideoDetails({
       }
     }
   }
+
+  useEffect(() => {
+    if (episodes.length === 0 || !(typeof serverIndex === 'number' && !isNaN(serverIndex)) || !currentEpisodeSlug) {
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      watchedMoviesApi.create({
+        name: movie.name,
+        slug: movie.slug,
+        poster_url: movie.poster_url,
+        thumb_url: movie.thumb_url,
+        server_index: serverIndex,
+        episode_slug: currentEpisodeSlug,
+        episode_name: episodes[serverIndex].server_data.find((item) => item.slug === currentEpisodeSlug)?.name || ''
+      })
+    }, 4567)
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [movie, episodes, serverIndex, currentEpisodeSlug])
+
 
   return (
     <div className="container mx-auto p-4 flex flex-col gap-4">

@@ -1,4 +1,7 @@
-import { API_DOMAIN } from "@/lib/constants";
+import { countriesApi } from "@/features/countries/api";
+import { API_DOMAIN, TMDB_API_DOMAIN } from "@/lib/constants";
+import { isEqualArray } from "@/lib/utils";
+import qs from "query-string";
 
 export type CastsResponse = {
   profile_sizes: {
@@ -8,22 +11,106 @@ export type CastsResponse = {
     w45: string;
   };
   peoples: T_People[];
-} | null;
+  tmdb_id: number | null;
+  tmdb_type: string | null;
+  slug: string;
+};
 
-const getCasts = async (slug: string): Promise<CastsResponse> => {
+const getCastsByTmdb = async (
+  tmdbId: number,
+  tmdbType: "tv" | "movie",
+): Promise<T_People[]> => {
+  try {
+    const response = await fetch(
+      `${TMDB_API_DOMAIN}/${tmdbType}/${tmdbId}/credits?language=vi-VN`,
+    );
+
+    const json = await response.json();
+
+    return json.cast || [];
+  } catch (error) {
+    console.log("castsApi,getCastByTmdb,error", error);
+  }
+
+  return [];
+};
+
+const getCastsByVideoSlug = async (
+  slug: string,
+  options: {
+    type: "series" | "single";
+    year: number;
+    keyword: string;
+    countries: T_Country[];
+  },
+): Promise<CastsResponse | null> => {
   try {
     const response = await fetch(`${API_DOMAIN}/v1/api/phim/${slug}/peoples`);
 
     const json = await response.json();
 
-    if (json.data) return json.data;
+    if (json.data) {
+      const { peoples, tmdb_id } = json.data as CastsResponse;
+      let newTmdbId = tmdb_id;
+      if (!tmdb_id) {
+        const countriesInTmdb = await countriesApi.itemsInTmdb();
+
+        const countries = countriesInTmdb
+          .filter(
+            (item) =>
+              options.countries.findIndex(
+                ({ name }) => item.native_name === name,
+              ) !== -1,
+          )
+          .map((item) => item.iso_3166_1);
+
+        const newResponse = await fetch(
+          `${TMDB_API_DOMAIN}/search/${options.type === "series" ? "tv" : "movie"}?${qs.stringify(
+            {
+              query: options.keyword,
+              language: "vi-VN",
+              fir_air_date_year: options.year,
+              include_adult: true,
+            },
+          )}`,
+        );
+
+        const newJsonData = await newResponse.json();
+
+        const { results } = newJsonData;
+
+        const index = results.findIndex(
+          (item: any) =>
+            item.name === options.keyword &&
+            isEqualArray(
+              item.origin_country,
+              countries && item.first_air_date.startsWith(options.year + ""),
+            ),
+        );
+
+        if (index !== -1) {
+          newTmdbId = results[index].id;
+        }
+      }
+      if (peoples.length === 0 && newTmdbId) {
+        const newPeoples = await getCastsByTmdb(
+          newTmdbId,
+          options.type === "series" ? "tv" : "movie",
+        );
+        return {
+          ...json.data,
+          peoples: newPeoples,
+        };
+      }
+      return json.data;
+    }
   } catch (error) {
-    console.log("castsApi,getCasts,error", error);
+    console.log("castsApi,getCastsByVideoSlug,error", error);
   }
 
   return null;
 };
 
 export const castsApi = {
-  casts: getCasts,
+  casts: getCastsByVideoSlug,
 };

@@ -10,7 +10,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
 
-type CastProfileProps = TCastProfile & {
+type CastProfileProps = any & {
   className?: string;
 };
 

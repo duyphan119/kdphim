@@ -22,7 +22,7 @@ export default function HotMovies({ movies }: HotMoviesProps) {
           </Link>
         </div>
 
-        <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-8">
           {movies.map((movie) => (
             <MovieCard key={movie._id}
               movie={movie}

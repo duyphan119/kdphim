@@ -8,26 +8,28 @@ import { cn } from "@/lib/utils";
 import { APP_DOMAIN_CDN_IMAGE } from "@/lib/constants";
 
 type MovieCardProps = {
-  movie: T_Movie;
-  direction?: "col" | "row";
+  movie: T_WatchedMovie;
+  imageType?: "thumb" | "poster";
   className?: string;
 }
 
-export default function MovieCard({
+export default function WatchedMovieCard({
   movie,
-  direction = 'col',
+  imageType = 'poster',
   className
 }: MovieCardProps) {
   if (!movie) return null;
+
+  const imageSrc = imageType === 'poster' ? movie.poster_url : movie.thumb_url
   return (
     <Link
       href={`/phim/${movie.slug}`}
       title={movie.name}
-      className={cn("group overflow-hidden rounded-md", direction === "col" ? "block space-y-3" : "flex gap-3", className)}
+      className={cn("group overflow-hidden rounded-md block space-y-3", className)}
     >
-      <div className={cn("relative aspect-[2/3] overflow-hidden rounded-md", direction === 'col' ? 'w-full' : 'w-1/2 flex-shrink-0')}>
+      <div className={cn("relative overflow-hidden rounded-md", imageType === 'poster' ? 'aspect-[2/3]' : 'aspect-video')}>
         <Image
-          src={movie.poster_url.startsWith("https") ? movie.poster_url : `${APP_DOMAIN_CDN_IMAGE}/${movie.poster_url}`}
+          src={imageSrc.startsWith("https") ? imageSrc : `${APP_DOMAIN_CDN_IMAGE}/${imageSrc}`}
           alt={movie.name}
           fill
           sizes="(max-width: 640px) 50vw,
@@ -50,10 +52,7 @@ export default function MovieCard({
         </div>
 
         <div className="absolute top-0 left-0">
-          <p className="px-2 py-1 text-xs bg-red-500/90 rounded-ee-md">{movie.episode_current}</p>
-        </div>
-        <div className="absolute bottom-0 left-0">
-          <p className="px-2 py-1 text-xs bg-blue-500/90 rounded-se-md">{movie.lang.toLowerCase().replace("thuyết minh", "TM").replace("lồng tiếng", "LT").replace("v", "V")}</p>
+          <p className="px-2 py-1 text-xs bg-red-500/90 rounded-ee-md">{movie.episode_name}</p>
         </div>
       </div>
 

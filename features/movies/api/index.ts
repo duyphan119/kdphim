@@ -321,15 +321,10 @@ export const moviesApi = {
 
     let excludeSlugs = [banners[day], ...hot];
 
-    const latestMovies = (((data[8] as any)?.items || []) as T_Movie[])
-      .filter(
-        ({ slug, country }) =>
-          excludeSlugs.findIndex((item) => item === slug) === -1 &&
-          country.findIndex(({ slug }) =>
-            ["trung-quoc", "han-quoc", "nhat-ban"].includes(slug),
-          ) !== -1,
-      )
-      .slice(0, 24);
+    const latestMovies = (((data[8] as any)?.items || []) as T_Movie[]).slice(
+      0,
+      24,
+    );
 
     excludeSlugs = excludeSlugs.concat(latestMovies.map(({ slug }) => slug));
 
