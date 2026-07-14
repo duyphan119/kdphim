@@ -1,5 +1,5 @@
 import { countriesApi } from "@/features/countries/api";
-import { API_DOMAIN, TMDB_API_DOMAIN } from "@/lib/constants";
+import { API_DOMAIN, TMDB_API_DOMAIN, TMDB_API_KEY } from "@/lib/constants";
 import { isEqualArray } from "@/lib/utils";
 import qs from "query-string";
 
@@ -23,6 +23,12 @@ const getCastsByTmdb = async (
   try {
     const response = await fetch(
       `${TMDB_API_DOMAIN}/${tmdbType}/${tmdbId}/credits?language=vi-VN`,
+      {
+        headers: {
+          Authorization: `Bearer ${TMDB_API_KEY}`,
+          accept: "application/json",
+        },
+      },
     );
 
     const json = await response.json();
@@ -73,6 +79,12 @@ const getCastsByVideoSlug = async (
               include_adult: true,
             },
           )}`,
+          {
+            headers: {
+              Authorization: `Bearer ${TMDB_API_KEY}`,
+              accept: "application/json",
+            },
+          },
         );
 
         const newJsonData = await newResponse.json();
