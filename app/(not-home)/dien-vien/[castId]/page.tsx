@@ -69,7 +69,7 @@ export default async function Page({ params }: Props) {
       <section className="grid gap-8 grid-cols-12 lg:grid-cols-10">
         <div className="col-span-12 md:col-span-3 lg:col-span-2 relative mx-auto aspect-[2/3] w-full overflow-hidden rounded-2xl">
           <Image
-            src={`${TMDB_IMAGE_DOMAIN}/t/p/w300/jHSQ3ZOfFhszPuz1kG0zkpHwe8N.jpg`}
+            src={`${TMDB_IMAGE_DOMAIN}/t/p/w300${profile.profile_path}`}
             alt={profile.name}
             fill
             sizes="(max-width: 640px) 50vw,
