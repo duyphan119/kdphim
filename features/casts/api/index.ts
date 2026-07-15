@@ -124,6 +124,27 @@ const getCastsByVideoSlug = async (
   return null;
 };
 
+const getProfile = async (id: string): Promise<T_CastProfile | null> => {
+  try {
+    const response = await fetch(
+      `${TMDB_API_DOMAIN}/person/${id}?language=vi-VN`,
+      {
+        headers: {
+          Authorization: `Bearer ${TMDB_API_KEY}`,
+          accept: "application/json",
+        },
+      },
+    );
+
+    const json = await response.json();
+
+    return json;
+  } catch (error) {
+    console.log("castsApi,getProfile,error", error);
+  }
+  return null;
+};
+
 const getCastDetails = async (id: string) => {
   try {
     const [
@@ -144,12 +165,7 @@ const getCastDetails = async (id: string) => {
           accept: "application/json",
         },
       }),
-      fetch(`${TMDB_API_DOMAIN}/person/${id}?language=vi-VN`, {
-        headers: {
-          Authorization: `Bearer ${TMDB_API_KEY}`,
-          accept: "application/json",
-        },
-      }),
+      getProfile(id),
       countriesApi.itemsInTmdb(),
     ]);
 
@@ -160,9 +176,7 @@ const getCastDetails = async (id: string) => {
     let seriesList: T_Movie[] = [];
     let singleList: T_Movie[] = [];
     let profile: T_CastProfile | null =
-      profileResponse.status === "fulfilled"
-        ? await profileResponse.value.json()
-        : null;
+      profileResponse.status === "fulfilled" ? profileResponse.value : null;
 
     if (seriesResponse.status === "fulfilled") {
       const value: any = await seriesResponse.value.json();
@@ -262,4 +276,5 @@ const getCastDetails = async (id: string) => {
 export const castsApi = {
   casts: getCastsByVideoSlug,
   details: getCastDetails,
+  profile: getProfile,
 };

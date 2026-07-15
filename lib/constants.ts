@@ -3,6 +3,7 @@ export const API_DOMAIN = process.env.API_DOMAIN;
 export const APP_DOMAIN = process.env.APP_DOMAIN;
 export const TMDB_API_KEY = process.env.TMDB_API_KEY;
 export const TMDB_API_DOMAIN = process.env.TMDB_API_DOMAIN;
+export const TMDB_IMAGE_DOMAIN = process.env.TMDB_IMAGE_DOMAIN;
 
 export const sectionTitleVariants = {
   hot: "from-orange-400 via-red-500 to-yellow-400",
@@ -15,8 +16,6 @@ export const sectionTitleVariants = {
 
   anime: "from-violet-500 via-blue-500 to-cyan-400",
 };
-
-export const TMDB_IMAGE_DOMAIN = "https://image.tmdb.org/t/p/h632";
 
 export const hotCasts = [
   {

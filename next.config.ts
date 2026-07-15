@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
     APP_DOMAIN: process.env.APP_DOMAIN,
     TMDB_API_KEY: process.env.TMDB_API_KEY,
     TMDB_API_DOMAIN: process.env.TMDB_API_DOMAIN,
+    TMDB_IMAGE_DOMAIN: process.env.TMDB_IMAGE_DOMAIN,
   },
   experimental: {
     scrollRestoration: true,
