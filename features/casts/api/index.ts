@@ -1,4 +1,5 @@
 import { countriesApi } from "@/features/countries/api";
+import { moviesApi } from "@/features/movies/api";
 import { API_DOMAIN, TMDB_API_DOMAIN, TMDB_API_KEY } from "@/lib/constants";
 import { isEqualArray } from "@/lib/utils";
 import qs from "query-string";
@@ -123,6 +124,142 @@ const getCastsByVideoSlug = async (
   return null;
 };
 
+const getCastDetails = async (id: string) => {
+  try {
+    const [
+      seriesResponse,
+      singleResponse,
+      profileResponse,
+      countriesInTmdbResponse,
+    ] = await Promise.allSettled([
+      fetch(`${TMDB_API_DOMAIN}/person/${id}/tv_credits?language=vi-VN`, {
+        headers: {
+          Authorization: `Bearer ${TMDB_API_KEY}`,
+          accept: "application/json",
+        },
+      }),
+      fetch(`${TMDB_API_DOMAIN}/person/${id}/movie_credits?language=vi-VN`, {
+        headers: {
+          Authorization: `Bearer ${TMDB_API_KEY}`,
+          accept: "application/json",
+        },
+      }),
+      fetch(`${TMDB_API_DOMAIN}/person/${id}?language=vi-VN`, {
+        headers: {
+          Authorization: `Bearer ${TMDB_API_KEY}`,
+          accept: "application/json",
+        },
+      }),
+      countriesApi.itemsInTmdb(),
+    ]);
+
+    let countriesInTmdb =
+      countriesInTmdbResponse.status === "fulfilled"
+        ? countriesInTmdbResponse.value
+        : [];
+    let seriesList: T_Movie[] = [];
+    let singleList: T_Movie[] = [];
+    let profile: T_CastProfile | null =
+      profileResponse.status === "fulfilled"
+        ? await profileResponse.value.json()
+        : null;
+
+    if (seriesResponse.status === "fulfilled") {
+      const value: any = await seriesResponse.value.json();
+      const list: T_TvCredit[] = value.cast;
+
+      for (let i = 0; i < list.length; i++) {
+        const tmdbItem = list[i];
+
+        // gọi thử api qua tmdb xem có phim không
+        const data = await moviesApi.detailsByTmdb(tmdbItem.id, "tv");
+
+        console.log("item tmdb tv", data?.movie.name);
+        if (data && data.movie) {
+          seriesList.push(data.movie);
+          continue;
+        }
+
+        const searchData = await moviesApi.search(tmdbItem.name);
+
+        console.log("search tv", searchData);
+
+        if (searchData && searchData.items.length > 0) {
+          const resultFind = searchData.items.find(
+            (searchItem) =>
+              searchItem.name === tmdbItem.name &&
+              isEqualArray(
+                countriesInTmdb
+                  .filter(
+                    (item) =>
+                      searchItem.country.findIndex(
+                        ({ name }) => item.native_name === name,
+                      ) !== -1,
+                  )
+                  .map((item) => item.iso_3166_1),
+                tmdbItem.origin_country,
+              ) &&
+              tmdbItem.first_air_date?.startsWith(searchItem.year + "") &&
+              searchItem.type === "series",
+          );
+
+          if (resultFind) {
+            seriesList.push(resultFind);
+            continue;
+          }
+        }
+      }
+
+      if (singleResponse.status === "fulfilled") {
+        const value: any = await singleResponse.value.json();
+        const list: T_MovieCredit[] = value.cast;
+
+        for (let i = 0; i < list.length; i++) {
+          const tmdbItem = list[i];
+
+          // gọi thử api qua tmdb xem có phim không
+          const data = await moviesApi.detailsByTmdb(tmdbItem.id, "tv");
+
+          console.log("item tmdb tv", data?.movie.name);
+          if (data && data.movie) {
+            seriesList.push(data.movie);
+            continue;
+          }
+
+          const searchData = await moviesApi.search(tmdbItem.title);
+
+          console.log("search tv", searchData);
+
+          if (searchData && searchData.items.length > 0) {
+            const resultFind = searchData.items.find(
+              (searchItem) =>
+                searchItem.name === tmdbItem.title &&
+                tmdbItem.release_date?.startsWith(searchItem.year + "") &&
+                searchItem.type === "single",
+            );
+
+            if (resultFind) {
+              seriesList.push(resultFind);
+              continue;
+            }
+          }
+        }
+      }
+    }
+
+    return {
+      seriesList,
+      singleList,
+      profile,
+    };
+  } catch (error) {
+    console.log("castsApi,getCastDetails,error", error);
+  }
+
+  return null;
+};
+
 export const castsApi = {
   casts: getCastsByVideoSlug,
+  details: getCastDetails,
 };

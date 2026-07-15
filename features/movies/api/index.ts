@@ -172,6 +172,32 @@ const getDetailsBySlug = async (
   return null;
 };
 
+const getDetailsByTmdb = async (
+  id: number,
+  type: "movie" | "tv",
+): Promise<{ movie: T_Movie; episodes: T_Episode[] } | null> => {
+  try {
+    const response = await fetch(`${API_DOMAIN}/tmdb/${type}/${id}`, {
+      next: {
+        revalidate: 30,
+      },
+    });
+
+    const json = await response.json();
+
+    if (json.movie) {
+      return {
+        movie: json.movie,
+        episodes: json.episodes || [],
+      };
+    }
+  } catch (error) {
+    console.log("moviesApi,getDetailsBySlug,error", error);
+  }
+
+  return null;
+};
+
 const getLatest = async (filter?: {
   page?: number;
 }): Promise<{
@@ -294,6 +320,7 @@ const getRelated = async ({
 };
 export const moviesApi = {
   detailsBySlug: getDetailsBySlug,
+  detailsByTmdb: getDetailsByTmdb,
   latest: getLatest,
   hot: getHotMovies,
   related: getRelated,

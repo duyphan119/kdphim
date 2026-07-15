@@ -3,6 +3,9 @@
 // import CastVideos from "@/components/cast-videos";
 // import { Metadata } from "next";
 
+import Breadcrumb from "@/components/breadcrumb";
+import { castsApi } from "@/features/casts/api";
+
 // type Props = {
 //   params: Promise<{ castId: string }>;
 // };
@@ -50,10 +53,29 @@
 //   );
 // }
 
-type Props = {}
+type Props = {
+  params: Promise<{ castId: string }>
+}
 
-export default function Page({ }: Props) {
+export default async function Page({ params }: Props) {
+  const { castId } = await params;
+
+  const data = await castsApi.details(castId);
   return (
-    <div>Page</div>
+    <div className="container mx-auto p-4 space-y-4">
+      <Breadcrumb
+        items={[
+          // {
+          //   isCurrent: true,
+          //   name: castDetails.name,
+          //   position: 1,
+          // },
+        ]}
+      />
+
+      <div className="">
+        {JSON.stringify(data)}
+      </div>
+    </div>
   )
 }
