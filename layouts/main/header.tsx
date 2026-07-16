@@ -10,6 +10,8 @@ import CategoriesMenu from "./categories-menu";
 import CountriesMenu from "./countries-menu";
 import NavigationMenu from "./navigation-menu";
 import YearsMenu from "./years-menu";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 type HeaderProps = {
   categories: T_Category[];
@@ -18,6 +20,9 @@ type HeaderProps = {
 
 export default function Header({ categories, countries }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+
+  const isHome = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,13 +38,11 @@ export default function Header({ categories, countries }: HeaderProps) {
     };
   }, []);
 
-
+  const bgClassName = 'border-b border-zinc-800 bg-black shadow-lg'
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${isScrolled
-        ? "border-b border-zinc-800 bg-black/90 shadow-lg"
-        : "lg:bg-transparent"
-        }`}
+      className={cn('fixed inset-x-0 top-0 z-50 transition-all duration-300', isHome ? (isScrolled ? bgClassName : "lg:bg-transparent") : bgClassName
+      )}
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
         {/* Left */}

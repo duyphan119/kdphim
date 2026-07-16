@@ -140,7 +140,6 @@ export default async function Page({ params }: Props) {
   return (
     <MovieDetails
       movie={movie} hotMovies={hotMovies} relatedMovies={relatedMovies} peoplesData={peoplesData}
-      hideButtons
       episodes={episodes}
       currentEpisodeSlug={currentEpisode.slug}
       serverIndex={serverIndex}
@@ -161,12 +160,9 @@ export default async function Page({ params }: Props) {
           {prevLink && (
             <Link
               href={prevLink}
-              className={buttonVariants({
-                variant: "sky",
-                className: "rounded-sm",
-              })}
+              className={buttonVariants({})}
             >
-              <HugeiconsIcon icon={ArrowLeft02Icon} size={14} />
+              <HugeiconsIcon icon={ArrowLeft02Icon} />
               Tập trước
             </Link>
           )}
@@ -174,13 +170,10 @@ export default async function Page({ params }: Props) {
           {nextLink && (
             <Link
               href={nextLink}
-              className={buttonVariants({
-                variant: "sky",
-                className: "rounded-sm",
-              })}
+              className={buttonVariants({})}
             >
               Tập sau
-              <HugeiconsIcon icon={ArrowRight02Icon} size={14} />
+              <HugeiconsIcon icon={ArrowRight02Icon} />
             </Link>
           )}
         </div>

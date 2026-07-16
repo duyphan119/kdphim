@@ -2,8 +2,6 @@
 
 import { moviesApi } from "@/features/movies/api";
 import HeroBanner from "@/features/movies/components/hero-banner";
-import HotMovies from "@/features/movies/components/hot-movies";
-import LatestMovies from "@/features/movies/components/latest-movies";
 import MovieCard from "@/features/movies/components/movie-card";
 import MovieSection from "@/features/movies/components/movie-section";
 import HomeWatchedMovies from "@/features/watched-movies/components/home-watched-movies";

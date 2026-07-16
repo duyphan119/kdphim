@@ -55,6 +55,8 @@ export default async function Page({ params }: Props) {
   const hotMovies = (top.status === 'fulfilled' ? top.value?.items : null) || []
   const peoplesData = casts.status === 'fulfilled' ? casts.value : null;
 
+
+
   return <MovieDetails movie={movie} episodes={episodes} hotMovies={hotMovies} relatedMovies={relatedMovies} peoplesData={peoplesData} />;
 }
 

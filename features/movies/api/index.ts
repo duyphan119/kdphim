@@ -389,11 +389,6 @@ export const moviesApi = {
       .map((item: any) =>
         item.status === "fulfilled" ? item.value.movie : null,
       )
-      .sort(
-        (a: any, b: any) =>
-          new Date(b.created.time).getTime() -
-          new Date(a.created.time).getTime(),
-      )
       .slice(0, 24);
 
     return {
