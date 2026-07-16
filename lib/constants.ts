@@ -5,18 +5,6 @@ export const TMDB_API_KEY = process.env.TMDB_API_KEY;
 export const TMDB_API_DOMAIN = process.env.TMDB_API_DOMAIN;
 export const TMDB_IMAGE_DOMAIN = process.env.TMDB_IMAGE_DOMAIN;
 
-export const sectionTitleVariants = {
-  hot: "from-orange-400 via-red-500 to-yellow-400",
-
-  china: "from-red-500 via-rose-500 to-orange-400",
-
-  korea: "from-pink-500 via-fuchsia-500 to-violet-500",
-
-  star: "from-yellow-500 via-amber-500 to-orange-400",
-
-  anime: "from-violet-500 via-blue-500 to-cyan-400",
-};
-
 export const hotCasts = [
   {
     id: 2440951,

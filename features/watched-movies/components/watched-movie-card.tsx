@@ -23,7 +23,7 @@ export default function WatchedMovieCard({
   const imageSrc = imageType === 'poster' ? movie.poster_url : movie.thumb_url
   return (
     <Link
-      href={`/phim/${movie.slug}`}
+      href={`/xem-phim/${movie.slug}/${movie.server_index}/${movie.episode_slug}`}
       title={movie.name}
       className={cn("group overflow-hidden rounded-md block space-y-3", className)}
     >

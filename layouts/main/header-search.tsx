@@ -99,7 +99,7 @@ export default function HeaderSearch({ }: Props) {
         />
       </form>
       {open && dataVideos?.items ? (
-        <div className="absolute inset-x-0 top-full bg-muted shadow">
+        <div className="absolute inset-x-0 top-full bg-zinc-900 shadow">
           <div className="max-h-[50vh] w-screen overflow-y-auto no-scrollbar space-y-2 py-2">
             {dataVideos.items.map((item) => (
               <div

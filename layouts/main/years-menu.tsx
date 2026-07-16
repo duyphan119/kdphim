@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { ArrowDown } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
-import { cn, getYears } from "@/lib/utils";
+import { yearsApi } from "@/features/years/api";
+import { cn } from "@/lib/utils";
+import { ArrowDown } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 
 export default function YearsMenu() {
@@ -42,7 +43,7 @@ export default function YearsMenu() {
       {open && (
         <div className="absolute left-0 top-full mt-3 w-[600px] max-h-[70vh] overflow-y-auto rounded-xl border border-zinc-800 bg-zinc-900 p-4 shadow-2xl">
           <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {getYears().map((_, index) => (
+            {yearsApi.items().map((_, index) => (
               <Link
                 key={index}
                 href={`/nam/${currentYear - index}`}

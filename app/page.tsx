@@ -9,7 +9,7 @@ import Link from "next/link";
 
 
 export default async function Page() {
-  const { bannerMovie, hotMovies, latestMovies, chineseMovies, koreanMovies, japaneseMovies } = await moviesApi.home();
+  const { bannerMovie, hotMovies, latestMovies, chineseMovies, koreanMovies, japaneseMovies, historicalMovies, romanceMovies, schoolMovies } = await moviesApi.home();
 
 
   return (
@@ -69,14 +69,17 @@ export default async function Page() {
         </div>
       </section>
       <MovieSection title="🇨🇳 Phim Trung Quốc"
-
         href="/quoc-gia/trung-quoc" movies={chineseMovies} />
       <MovieSection title="🇰🇷 Phim Hàn Quốc"
-
         href="/quoc-gia/han-quoc" movies={koreanMovies} />
       <MovieSection title="🇯🇵 Phim Nhật Bản"
-
         href="/quoc-gia/nhat-ban" movies={japaneseMovies} />
+      <MovieSection title="Phim tình cảm"
+        href="/quoc-gia/nhat-ban" movies={romanceMovies} />
+      <MovieSection title="Phim cổ trang"
+        href="/quoc-gia/nhat-ban" movies={historicalMovies} />
+      <MovieSection title="Phim học đường"
+        href="/quoc-gia/nhat-ban" movies={schoolMovies} />
     </>
   )
 }

@@ -332,12 +332,21 @@ export const moviesApi = {
 
     const response = await Promise.allSettled([
       getDetailsBySlug(banners[day]),
-      countriesApi.movies("trung-quoc", { limit: "36" }),
-      countriesApi.movies("han-quoc", { limit: "36" }),
-      countriesApi.movies("nhat-ban", { limit: "36" }),
-      categoriesApi.movies("co-trang", { limit: "36" }),
-      categoriesApi.movies("hoc-duong", { limit: "36" }),
-      categoriesApi.movies("tinh-cam", { limit: "36" }),
+      countriesApi.movies("trung-quoc", { limit: "48" }),
+      countriesApi.movies("han-quoc", { limit: "48" }),
+      countriesApi.movies("nhat-ban", { limit: "48" }),
+      categoriesApi.movies("co-trang", {
+        limit: "48",
+        country: "trung-quoc,han-quoc,nhat-ban",
+      }),
+      categoriesApi.movies("hoc-duong", {
+        limit: "48",
+        country: "trung-quoc,han-quoc,nhat-ban",
+      }),
+      categoriesApi.movies("tinh-cam", {
+        limit: "48",
+        country: "trung-quoc,han-quoc,nhat-ban",
+      }),
       Promise.allSettled(hot.map((slug) => getDetailsBySlug(slug))),
       getLatest(),
     ]);
@@ -365,24 +374,27 @@ export const moviesApi = {
       ({ slug }) => excludeSlugs.findIndex((item) => item === slug) === -1,
     );
 
-    const excludeIds = [
+    let excludeIds = [
       ...items1.map(({ _id }) => _id),
       ...items2.map(({ _id }) => _id),
       ...items3.map(({ _id }) => _id),
       ...latestMovies.map(({ _id }) => _id),
     ];
 
-    const noContain = (item: T_Movie) =>
-      excludeIds.findIndex((_id) => _id === item._id) === -1;
+    const noContain = (item: T_Movie, ids: string[]) =>
+      ids.findIndex((_id) => _id === item._id) === -1;
 
     const items4 = ((data[4] as { items: T_Movie[] })?.items || []).filter(
-      (item) => noContain(item),
+      (item) => noContain(item, excludeIds),
     );
+    excludeIds = excludeIds.concat(items4.map(({ _id }) => _id));
     const items5 = ((data[5] as { items: T_Movie[] })?.items || []).filter(
-      (item) => noContain(item),
+      (item) =>
+        noContain(item, excludeIds.concat(items4.map(({ _id }) => _id))),
     );
+    excludeIds = excludeIds.concat(items5.map(({ _id }) => _id));
     const items6 = ((data[6] as { items: T_Movie[] })?.items || []).filter(
-      (item) => noContain(item),
+      (item) => noContain(item, excludeIds),
     );
 
     const hotMovies: T_Movie[] = (data[7] as any)
