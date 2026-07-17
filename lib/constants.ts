@@ -42,16 +42,4 @@ export const hotCasts = [
     profile_path: "/ci7uOTYUSk4Utg9gHvqVnqCPIUn.jpg",
     gender: 1,
   },
-  {
-    id: 3287640,
-    name: "Tôn Trân Ny",
-    profile_path: "/7yKfZ23VwwbDbzBQOfsjaJB3YuA.jpg",
-    gender: 1,
-  },
-  {
-    id: 1510022,
-    name: "Gong Seung Yeon",
-    profile_path: "/dfiy57hf38rxTsHpyV3QxGlQpMl.jpg",
-    gender: 1,
-  },
 ];
