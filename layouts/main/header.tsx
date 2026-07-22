@@ -38,6 +38,7 @@ export default function Header({ categories, countries }: HeaderProps) {
     };
   }, []);
 
+
   const bgClassName = 'border-b border-zinc-800 bg-black shadow-lg'
   return (
     <header

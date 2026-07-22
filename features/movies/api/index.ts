@@ -13,7 +13,7 @@ const banners = [
   "rat-nho-rat-nho-anh",
 ];
 
-const hot = [
+const hotSlugs = [
   "pham-nhan-tu-tien-truyen",
 
   "tang-hai-truyen",
@@ -268,7 +268,7 @@ const getHotMovies = async (filter?: { page?: number; limit?: number }) => {
   const limit = Number(filter?.limit) || 6;
 
   try {
-    const slugs = hot.slice((page - 1) * limit, limit);
+    const slugs = hotSlugs.slice((page - 1) * limit, page * limit);
 
     const response = await Promise.allSettled(
       slugs.map((slug) => getDetailsBySlug(slug)),
@@ -284,7 +284,7 @@ const getHotMovies = async (filter?: { page?: number; limit?: number }) => {
         totalItems: movies.length,
         totalItemsPerPage: limit,
         currentPage: page,
-        totalPages: Math.ceil(hot.length / limit),
+        totalPages: Math.ceil(hotSlugs.length / limit),
       },
     };
   } catch (error) {
@@ -347,7 +347,7 @@ export const moviesApi = {
         limit: "48",
         country: "trung-quoc,han-quoc,nhat-ban",
       }),
-      Promise.allSettled(hot.map((slug) => getDetailsBySlug(slug))),
+      Promise.allSettled(hotSlugs.map((slug) => getDetailsBySlug(slug))),
       getLatest(),
     ]);
 
@@ -355,7 +355,7 @@ export const moviesApi = {
       item.status === "fulfilled" ? item.value : null,
     );
 
-    let excludeSlugs = [banners[day], ...hot];
+    let excludeSlugs = [banners[day], ...hotSlugs];
 
     const latestMovies = (((data[8] as any)?.items || []) as T_Movie[]).slice(
       0,

@@ -79,6 +79,8 @@ export default function HeaderSearch({ }: Props) {
     };
   }, []);
 
+
+
   return (
 
     <div ref={divRef} className="static">
@@ -101,37 +103,41 @@ export default function HeaderSearch({ }: Props) {
       {open && dataVideos?.items ? (
         <div className="absolute inset-x-0 top-full bg-zinc-900 shadow">
           <div className="max-h-[50vh] w-screen overflow-y-auto no-scrollbar space-y-2 py-2">
-            {dataVideos.items.map((item) => (
-              <div
-                key={item._id}
-                className="flex gap-2"
-                onClick={handleClose}
-              >
-                <Link
-                  href={`/phim/${item.slug}`}
-                  title={item.name}
-                  className="w-1/3 md:w-1/4 aspect-video relative shrink-0"
+            {dataVideos.items.map((item) => {
+              const url = item.thumb_url || item.poster_url || ''
+              return (
+                <div
+                  key={item._id}
+                  className="flex gap-2"
+                  onClick={handleClose}
                 >
-                  <Image
-                    unoptimized
-                    src={item.thumb_url.startsWith("https") ? item.thumb_url : `${APP_DOMAIN_CDN_IMAGE}/${item.thumb_url}`}
-                    alt="img1"
-                    fill={true}
-                    sizes="(max-width: 1200px) 50vw, 100vw"
-                    loading="eager"
-                    className="rounded-sm"
-                  />
-                </Link>
-                <div className="text-foreground">
                   <Link
                     href={`/phim/${item.slug}`}
-                    className="hover:text-destructive transition-colors duration-200 line-clamp-3"
+                    title={item.name}
+                    className="w-1/3 md:w-1/4 aspect-video relative shrink-0"
                   >
-                    {item.name}
+                    {url ? <Image
+                      unoptimized
+                      src={url.startsWith("https") ? url : `${APP_DOMAIN_CDN_IMAGE}/${url}`}
+                      alt="img1"
+                      fill={true}
+                      sizes="(max-width: 1200px) 50vw, 100vw"
+                      loading="eager"
+                      className="rounded-sm object-cover"
+                    /> : null}
+
                   </Link>
+                  <div className="text-foreground">
+                    <Link
+                      href={`/phim/${item.slug}`}
+                      className="hover:text-destructive transition-colors duration-200 line-clamp-3"
+                    >
+                      {item.name}
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
           {dataVideos.params.pagination.totalPages > 1 ? (
             <div className="">

@@ -25,7 +25,7 @@ export default async function Page({ searchParams }: Props) {
   const awaitedSearchParams = await searchParams;
 
   const currentPage = Number(awaitedSearchParams.page) || 1;
-  const limit = 20;
+  const limit = 24;
 
   const data = await moviesApi.hot({ limit, page: currentPage })
 
