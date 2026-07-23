@@ -1,6 +1,7 @@
 import { categoriesApi } from "@/features/categories/api";
 import { countriesApi } from "@/features/countries/api";
 import { API_DOMAIN } from "@/lib/constants";
+import { shuffleArray } from "@/lib/utils";
 import qs from "query-string";
 
 const banners = [
@@ -13,18 +14,12 @@ const banners = [
   "rat-nho-rat-nho-anh",
 ];
 
-const hotSlugs = [
-  "pham-nhan-tu-tien-truyen",
-
+const hotSlugs = shuffleArray([
   "tang-hai-truyen",
-
-  "mac-vu-van-gian",
 
   "bach-nguyet-phan-tinh",
 
   "dai-mong-quy-ly",
-
-  "ngu-phuc-lam-mon",
 
   "trieu-tuyet-luc",
 
@@ -33,6 +28,7 @@ const hotSlugs = [
   "duong-trieu-quy-su-luc",
 
   "co-chau",
+  "loi-nguyen-dong-cung",
 
   "hoa-gian-lenh",
 
@@ -56,6 +52,10 @@ const hotSlugs = [
 
   "rat-nho-rat-nho-anh",
 
+  "sau-hon-nhan",
+
+  "phi-vu-chung-cu",
+
   "anh-cung-co-ngay-nay",
 
   "quan-trang-than-yeu",
@@ -63,6 +63,8 @@ const hotSlugs = [
   "luu-ly-my-nhan-sat",
 
   "gio-nam-hieu-long-toi",
+
+  "chuyen-tinh-ma-quai",
 
   "nhat-kien-khuynh-tam",
 
@@ -145,7 +147,7 @@ const hotSlugs = [
   "xin-chao-1983",
 
   "nhat-niem-so-kien-cam-y-dao",
-];
+]);
 
 const getDetailsBySlug = async (
   slug: string,

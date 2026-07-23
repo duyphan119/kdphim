@@ -19,3 +19,14 @@ export const isEqualArray = (arr1: string[], arr2: string[]) => {
 
   return sorted1.every((item, index) => item === sorted2[index]);
 };
+
+export function shuffleArray(items: string[]): string[] {
+  const result = [...items];
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+
+  return result;
+}
