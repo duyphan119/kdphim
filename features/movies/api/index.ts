@@ -15,138 +15,73 @@ const banners = [
 ];
 
 const hotSlugs = shuffleArray([
-  "tang-hai-truyen",
-
-  "bach-nguyet-phan-tinh",
-
-  "dai-mong-quy-ly",
-
-  "trieu-tuyet-luc",
-
-  "duong-quy-ky-dam",
-
-  "duong-trieu-quy-su-luc",
-
-  "co-chau",
-  "loi-nguyen-dong-cung",
-
-  "hoa-gian-lenh",
-
-  "luu-thuy-dieu-dieu",
-
-  "tu-da-quy",
-
-  "thien-thu-lenh",
-
-  "thien-doa-dao-hoa-nhat-the-khai",
-
-  "ngoc-minh-tra-cot",
-
-  "duong-cung-ky-an-thanh-vu-phong-minh",
-
-  "em-la-niem-kieu-hanh-cua-anh",
-
-  "khoi-lua-nhan-gian-cua-toi",
-
-  "dung-rung-dong-vi-anh",
-
-  "rat-nho-rat-nho-anh",
-
-  "sau-hon-nhan",
-
-  "phi-vu-chung-cu",
-
-  "anh-cung-co-ngay-nay",
-
-  "quan-trang-than-yeu",
-
-  "luu-ly-my-nhan-sat",
-
-  "gio-nam-hieu-long-toi",
-
-  "chuyen-tinh-ma-quai",
-
-  "nhat-kien-khuynh-tam",
-
-  "luong-ngon-ta-y",
-
-  "chi-la-quan-he-hon-nhan",
-
-  "khanh-khanh-nga-tam",
-
-  "dau-la-dai-luc-nhien-hon-chien",
-
-  "chang-thu-ky-hoan-hao",
-
-  "luat-su-cong-ich",
-
-  "giac-mo-nguoi-luat-su",
-
-  "nguoi-lam-an-lon",
-
-  "pha-ken-2025",
-
-  "ho-so-nam-bo",
-
-  "con-duong-binh-pham",
-
-  "thieu-nien-babylon",
-
-  "xung-dang-de-yeu",
-
-  "giai-ngau-thien-thanh",
-
-  "mac-ly",
-
-  "kieu-so",
-
-  "nhat-tieu-tuy-ca",
-
-  "phuong-hoang-dai-thuong",
-
-  "nguyet-lan-y-ky",
-
-  "tieu-nhan-phan-2",
-
-  "dac-vu-kim-tai-khoi-dong",
-
-  "thien-huong",
-
-  "vu-lam-linh",
-
-  "co-di-ma-lay-chong-toi-ban-nhat",
-
-  "doan-xem-toi-la-ai",
-
-  "toi-o-dinh-cao-doi-cau",
-
-  "tram-nam-hoa-hop-uoc-dinh-mot-loi",
-
-  "mot-tinh-yeu-bat-ngo-den",
-
-  "dem-nguoc-noi-yeu-em",
-
-  "thanh-xuan-cua-toi",
-
-  "than-den-oi-uoc-di",
-
-  "tieng-yeu-nay-anh-dich-duoc-khong",
-
-  "con-say-mua-xuan",
-
-  "phu-nhan-dai-quan-the-ky-21",
-
-  "ke-thu-hoang-gia-cua-toi",
-
-  "gia-tri-tuyet-doi-cua-lang-man",
-
-  "song-trang-hoan-menh",
-
   "tinh-yeu-co-phao-hoa",
-
+  "con-duong-binh-pham",
+  "gia-tri-tuyet-doi-cua-lang-man",
+  "than-den-oi-uoc-di",
+  "khanh-khanh-nga-tam",
+  "toi-o-dinh-cao-doi-cau",
+  "tu-da-quy",
+  "khoi-lua-nhan-gian-cua-toi",
   "xin-chao-1983",
-
+  "quan-trang-than-yeu",
+  "co-chau",
+  "dai-mong-quy-ly",
+  "rat-nho-rat-nho-anh",
   "nhat-niem-so-kien-cam-y-dao",
+  "dau-la-dai-luc-nhien-hon-chien",
+  "bach-nguyet-phan-tinh",
+  "loi-nguyen-dong-cung",
+  "sau-hon-nhan",
+  "dac-vu-kim-tai-khoi-dong",
+  "dem-nguoc-noi-yeu-em",
+  "song-trang-hoan-menh",
+  "phi-vu-chung-cu",
+  "gio-nam-hieu-long-toi",
+  "luu-thuy-dieu-dieu",
+  "anh-cung-co-ngay-nay",
+  "luong-ngon-ta-y",
+  "luu-ly-my-nhan-sat",
+  "mot-tinh-yeu-bat-ngo-den",
+  "ke-thu-hoang-gia-cua-toi",
+  "chuyen-tinh-ma-quai",
+  "thien-thu-lenh",
+  "luat-su-cong-ich",
+  "em-la-niem-kieu-hanh-cua-anh",
+  "phu-nhan-dai-quan-the-ky-21",
+  "chi-la-quan-he-hon-nhan",
+  "mac-ly",
+  "co-di-ma-lay-chong-toi-ban-nhat",
+  "tang-hai-truyen",
+  "nhat-kien-khuynh-tam",
+  "duong-cung-ky-an-thanh-vu-phong-minh",
+  "nguyet-lan-y-ky",
+  "tieng-yeu-nay-anh-dich-duoc-khong",
+  "thieu-nien-babylon",
+  "dung-rung-dong-vi-anh",
+  "trieu-tuyet-luc",
+  "thanh-xuan-cua-toi",
+  "pha-ken-2025",
+  "tieu-nhan-phan-2",
+  "thien-doa-dao-hoa-nhat-the-khai",
+  "giai-ngau-thien-thanh",
+  "con-say-mua-xuan",
+  "thien-huong",
+  "ho-so-nam-bo",
+  "phuong-hoang-dai-thuong",
+  "doan-xem-toi-la-ai",
+  "chang-thu-ky-hoan-hao",
+  "hoa-gian-lenh",
+  "duong-quy-ky-dam",
+  "vu-lam-linh",
+  "giac-mo-nguoi-luat-su",
+  "tram-nam-hoa-hop-uoc-dinh-mot-loi",
+  "nguoi-lam-an-lon",
+  "ngoc-minh-tra-cot",
+  "nhat-tieu-tuy-ca",
+  "kieu-so",
+  "xung-dang-de-yeu",
+  "duong-trieu-quy-su-luc",
 ]);
 
 const getDetailsBySlug = async (
