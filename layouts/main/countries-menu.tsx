@@ -49,7 +49,7 @@ export default function CountriesMenu({
             {countries.map((country) => (
               <Link
                 key={country.slug}
-                href={`/the-loai/${country.slug}`}
+                href={`/quoc-gia/${country.slug}`}
                 onClick={() => setOpen(false)}
                 className="rounded-lg px-3 py-2 text-sm text-zinc-300 transition hover:bg-zinc-800 hover:text-white"
               >
