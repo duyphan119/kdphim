@@ -1,9 +1,4 @@
-import Breadcrumb from "@/components/breadcrumb";
-import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
-import { CastsResponse } from "@/features/casts/api";
 import { APP_DOMAIN_CDN_IMAGE } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 import { Play } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
@@ -12,14 +7,14 @@ import { Fragment } from "react";
 
 type MovieInformationProps = {
   movie: T_Movie;
-  firstLink?: string;
+  firstLink: string;
 }
 
 export default function MovieInformation({ movie, firstLink, }: MovieInformationProps) {
   return (
     <div className="overflow-hidden rounded-sm border border-border bg-card shadow-sm block md:grid md:grid-cols-3">
       <div className="relative aspect-[2/3] w-full overflow-hidden bg-slate-950 md:col-span-1">
-        <Image unoptimized
+        <Image
           src={movie.poster_url.startsWith("https") ? movie.poster_url : `${APP_DOMAIN_CDN_IMAGE}/${movie.poster_url}`}
           alt={movie.name}
           fill
@@ -28,7 +23,7 @@ export default function MovieInformation({ movie, firstLink, }: MovieInformation
           crossOrigin="anonymous"
         />
 
-        {firstLink ? (
+        {firstLink.startsWith("/xem-phim") ? (
           <div className="absolute bottom-2 inset-x-2">
             <div className="flex items-center gap-2">
               {firstLink ? (

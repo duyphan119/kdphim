@@ -32,13 +32,11 @@ export default function MovieDetails({
   serverIndex,
   currentBreadcrumb, relatedMovies, hotMovies, peoplesData
 }: Props) {
-  const movieTypeSlug = movie.type === "series" ? "phim-bo" : "phim-le";
-  const videoTypeName = movie.type === "series" ? "Phim bộ" : "Phim lẻ";
   const videoSlug = movie.slug;
 
   let firstLink: string = `/phim/${videoSlug}`;
 
-  if (episodes?.length) {
+  if (episodes?.length && !children) {
     // find first available
     for (let i = 0; i < episodes.length; i++) {
       const sd = episodes[i].server_data;
