@@ -28,7 +28,7 @@ export default function TopDonghuaCard({
 
       {/* Poster */}
       <div className="relative ml-16 w-full aspect-[498/747] overflow-hidden rounded-xl shadow-2xl">
-        <Image
+        <Image unoptimized
           src={image}
           alt={title}
           fill

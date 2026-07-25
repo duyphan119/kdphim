@@ -15,7 +15,7 @@ export default function HeroDetails() {
     <section className="relative overflow-hidden">
       {/* Backdrop */}
       <div className="absolute top-0 left-0 right-0 aspect-[754/424]">
-        <Image
+        <Image unoptimized
           src="https://image.tmdb.org/t/p/original/vD7ef6LSWbpH4sCNmPOMHSMZGiq.jpg"
           alt="Backdrop"
           fill
@@ -34,7 +34,7 @@ export default function HeroDetails() {
           {/* Poster */}
           <div>
             <div className="relative aspect-[2/3] overflow-hidden rounded-2xl shadow-2xl">
-              <Image
+              <Image unoptimized
                 src="/images/posters/1.png"
                 alt="Squid Game"
                 fill

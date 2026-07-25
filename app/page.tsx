@@ -93,7 +93,7 @@ export default async function Page() {
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {hotCasts.map((item) => (
               <Link key={item.id} href={`/dien-vien/${item.id}`} className="relative block aspect-[2/3] group overflow-hidden rounded-md">
-                <Image
+                <Image unoptimized
                   src={`${TMDB_IMAGE_DOMAIN}/t/p/w300${item.profile_path}`}
                   alt=""
                   fill
@@ -103,6 +103,7 @@ export default async function Page() {
                     16vw"
                   className="object-cover transition duration-500 group-hover:scale-110"
                   loading="eager"
+
                 />
 
                 <div className="absolute inset-x-4 bottom-4 text-sm rounded-md bg-black/80 px-2 py-1.5 flex items-center gap-1">

@@ -28,7 +28,7 @@ export default function WatchedMovieCard({
       className={cn("group overflow-hidden rounded-md block space-y-3", className)}
     >
       <div className={cn("relative overflow-hidden rounded-md", imageType === 'poster' ? 'aspect-[2/3]' : 'aspect-video')}>
-        <Image
+        <Image unoptimized
           src={imageSrc.startsWith("https") ? imageSrc : `${APP_DOMAIN_CDN_IMAGE}/${imageSrc}`}
           alt={movie.name}
           fill

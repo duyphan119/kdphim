@@ -19,7 +19,7 @@ export default function MovieInformation({ movie, firstLink, }: MovieInformation
   return (
     <div className="overflow-hidden rounded-sm border border-border bg-card shadow-sm block md:grid md:grid-cols-3">
       <div className="relative aspect-[2/3] w-full overflow-hidden bg-slate-950 md:col-span-1">
-        <Image
+        <Image unoptimized
           src={movie.poster_url.startsWith("https") ? movie.poster_url : `${APP_DOMAIN_CDN_IMAGE}/${movie.poster_url}`}
           alt={movie.name}
           fill

@@ -20,7 +20,7 @@ export default function MovieCasts({ peoplesData, actors }: MovieCastsProps) {
               title={item.name}
               className="relative aspect-[2/3] block"
             >
-              <Image
+              <Image unoptimized
                 src={
                   item.profile_path
                     ? `${peoplesData?.profile_sizes.h632}${item.profile_path}`

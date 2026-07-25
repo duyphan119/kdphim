@@ -53,13 +53,13 @@ export default function Header({ categories, countries }: HeaderProps) {
             title="Đi tới trang chủ"
             className="aspect-[1983/793] block relative h-12"
           >
-            <Image
+            <Image unoptimized
               src={"/images/logo.png"}
               fill={true}
               alt="Logo"
               sizes="(max-width: 1200px) 1983px, 20vw"
               loading="eager"
-              unoptimized
+
             />
           </Link>
 

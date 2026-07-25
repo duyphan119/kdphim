@@ -116,8 +116,8 @@ export default function HeaderSearch({ }: Props) {
                     title={item.name}
                     className="w-1/3 md:w-1/4 aspect-video relative shrink-0"
                   >
-                    {url ? <Image
-                      unoptimized
+                    {url ? <Image unoptimized
+
                       src={url.startsWith("https") ? url : `${APP_DOMAIN_CDN_IMAGE}/${url}`}
                       alt="img1"
                       fill={true}

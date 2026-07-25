@@ -26,7 +26,7 @@ export default function MovieCard({
       className={cn("group overflow-hidden rounded-md", direction === "col" ? "block space-y-3" : "flex gap-3", className)}
     >
       <div className={cn("relative aspect-[2/3] overflow-hidden rounded-md", direction === 'col' ? 'w-full' : 'w-1/2 flex-shrink-0')}>
-        <Image
+        <Image unoptimized
           src={movie.poster_url.startsWith("https") ? movie.poster_url : `${APP_DOMAIN_CDN_IMAGE}/${movie.poster_url}`}
           alt={movie.name}
           fill

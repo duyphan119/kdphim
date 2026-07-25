@@ -31,12 +31,12 @@ export default function Footer() {
               title="Đi tới trang chủ"
               className="relative block h-12 aspect-[1983/793]"
             >
-              <Image
+              <Image unoptimized
                 src="/images/logo.png"
                 alt="KDPHIM Logo"
                 fill
                 priority
-                unoptimized
+
                 className="object-contain"
                 sizes="90px"
               />

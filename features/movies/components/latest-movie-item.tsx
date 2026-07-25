@@ -18,7 +18,7 @@ export default function LatestMovieItem({
       className="group flex gap-4 rounded-xl border border-zinc-800 bg-zinc-950 p-4 transition hover:border-red-600"
     >
       <div className="relative w-1/4 aspect-[2/3] shrink-0 overflow-hidden rounded-lg">
-        <Image
+        <Image unoptimized
           src={movie.poster_url.startsWith("https") ? movie.poster_url : `${APP_DOMAIN_CDN_IMAGE}/${movie.poster_url}`}
           alt={movie.name}
           fill

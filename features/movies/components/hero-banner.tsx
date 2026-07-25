@@ -19,7 +19,7 @@ export default function HeroBanner({ movie, episodes }: HeroBannerProps) {
   const watchNowLink = `/xem-phim/${movie.slug}/0/${episodes?.[0].server_data?.[0].slug}`
   return (
     <section className="relative md:mt-0 mt-20 h-[30vh] sm:h-[50vh] md:h-[70vh] lg:h-screen w-screen overflow-hidden">
-      <Image
+      <Image unoptimized
         src={src}
         alt="Hero Banner"
         fill
