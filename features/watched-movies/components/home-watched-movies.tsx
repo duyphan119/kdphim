@@ -12,7 +12,7 @@ export default function HomeWatchedMovies() {
 
   useEffect(() => {
     (() => {
-      const { items: watchedMovies } = watchedMoviesApi.items({ page: "1", limit: "24" });
+      const { items: watchedMovies } = watchedMoviesApi.items({ page: "1", limit: "6" });
       setMovies(watchedMovies)
     })()
   }, [])
