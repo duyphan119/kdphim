@@ -152,6 +152,8 @@ export default function HeaderSearch({ }: Props) {
               </Link>
             </div>
           ) : null}
+
+          <div onClick={handleClose} className="bg-black/50 size-full absolute"></div>
         </div>
       ) : null}
     </div>

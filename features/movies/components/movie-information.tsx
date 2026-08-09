@@ -18,9 +18,12 @@ export default function MovieInformation({ movie, firstLink, }: MovieInformation
           src={movie.poster_url.startsWith("https") ? movie.poster_url : `${APP_DOMAIN_CDN_IMAGE}/${movie.poster_url}`}
           alt={movie.name}
           fill
-          sizes="(max-width: 768px) 100vw, 320px"
-          className="object-cover"
-          crossOrigin="anonymous"
+          sizes="(max-width: 640px) 50vw,
+                 (max-width: 1024px) 33vw,
+                 (max-width: 1280px) 20vw,
+                 16vw"
+          className="object-cover transition duration-500 group-hover:scale-110"
+          loading="eager"
         />
 
         {firstLink.startsWith("/xem-phim") ? (
