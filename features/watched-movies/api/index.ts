@@ -7,13 +7,10 @@ export const watchedMoviesApi = {
     if (movies) {
       const index = movies.findIndex(({ slug }) => slug === newItem.slug);
 
-      if (index === -1) {
-        movies.unshift(newItem);
-      } else {
-        movies[index].server_index = newItem.server_index;
-        movies[index].episode_name = newItem.episode_name;
-        movies[index].episode_slug = newItem.episode_slug;
+      if (index !== -1) {
+        movies.splice(index, 1);
       }
+      movies.unshift(newItem);
     }
 
     console.log(newItem);
