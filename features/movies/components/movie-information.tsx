@@ -22,8 +22,10 @@ export default function MovieInformation({ movie, firstLink, }: MovieInformation
                  (max-width: 1024px) 33vw,
                  (max-width: 1280px) 20vw,
                  16vw"
-          className="object-cover transition duration-500 group-hover:scale-110"
           loading="eager"
+          placeholder="blur"
+          blurDataURL="/images/placeholder-movie.png"
+          className="object-cover transition duration-500 group-hover:scale-110"
         />
 
         {firstLink.startsWith("/xem-phim") ? (

@@ -34,8 +34,10 @@ export default function MovieCard({
          (max-width: 1024px) 33vw,
          (max-width: 1280px) 20vw,
          16vw"
-          className="object-cover transition duration-500 group-hover:scale-110"
           loading="eager"
+          placeholder="blur"
+          blurDataURL="/images/placeholder-movie.png"
+          className="object-cover transition duration-500 group-hover:scale-110"
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 transition group-hover:opacity-100" />

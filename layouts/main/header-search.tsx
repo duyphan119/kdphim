@@ -123,6 +123,8 @@ export default function HeaderSearch({ }: Props) {
                       fill={true}
                       sizes="(max-width: 1200px) 50vw, 100vw"
                       loading="eager"
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder-movie-16_9.png"
                       className="rounded-sm object-cover"
                     /> : null}
 

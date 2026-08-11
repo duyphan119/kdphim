@@ -13,7 +13,6 @@ export const watchedMoviesApi = {
       movies.unshift(newItem);
     }
 
-    console.log(newItem);
     localStorage.setItem(name, JSON.stringify(movies || [newItem]));
   },
   delete: (slug: string) => {
