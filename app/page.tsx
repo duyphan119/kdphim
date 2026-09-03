@@ -36,8 +36,8 @@ export default async function Page() {
           </div>
 
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {latestMovies.map((movie) => (
-              <MovieCard key={movie._id}
+            {latestMovies.map((movie, index) => (
+              <MovieCard key={index}
                 movie={movie}
                 className="latest-movie"
               />
@@ -62,8 +62,8 @@ export default async function Page() {
           </div>
 
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {hotMovies.map((movie) => (
-              <MovieCard key={movie._id}
+            {hotMovies.map((movie, index) => (
+              <MovieCard key={index}
                 movie={movie}
                 className="hot-movie"
               />

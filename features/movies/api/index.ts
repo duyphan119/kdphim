@@ -272,78 +272,98 @@ export const moviesApi = {
   related: getRelated,
   search,
   home: async () => {
+    const countries = ["trung-quoc", "han-quoc", "nhat-ban"];
+    const ITEMS_PER_SECTION = 24;
+    let latestItems =
+      (await getLatest({ page: 1 }))?.items?.filter((item) =>
+        countries.includes(item.country[0].slug),
+      ) || [];
+
+    if (latestItems.length < ITEMS_PER_SECTION) {
+      latestItems = latestItems.concat(
+        (await getLatest({ page: 2 }))?.items
+          ?.filter((item) => countries.includes(item.country[0].slug))
+          .slice(0, ITEMS_PER_SECTION - latestItems.length) || [],
+      );
+    }
+
+    let excludeIds = latestItems.map((item) => item._id);
+
+    let chineseMovies =
+      (await countriesApi.movies("trung-quoc", { limit: "48" }))?.items
+        ?.filter(
+          (item) =>
+            countries.includes(item.country[0].slug) &&
+            !hotSlugs.includes(item.slug) &&
+            !excludeIds.includes(item._id),
+        )
+        .slice(0, ITEMS_PER_SECTION) || [];
+
+    let koreanMovies =
+      (await countriesApi.movies("han-quoc", { limit: "48" }))?.items
+        ?.filter(
+          (item) =>
+            countries.includes(item.country[0].slug) &&
+            !hotSlugs.includes(item.slug) &&
+            !excludeIds.includes(item._id),
+        )
+        .slice(0, ITEMS_PER_SECTION) || [];
+
+    let japaneseMovies =
+      (await countriesApi.movies("nhat-ban", { limit: "48" }))?.items
+        ?.filter(
+          (item) =>
+            countries.includes(item.country[0].slug) &&
+            !hotSlugs.includes(item.slug) &&
+            !excludeIds.includes(item._id),
+        )
+        .slice(0, ITEMS_PER_SECTION) || [];
+
+    excludeIds = [
+      ...excludeIds,
+      ...chineseMovies.map(({ _id }) => _id),
+      ...koreanMovies.map(({ _id }) => _id),
+      ...japaneseMovies.map(({ _id }) => _id),
+    ];
+
+    const schoolMovies =
+      (await categoriesApi.movies("hoc-duong", { limit: "48" }))?.items?.filter(
+        (item) =>
+          countries.includes(item.country[0].slug) &&
+          !hotSlugs.includes(item.slug) &&
+          !excludeIds.includes(item._id),
+      ) || [];
+
+    const romanceMovies =
+      (await categoriesApi.movies("hoc-duong", { limit: "48" }))?.items?.filter(
+        (item) =>
+          countries.includes(item.country[0].slug) &&
+          !hotSlugs.includes(item.slug) &&
+          !excludeIds.includes(item._id),
+      ) || [];
+
+    const historicalMovies =
+      (await categoriesApi.movies("co-trang", { limit: "48" }))?.items?.filter(
+        (item) =>
+          countries.includes(item.country[0].slug) &&
+          !hotSlugs.includes(item.slug) &&
+          !excludeIds.includes(item._id),
+      ) || [];
+
     const date = new Date();
 
     const day = date.getDay();
 
     const response = await Promise.allSettled([
       getDetailsBySlug(banners[day]),
-      countriesApi.movies("trung-quoc", { limit: "48" }),
-      countriesApi.movies("han-quoc", { limit: "48" }),
-      countriesApi.movies("nhat-ban", { limit: "48" }),
-      categoriesApi.movies("co-trang", {
-        limit: "48",
-        country: "trung-quoc,han-quoc,nhat-ban",
-      }),
-      categoriesApi.movies("hoc-duong", {
-        limit: "48",
-        country: "trung-quoc,han-quoc,nhat-ban",
-      }),
-      categoriesApi.movies("tinh-cam", {
-        limit: "48",
-        country: "trung-quoc,han-quoc,nhat-ban",
-      }),
       Promise.allSettled(hotSlugs.map((slug) => getDetailsBySlug(slug))),
-      getLatest(),
     ]);
 
     const data = response.map((item) =>
       item.status === "fulfilled" ? item.value : null,
     );
 
-    let excludeSlugs = [banners[day], ...hotSlugs];
-
-    const latestMovies = (((data[8] as any)?.items || []) as T_Movie[]).slice(
-      0,
-      24,
-    );
-
-    excludeSlugs = excludeSlugs.concat(latestMovies.map(({ slug }) => slug));
-
-    const items1 = ((data[1] as { items: T_Movie[] })?.items || []).filter(
-      ({ slug }) => excludeSlugs.findIndex((item) => item === slug) === -1,
-    );
-    const items2 = ((data[2] as { items: T_Movie[] })?.items || []).filter(
-      ({ slug }) => excludeSlugs.findIndex((item) => item === slug) === -1,
-    );
-    const items3 = ((data[3] as { items: T_Movie[] })?.items || []).filter(
-      ({ slug }) => excludeSlugs.findIndex((item) => item === slug) === -1,
-    );
-
-    let excludeIds = [
-      ...items1.map(({ _id }) => _id),
-      ...items2.map(({ _id }) => _id),
-      ...items3.map(({ _id }) => _id),
-      ...latestMovies.map(({ _id }) => _id),
-    ];
-
-    const noContain = (item: T_Movie, ids: string[]) =>
-      ids.findIndex((_id) => _id === item._id) === -1;
-
-    const items4 = ((data[4] as { items: T_Movie[] })?.items || []).filter(
-      (item) => noContain(item, excludeIds),
-    );
-    excludeIds = excludeIds.concat(items4.map(({ _id }) => _id));
-    const items5 = ((data[5] as { items: T_Movie[] })?.items || []).filter(
-      (item) =>
-        noContain(item, excludeIds.concat(items4.map(({ _id }) => _id))),
-    );
-    excludeIds = excludeIds.concat(items5.map(({ _id }) => _id));
-    const items6 = ((data[6] as { items: T_Movie[] })?.items || []).filter(
-      (item) => noContain(item, excludeIds),
-    );
-
-    const hotMovies: T_Movie[] = (data[7] as any)
+    const hotMovies: T_Movie[] = (data[1] as any)
       .map((item: any) =>
         item.status === "fulfilled" ? item.value.movie : null,
       )
@@ -352,14 +372,14 @@ export const moviesApi = {
     return {
       bannerMovie:
         (data[0] as { movie: T_Movie; episodes: T_Episode[] }) || null,
-      chineseMovies: items1.slice(0, 24),
-      koreanMovies: items2.slice(0, 24),
-      japaneseMovies: items3.slice(0, 24),
-      historicalMovies: items4.slice(0, 24),
-      schoolMovies: items5.slice(0, 24),
-      romanceMovies: items6.slice(0, 24),
+      chineseMovies,
+      koreanMovies,
+      japaneseMovies,
+      historicalMovies,
+      schoolMovies,
+      romanceMovies,
       hotMovies,
-      latestMovies,
+      latestMovies: latestItems,
     };
   },
 };
