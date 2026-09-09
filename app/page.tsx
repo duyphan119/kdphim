@@ -13,7 +13,7 @@ import Link from "next/link";
 
 
 export default async function Page() {
-  const { bannerMovie, hotMovies, latestMovies, chineseMovies, koreanMovies, japaneseMovies, historicalMovies, romanceMovies, schoolMovies } = await moviesApi.home();
+  const { bannerMovie, hotMovies, latestMovies, chineseMovies, koreanMovies } = await moviesApi.home();
 
 
   return (
@@ -35,7 +35,7 @@ export default async function Page() {
             </Link>
           </div>
 
-          <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 ">
             {latestMovies.map((movie, index) => (
               <MovieCard key={index}
                 movie={movie}
@@ -61,7 +61,7 @@ export default async function Page() {
             </Link>
           </div>
 
-          <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 ">
             {hotMovies.map((movie, index) => (
               <MovieCard key={index}
                 movie={movie}
@@ -76,21 +76,13 @@ export default async function Page() {
         href="/quoc-gia/trung-quoc" movies={chineseMovies} />
       <MovieSection title="🇰🇷 Phim Hàn Quốc"
         href="/quoc-gia/han-quoc" movies={koreanMovies} />
-      <MovieSection title="🇯🇵 Phim Nhật Bản"
-        href="/quoc-gia/nhat-ban" movies={japaneseMovies} />
-      <MovieSection title="Phim tình cảm"
-        href="/quoc-gia/nhat-ban" movies={romanceMovies} />
-      <MovieSection title="Phim cổ trang"
-        href="/quoc-gia/nhat-ban" movies={historicalMovies} />
-      <MovieSection title="Phim học đường"
-        href="/quoc-gia/nhat-ban" movies={schoolMovies} />
       <section className="bg-zinc-950 py-20">
         <div className="container mx-auto px-4">
           <h2 className="mb-8 text-3xl font-black text-white">
             Diễn viên nổi bật
           </h2>
 
-          <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 ">
             {hotCasts.map((item) => (
               <Link key={item.id} href={`/dien-vien/${item.id}`} className="relative block aspect-[2/3] group overflow-hidden rounded-md">
                 <Image unoptimized

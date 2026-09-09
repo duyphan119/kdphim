@@ -25,7 +25,7 @@ export default function MovieSection({ title, href, movies }: MovieSectionProps)
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6 ">
           {movies.map((movie) => (
             <MovieCard key={movie._id}
               movie={movie}

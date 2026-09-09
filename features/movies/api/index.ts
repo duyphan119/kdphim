@@ -15,82 +15,84 @@ const banners = [
 ];
 
 const hotSlugs = shuffleArray([
-  "ho-so-nam-bo",
-  "thien-doa-dao-hoa-nhat-the-khai",
-  "ho-tam",
-  "tang-hai-truyen",
-  "chang-thu-ky-hoan-hao",
-  "khoi-lua-nhan-gian-cua-toi",
-  "phuong-hoang-dai-thuong",
-  "xung-dang-de-yeu",
-  "hoa-gian-lenh",
+  "tan-len-nham-kieu-hoa-duoc-chong-nhu-y-kieu-hoa-hi-su",
+  "gio-nam-hieu-long-toi",
   "kieu-so",
+  "ngu-dinh-dao",
+  "tang-hai-truyen",
+  "khoi-lua-nhan-gian-cua-toi",
+  "xin-chao-1983",
+  "trieu-tuyet-luc",
+  "phi-vu-chung-cu",
+  "sau-hon-nhan",
+  "luu-thuy-dieu-dieu",
+  "khanh-du-nien-phan-1",
+  "ho-so-nam-bo",
+  "luong-ngon-ta-y",
+  "chuyen-tinh-ma-quai",
+  "em-la-niem-kieu-hanh-cua-anh",
+  "dai-mong-quy-ly",
+  "bay-vao-trai-tim-anh-bay-vao-tim-anh",
+  "su-huynh-qua-can-trong",
+  "chang-thu-ky-hoan-hao",
+  "con-say-mua-xuan",
+  "duong-quy-ky-dam",
+  "than-den-oi-uoc-di",
+  "anh-cung-co-ngay-nay",
+  "tieu-nhan-phan-2",
+  "dau-la-dai-luc-nhien-hon-chien",
+  "bach-nguyet-phan-tinh",
+  "thanh-xuan-cua-toi",
+  "xung-dang-de-yeu",
+  "ho-tam",
+  "toi-o-dinh-cao-doi-cau",
+  "nhat-niem-so-kien-cam-y-dao",
+  "tieng-yeu-nay-anh-dich-duoc-khong",
   "co-di-ma-lay-chong-toi-ban-nhat",
   "thieu-nien-babylon",
-  "chi-la-quan-he-hon-nhan",
-  "dem-nguoc-noi-yeu-em",
-  "con-say-mua-xuan",
-  "keo-ngot-tinh-yeu",
-  "khanh-du-nien-phan-2",
-  "vu-lam-linh",
-  "sau-hon-nhan",
-  "chuyen-tinh-ma-quai",
-  "nguoi-lam-an-lon",
-  "luu-ly-my-nhan-sat",
-  "duong-cung-ky-an-thanh-vu-phong-minh",
-  "quan-trang-than-yeu",
-  "giai-ngau-thien-thanh",
-  "than-den-oi-uoc-di",
-  "tinh-yeu-co-phao-hoa",
-  "co-chau",
-  "phu-nhan-dai-quan-the-ky-21",
-  "phi-vu-chung-cu",
-  "gieo-hong-dau-noi-duoi-may-nang",
-  "dai-mong-quy-ly",
-  "tieu-nhan-phan-2",
-  "tu-da-quy",
-  "luong-ngon-ta-y",
-  "pha-ken-2025",
-  "tan-len-nham-kieu-hoa-duoc-chong-nhu-y-kieu-hoa-hi-su",
-  "con-duong-binh-pham",
-  "nguyet-lan-y-ky",
-  "xin-chao-1983",
-  "rat-nho-rat-nho-anh",
-  "doan-xem-toi-la-ai",
-  "con-ra-the-thong-gi-nua",
-  "thien-thu-lenh",
-  "anh-cung-co-ngay-nay",
-  "nhat-tieu-tuy-ca",
   "loi-nguyen-dong-cung",
-  "khanh-du-nien-phan-1",
-  "ngoc-minh-tra-cot",
-  "nhat-kien-khuynh-tam",
-  "giac-mo-nguoi-luat-su",
-  "trieu-tuyet-luc",
+  "quan-trang-than-yeu",
   "tram-nam-hoa-hop-uoc-dinh-mot-loi",
-  "gia-tri-tuyet-doi-cua-lang-man",
-  "ke-thu-hoang-gia-cua-toi",
-  "tieng-yeu-nay-anh-dich-duoc-khong",
-  "sau-hon-nhan",
-  "dung-rung-dong-vi-anh",
-  "ngu-dinh-dao",
-  "gio-nam-hieu-long-toi",
-  "luat-su-cong-ich",
-  "em-la-niem-kieu-hanh-cua-anh",
-  "khanh-khanh-nga-tam",
-  "nhat-niem-so-kien-cam-y-dao",
-  "mac-ly",
-  "bach-nguyet-phan-tinh",
-  "mot-tinh-yeu-bat-ngo-den",
-  "dau-la-dai-luc-nhien-hon-chien",
-  "thien-huong",
-  "thanh-xuan-cua-toi",
-  "luu-thuy-dieu-dieu",
-  "toi-ac-ngo-ngan-toi-pham-iq-thap",
-  "toi-o-dinh-cao-doi-cau",
   "duong-trieu-quy-su-luc",
+  "thien-thu-lenh",
+  "dem-nguoc-noi-yeu-em",
+  "luu-ly-my-nhan-sat",
+  "hoa-gian-lenh",
+  "nguyet-lan-y-ky",
+  "doan-xem-toi-la-ai",
+  "con-duong-binh-pham",
+  "nhat-tieu-tuy-ca",
+  "phuong-hoang-dai-thuong",
+  "con-ra-the-thong-gi-nua",
+  "luat-su-cong-ich",
+  "khanh-du-nien-phan-2",
+  "thien-huong",
+  "ke-thu-hoang-gia-cua-toi",
   "song-trang-hoan-menh",
-  "duong-quy-ky-dam",
+  "giac-mo-nguoi-luat-su",
+  "mot-tinh-yeu-bat-ngo-den",
+  "ngoc-minh-tra-cot",
+  "mac-ly",
+  "gia-tri-tuyet-doi-cua-lang-man",
+  "dung-rung-dong-vi-anh",
+  "pha-ken-2025",
+  "tu-da-quy",
+  "duong-cung-ky-an-thanh-vu-phong-minh",
+  "nguoi-lam-an-lon",
+  "co-chau",
+  "nhat-kien-khuynh-tam",
+  "vu-lam-linh",
+  "phu-nhan-dai-quan-the-ky-21",
+  "rat-nho-rat-nho-anh",
+  "sau-hon-nhan",
+  "tinh-yeu-co-phao-hoa",
+  "giai-ngau-thien-thanh",
+  "thien-doa-dao-hoa-nhat-the-khai",
+  "gieo-hong-dau-noi-duoi-may-nang",
+  "toi-ac-ngo-ngan-toi-pham-iq-thap",
+  "chi-la-quan-he-hon-nhan",
+  "keo-ngot-tinh-yeu",
+  "khanh-khanh-nga-tam",
 ]);
 
 const getDetailsBySlug = async (
@@ -272,83 +274,54 @@ export const moviesApi = {
   related: getRelated,
   search,
   home: async () => {
-    const countries = ["trung-quoc", "han-quoc", "nhat-ban"];
-    const ITEMS_PER_SECTION = 24;
+    const countries = ["trung-quoc", "han-quoc"];
+    const LATEST_ITEMS_LENGTH = 24;
     let latestItems =
       (await getLatest({ page: 1 }))?.items?.filter((item) =>
         countries.includes(item.country[0].slug),
       ) || [];
 
-    if (latestItems.length < ITEMS_PER_SECTION) {
+    while (latestItems.length < LATEST_ITEMS_LENGTH) {
       latestItems = latestItems.concat(
         (await getLatest({ page: 2 }))?.items
           ?.filter((item) => countries.includes(item.country[0].slug))
-          .slice(0, ITEMS_PER_SECTION - latestItems.length) || [],
+          .slice(0, LATEST_ITEMS_LENGTH - latestItems.length) || [],
       );
     }
 
     let excludeIds = latestItems.map((item) => item._id);
 
     let chineseMovies =
-      (await countriesApi.movies("trung-quoc", { limit: "48" }))?.items
+      (
+        await countriesApi.movies("trung-quoc", {
+          limit: String(
+            LATEST_ITEMS_LENGTH + hotSlugs.length + excludeIds.length,
+          ),
+        })
+      )?.items
         ?.filter(
           (item) =>
             countries.includes(item.country[0].slug) &&
             !hotSlugs.includes(item.slug) &&
             !excludeIds.includes(item._id),
         )
-        .slice(0, ITEMS_PER_SECTION) || [];
+        .slice(0, LATEST_ITEMS_LENGTH) || [];
 
     let koreanMovies =
-      (await countriesApi.movies("han-quoc", { limit: "48" }))?.items
+      (
+        await countriesApi.movies("han-quoc", {
+          limit: String(
+            LATEST_ITEMS_LENGTH + hotSlugs.length + excludeIds.length,
+          ),
+        })
+      )?.items
         ?.filter(
           (item) =>
             countries.includes(item.country[0].slug) &&
             !hotSlugs.includes(item.slug) &&
             !excludeIds.includes(item._id),
         )
-        .slice(0, ITEMS_PER_SECTION) || [];
-
-    let japaneseMovies =
-      (await countriesApi.movies("nhat-ban", { limit: "48" }))?.items
-        ?.filter(
-          (item) =>
-            countries.includes(item.country[0].slug) &&
-            !hotSlugs.includes(item.slug) &&
-            !excludeIds.includes(item._id),
-        )
-        .slice(0, ITEMS_PER_SECTION) || [];
-
-    excludeIds = [
-      ...excludeIds,
-      ...chineseMovies.map(({ _id }) => _id),
-      ...koreanMovies.map(({ _id }) => _id),
-      ...japaneseMovies.map(({ _id }) => _id),
-    ];
-
-    const schoolMovies =
-      (await categoriesApi.movies("hoc-duong", { limit: "48" }))?.items?.filter(
-        (item) =>
-          countries.includes(item.country[0].slug) &&
-          !hotSlugs.includes(item.slug) &&
-          !excludeIds.includes(item._id),
-      ) || [];
-
-    const romanceMovies =
-      (await categoriesApi.movies("hoc-duong", { limit: "48" }))?.items?.filter(
-        (item) =>
-          countries.includes(item.country[0].slug) &&
-          !hotSlugs.includes(item.slug) &&
-          !excludeIds.includes(item._id),
-      ) || [];
-
-    const historicalMovies =
-      (await categoriesApi.movies("co-trang", { limit: "48" }))?.items?.filter(
-        (item) =>
-          countries.includes(item.country[0].slug) &&
-          !hotSlugs.includes(item.slug) &&
-          !excludeIds.includes(item._id),
-      ) || [];
+        .slice(0, LATEST_ITEMS_LENGTH) || [];
 
     const date = new Date();
 
@@ -367,17 +340,13 @@ export const moviesApi = {
       .map((item: any) =>
         item.status === "fulfilled" ? item.value.movie : null,
       )
-      .slice(0, 24);
+      .slice(0, LATEST_ITEMS_LENGTH);
 
     return {
       bannerMovie:
         (data[0] as { movie: T_Movie; episodes: T_Episode[] }) || null,
       chineseMovies,
       koreanMovies,
-      japaneseMovies,
-      historicalMovies,
-      schoolMovies,
-      romanceMovies,
       hotMovies,
       latestMovies: latestItems,
     };
