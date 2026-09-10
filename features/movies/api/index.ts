@@ -15,84 +15,84 @@ const banners = [
 ];
 
 const hotSlugs = shuffleArray([
-  "tan-len-nham-kieu-hoa-duoc-chong-nhu-y-kieu-hoa-hi-su",
-  "gio-nam-hieu-long-toi",
-  "kieu-so",
-  "ngu-dinh-dao",
-  "tang-hai-truyen",
-  "khoi-lua-nhan-gian-cua-toi",
-  "xin-chao-1983",
-  "trieu-tuyet-luc",
-  "phi-vu-chung-cu",
-  "sau-hon-nhan",
-  "luu-thuy-dieu-dieu",
-  "khanh-du-nien-phan-1",
+  "mac-ly",
+  "pha-ken-2025",
+  "duong-quy-ky-dam",
+  "duong-trieu-quy-su-luc",
+  "loi-nguyen-dong-cung",
+  "co-di-ma-lay-chong-toi-ban-nhat",
+  "toi-o-dinh-cao-doi-cau",
+  "giai-ngau-thien-thanh",
+  "phu-nhan-dai-quan-the-ky-21",
+  "khanh-du-nien-phan-2",
   "ho-so-nam-bo",
-  "luong-ngon-ta-y",
+  "thien-huong",
+  "sau-hon-nhan",
+  "tram-nam-hoa-hop-uoc-dinh-mot-loi",
+  "con-duong-binh-pham",
+  "ngoc-minh-tra-cot",
+  "nhat-tieu-tuy-ca",
+  "gio-nam-hieu-long-toi",
+  "khanh-khanh-nga-tam",
+  "dung-rung-dong-vi-anh",
+  "gieo-hong-dau-noi-duoi-may-nang",
+  "nhat-niem-so-kien-cam-y-dao",
+  "tinh-yeu-co-phao-hoa",
+  "toi-ac-ngo-ngan-toi-pham-iq-thap",
+  "rat-nho-rat-nho-anh",
+  "luu-thuy-dieu-dieu",
+  "tan-len-nham-kieu-hoa-duoc-chong-nhu-y-kieu-hoa-hi-su",
+  "sau-hon-nhan",
+  "tang-hai-truyen",
+  "chi-la-quan-he-hon-nhan",
+  "ho-tam",
+  "tieng-yeu-nay-anh-dich-duoc-khong",
+  "giac-mo-nguoi-luat-su",
   "chuyen-tinh-ma-quai",
-  "em-la-niem-kieu-hanh-cua-anh",
-  "dai-mong-quy-ly",
-  "bay-vao-trai-tim-anh-bay-vao-tim-anh",
+  "ke-thu-hoang-gia-cua-toi",
   "su-huynh-qua-can-trong",
   "chang-thu-ky-hoan-hao",
-  "con-say-mua-xuan",
-  "duong-quy-ky-dam",
-  "than-den-oi-uoc-di",
-  "anh-cung-co-ngay-nay",
-  "tieu-nhan-phan-2",
-  "dau-la-dai-luc-nhien-hon-chien",
-  "bach-nguyet-phan-tinh",
-  "thanh-xuan-cua-toi",
-  "xung-dang-de-yeu",
-  "ho-tam",
-  "toi-o-dinh-cao-doi-cau",
-  "nhat-niem-so-kien-cam-y-dao",
-  "tieng-yeu-nay-anh-dich-duoc-khong",
-  "co-di-ma-lay-chong-toi-ban-nhat",
   "thieu-nien-babylon",
-  "loi-nguyen-dong-cung",
-  "quan-trang-than-yeu",
-  "tram-nam-hoa-hop-uoc-dinh-mot-loi",
-  "duong-trieu-quy-su-luc",
-  "thien-thu-lenh",
-  "dem-nguoc-noi-yeu-em",
-  "luu-ly-my-nhan-sat",
-  "hoa-gian-lenh",
-  "nguyet-lan-y-ky",
-  "doan-xem-toi-la-ai",
-  "con-duong-binh-pham",
-  "nhat-tieu-tuy-ca",
+  "thanh-xuan-cua-toi",
+  "anh-cung-co-ngay-nay",
+  "kieu-so",
   "phuong-hoang-dai-thuong",
-  "con-ra-the-thong-gi-nua",
-  "luat-su-cong-ich",
-  "khanh-du-nien-phan-2",
-  "thien-huong",
-  "ke-thu-hoang-gia-cua-toi",
-  "song-trang-hoan-menh",
-  "giac-mo-nguoi-luat-su",
-  "mot-tinh-yeu-bat-ngo-den",
-  "ngoc-minh-tra-cot",
-  "mac-ly",
-  "gia-tri-tuyet-doi-cua-lang-man",
-  "dung-rung-dong-vi-anh",
-  "pha-ken-2025",
-  "tu-da-quy",
   "duong-cung-ky-an-thanh-vu-phong-minh",
+  "quan-trang-than-yeu",
+  "em-la-niem-kieu-hanh-cua-anh",
+  "con-ra-the-thong-gi-nua",
+  "vu-lam-linh",
+  "bay-vao-trai-tim-anh-bay-vao-tim-anh",
   "nguoi-lam-an-lon",
   "co-chau",
-  "nhat-kien-khuynh-tam",
-  "vu-lam-linh",
-  "phu-nhan-dai-quan-the-ky-21",
-  "rat-nho-rat-nho-anh",
-  "sau-hon-nhan",
-  "tinh-yeu-co-phao-hoa",
-  "giai-ngau-thien-thanh",
+  "nguyet-lan-y-ky",
+  "hoa-gian-lenh",
+  "than-den-oi-uoc-di",
+  "luong-ngon-ta-y",
+  "dau-la-dai-luc-nhien-hon-chien",
+  "thien-thu-lenh",
+  "gia-tri-tuyet-doi-cua-lang-man",
+  "phi-vu-chung-cu",
+  "xin-chao-1983",
   "thien-doa-dao-hoa-nhat-the-khai",
-  "gieo-hong-dau-noi-duoi-may-nang",
-  "toi-ac-ngo-ngan-toi-pham-iq-thap",
-  "chi-la-quan-he-hon-nhan",
+  "mot-tinh-yeu-bat-ngo-den",
+  "song-trang-hoan-menh",
+  "con-say-mua-xuan",
+  "dem-nguoc-noi-yeu-em",
+  "doan-xem-toi-la-ai",
+  "tu-da-quy",
+  "luat-su-cong-ich",
+  "khanh-du-nien-phan-1",
+  "luu-ly-my-nhan-sat",
+  "trieu-tuyet-luc",
+  "nhat-kien-khuynh-tam",
+  "khoi-lua-nhan-gian-cua-toi",
+  "ngu-dinh-dao",
   "keo-ngot-tinh-yeu",
-  "khanh-khanh-nga-tam",
+  "tieu-nhan-phan-2",
+  "xung-dang-de-yeu",
+  "bach-nguyet-phan-tinh",
+  "dai-mong-quy-ly",
 ]);
 
 const getDetailsBySlug = async (
@@ -274,54 +274,24 @@ export const moviesApi = {
   related: getRelated,
   search,
   home: async () => {
-    const countries = ["trung-quoc", "han-quoc"];
     const LATEST_ITEMS_LENGTH = 24;
-    let latestItems =
-      (await getLatest({ page: 1 }))?.items?.filter((item) =>
-        countries.includes(item.country[0].slug),
-      ) || [];
 
-    while (latestItems.length < LATEST_ITEMS_LENGTH) {
-      latestItems = latestItems.concat(
-        (await getLatest({ page: 2 }))?.items
-          ?.filter((item) => countries.includes(item.country[0].slug))
-          .slice(0, LATEST_ITEMS_LENGTH - latestItems.length) || [],
-      );
-    }
+    let { items: chineseMovies } = (await countriesApi.movies("trung-quoc", {
+      limit: String(LATEST_ITEMS_LENGTH * 2),
+    })) || { items: [] };
 
-    let excludeIds = latestItems.map((item) => item._id);
+    let { items: koreanMovies } = (await countriesApi.movies("han-quoc", {
+      limit: String(LATEST_ITEMS_LENGTH * 2),
+    })) || { items: [] };
 
-    let chineseMovies =
-      (
-        await countriesApi.movies("trung-quoc", {
-          limit: String(
-            LATEST_ITEMS_LENGTH + hotSlugs.length + excludeIds.length,
-          ),
-        })
-      )?.items
-        ?.filter(
-          (item) =>
-            countries.includes(item.country[0].slug) &&
-            !hotSlugs.includes(item.slug) &&
-            !excludeIds.includes(item._id),
-        )
-        .slice(0, LATEST_ITEMS_LENGTH) || [];
-
-    let koreanMovies =
-      (
-        await countriesApi.movies("han-quoc", {
-          limit: String(
-            LATEST_ITEMS_LENGTH + hotSlugs.length + excludeIds.length,
-          ),
-        })
-      )?.items
-        ?.filter(
-          (item) =>
-            countries.includes(item.country[0].slug) &&
-            !hotSlugs.includes(item.slug) &&
-            !excludeIds.includes(item._id),
-        )
-        .slice(0, LATEST_ITEMS_LENGTH) || [];
+    const latestMovies = [
+      ...chineseMovies.slice(0, LATEST_ITEMS_LENGTH / 2),
+      ...koreanMovies.slice(0, LATEST_ITEMS_LENGTH / 2),
+    ].sort(
+      (a, b) =>
+        new Date(b.modified.time).getTime() -
+        new Date(a.modified.time).getTime(),
+    );
 
     const date = new Date();
 
@@ -329,7 +299,15 @@ export const moviesApi = {
 
     const response = await Promise.allSettled([
       getDetailsBySlug(banners[day]),
-      Promise.allSettled(hotSlugs.map((slug) => getDetailsBySlug(slug))),
+      Promise.allSettled(
+        hotSlugs
+          .filter(
+            (slug) =>
+              chineseMovies.findIndex((item) => item.slug === slug) === -1 &&
+              koreanMovies.findIndex((item) => item.slug === slug) === -1,
+          )
+          .map((slug) => getDetailsBySlug(slug)),
+      ),
     ]);
 
     const data = response.map((item) =>
@@ -345,10 +323,16 @@ export const moviesApi = {
     return {
       bannerMovie:
         (data[0] as { movie: T_Movie; episodes: T_Episode[] }) || null,
-      chineseMovies,
-      koreanMovies,
+      chineseMovies: chineseMovies.slice(
+        LATEST_ITEMS_LENGTH / 2,
+        LATEST_ITEMS_LENGTH * 2,
+      ),
+      koreanMovies: koreanMovies.slice(
+        LATEST_ITEMS_LENGTH / 2,
+        LATEST_ITEMS_LENGTH * 2,
+      ),
       hotMovies,
-      latestMovies: latestItems,
+      latestMovies,
     };
   },
 };
