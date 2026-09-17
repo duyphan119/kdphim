@@ -1,4 +1,3 @@
-import { categoriesApi } from "@/features/categories/api";
 import { countriesApi } from "@/features/countries/api";
 import { API_DOMAIN } from "@/lib/constants";
 import { shuffleArray } from "@/lib/utils";
@@ -15,6 +14,10 @@ const banners = [
 ];
 
 const hotSlugs = shuffleArray([
+  "nhat-au-xuan",
+  "dau-xuan-tuoi-sang",
+  "bay-vao-trai-tim-anh-bay-vao-tim-anh",
+  "lan-huong-nhu-co",
   "mac-ly",
   "pha-ken-2025",
   "duong-quy-ky-dam",
@@ -62,7 +65,6 @@ const hotSlugs = shuffleArray([
   "em-la-niem-kieu-hanh-cua-anh",
   "con-ra-the-thong-gi-nua",
   "vu-lam-linh",
-  "bay-vao-trai-tim-anh-bay-vao-tim-anh",
   "nguoi-lam-an-lon",
   "co-chau",
   "nguyet-lan-y-ky",

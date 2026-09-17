@@ -1,3 +1,4 @@
+import { badgeVariants } from "@/components/ui/badge";
 import { APP_DOMAIN_CDN_IMAGE } from "@/lib/constants";
 import { Play } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -8,9 +9,10 @@ import { Fragment } from "react";
 type MovieInformationProps = {
   movie: T_Movie;
   firstLink: string;
+  latestEpisodes?: T_ServerDataItem[];
 }
 
-export default function MovieInformation({ movie, firstLink, }: MovieInformationProps) {
+export default function MovieInformation({ movie, firstLink, latestEpisodes = [] }: MovieInformationProps) {
   return (
     <div className="overflow-hidden rounded-sm border border-border bg-card shadow-sm block md:grid md:grid-cols-3">
       <div className="relative aspect-[2/3] w-full overflow-hidden bg-slate-950 md:col-span-1">
@@ -114,6 +116,16 @@ export default function MovieInformation({ movie, firstLink, }: MovieInformation
           <div className="col-span-2 lg:col-span-3 rounded-md bg-zinc-900 px-3 py-2">
             {movie.episode_total}
           </div>
+          {latestEpisodes.length > 0 ? <>
+            <div className="col-span-1 rounded-md bg-zinc-900 px-3 py-2 font-semibold">
+              Tập mới nhất
+            </div>
+            <div className="col-span-2 lg:col-span-3 rounded-md bg-zinc-900 px-3 py-2">
+              <div className="flex items-center gap-1">
+                {latestEpisodes.map((item, index) => <Link key={index} href={`/xem-phim/${movie.slug}/0/${item.slug}`} className={badgeVariants({ variant: "episode" })}>{item.name}</Link>)}
+              </div>
+            </div>
+          </> : null}
         </div>
         <div
           dangerouslySetInnerHTML={{

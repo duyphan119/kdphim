@@ -69,6 +69,7 @@ export default function MovieDetails({
     }
   }, [movie, episodes, serverIndex, currentEpisodeSlug])
 
+  const isStreaming = episodes?.length && currentEpisodeSlug && typeof serverIndex === 'number';
 
   return (
     <div className="container mx-auto p-4 flex flex-col gap-4">
@@ -79,10 +80,7 @@ export default function MovieDetails({
         <div className="col-span-4 md:col-span-3 space-y-4">
           <div className="flex flex-col gap-4">
             <div
-              className={cn(
-                "flex flex-col gap-3 md:flex-row md:items-start md:justify-between",
-                children ? "order-3" : "order-1",
-              )}
+              className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
             >
               <div>
                 <h1 className="text-3xl font-semibold leading-tight">
@@ -94,22 +92,10 @@ export default function MovieDetails({
               </div>
             </div>
 
-            {children ? <div className="order-1">{children}</div> : null}
-            <article className={children ? "order-4" : "order-2"}  >
-              <MovieInformation movie={movie} firstLink={firstLink} />
-            </article>
-            <div className={cn("space-y-4", children ? "order-5" : "order-3")}>
-              <MovieCasts
-                actors={movie.actor}
-                peoplesData={peoplesData}
-              />
-            </div>
-            {episodes?.length && currentEpisodeSlug && typeof serverIndex === 'number' ? (
+            {children ? <div className="">{children}</div> : null}
+            {isStreaming ? (
               <div
-                className={cn(
-                  "rounded-sm border border-border bg-card p-6 shadow-sm",
-                  children ? "order-2" : "order-4",
-                )}
+                className="rounded-sm border border-border bg-card p-6 shadow-sm"
               >
                 <MovieEpisodes
                   currentEpisodeSlug={currentEpisodeSlug}
@@ -119,6 +105,27 @@ export default function MovieDetails({
                 />
               </div>
             ) : null}
+            <article>
+              <MovieInformation movie={movie} firstLink={firstLink} latestEpisodes={[...episodes[serverIndex || 0].server_data].reverse().slice(0, 3)} />
+            </article>
+
+
+            <MovieCasts
+              actors={movie.actor}
+              peoplesData={peoplesData}
+            />
+
+            {!isStreaming && movie.trailer_url ? <div className="">
+              <div className="rounded-sm border border-border bg-card p-6 shadow-sm">
+                <h2 className="text-xl font-semibold">Trailer</h2>
+
+                <div className="mt-4">
+                  <iframe src={movie.trailer_url.replace("watch?v=", "embed/")} className="aspect-video w-full"></iframe>
+                </div>
+              </div>
+            </div> : null}
+
+
           </div>
           <RelatedMovies movies={relatedMovies} />
         </div>

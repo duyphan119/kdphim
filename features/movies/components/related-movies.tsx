@@ -13,8 +13,8 @@ export default function RelatedMovies({ movies }: RelatedMoviesProps) {
       <h2 className="text-xl font-semibold">Phim tương tự</h2>
 
       <div className="mt-4 grid grid-cols-4 gap-2 lg:gap-4">
-        {movies.map((item) => (
-          <div key={item._id} className="col-span-2 lg:col-span-1">
+        {movies.map((item, index) => (
+          <div key={index} className="col-span-2 lg:col-span-1">
             <MovieCard
               movie={item}
             />
