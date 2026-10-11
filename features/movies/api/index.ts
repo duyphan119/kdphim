@@ -16,6 +16,7 @@ const banners = [
 const hotSlugs = shuffleArray([
   "nhat-au-xuan",
   "dau-xuan-tuoi-sang",
+  "tich-hoa-chi",
   "bay-vao-trai-tim-anh-bay-vao-tim-anh",
   "lan-huong-nhu-co",
   "mac-ly",
@@ -29,7 +30,6 @@ const hotSlugs = shuffleArray([
   "phu-nhan-dai-quan-the-ky-21",
   "khanh-du-nien-phan-2",
   "ho-so-nam-bo",
-  "thien-huong",
   "sau-hon-nhan",
   "tram-nam-hoa-hop-uoc-dinh-mot-loi",
   "con-duong-binh-pham",
@@ -55,10 +55,12 @@ const hotSlugs = shuffleArray([
   "ke-thu-hoang-gia-cua-toi",
   "su-huynh-qua-can-trong",
   "chang-thu-ky-hoan-hao",
+  "bac-si-x",
   "thieu-nien-babylon",
   "thanh-xuan-cua-toi",
   "anh-cung-co-ngay-nay",
   "kieu-so",
+  "thien-huong",
   "phuong-hoang-dai-thuong",
   "duong-cung-ky-an-thanh-vu-phong-minh",
   "quan-trang-than-yeu",
@@ -276,7 +278,8 @@ export const moviesApi = {
   related: getRelated,
   search,
   home: async () => {
-    const LATEST_ITEMS_LENGTH = 24;
+    const LATEST_ITEMS_LENGTH = 6;
+    const ITEMS_PER_ROW = 6;
 
     let { items: chineseMovies } = (await countriesApi.movies("trung-quoc", {
       limit: String(LATEST_ITEMS_LENGTH * 2),
@@ -327,11 +330,11 @@ export const moviesApi = {
         (data[0] as { movie: T_Movie; episodes: T_Episode[] }) || null,
       chineseMovies: chineseMovies.slice(
         LATEST_ITEMS_LENGTH / 2,
-        LATEST_ITEMS_LENGTH * 2,
+        LATEST_ITEMS_LENGTH / 2 + ITEMS_PER_ROW,
       ),
       koreanMovies: koreanMovies.slice(
         LATEST_ITEMS_LENGTH / 2,
-        LATEST_ITEMS_LENGTH * 2,
+        LATEST_ITEMS_LENGTH / 2 + ITEMS_PER_ROW,
       ),
       hotMovies,
       latestMovies,
