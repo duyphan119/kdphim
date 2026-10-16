@@ -17,37 +17,37 @@ export const GET = async (
 
   const movies = await castsApi.movies(id, tmdbType);
 
-  // const tmdbMovies = await Promise.all(
-  //   movies.map(({ id }) =>
-  //     moviesApi.detailsByTmdb(id, tmdbType as "tv" | "movie"),
-  //   ),
-  // );
-
-  // const countries = await countriesApi.itemsInTmdb();
-
-  const searchResults = await Promise.all(
-    movies.map((item: any) =>
-      moviesApi.search(item.name || item.title, {
-        year:
-          (item.first_air_date || item.release_date)?.split("-")?.[0] ||
-          undefined,
-      }),
+  const tmdbMovies = await Promise.all(
+    movies.map(({ id }) =>
+      moviesApi.detailsByTmdb(id, tmdbType as "tv" | "movie"),
     ),
   );
 
-  const data = searchResults
-    .filter(
-      (item) =>
-        item &&
-        item.items.filter(
-          (el) => el.type === (tmdbType === "tv" ? "series" : "single"),
-        ).length > 1,
-    )
-    .map((item) => item?.items[0] as T_Movie);
+  // const countries = await countriesApi.itemsInTmdb();
+
+  // const searchResults = await Promise.all(
+  //   movies.map((item: any) =>
+  //     moviesApi.search(item.name || item.title, {
+  //       year:
+  //         (item.first_air_date || item.release_date)?.split("-")?.[0] ||
+  //         undefined,
+  //     }),
+  //   ),
+  // );
+
+  // const data = searchResults
+  //   .filter(
+  //     (item) =>
+  //       item &&
+  //       item.items.filter(
+  //         (el) => el.type === (tmdbType === "tv" ? "series" : "single"),
+  //       ).length > 1,
+  //   )
+  //   .map((item) => item?.items[0] as T_Movie);
 
   return NextResponse.json({
     status: true,
     message: "success",
-    data,
+    data: tmdbMovies.filter((item) => item?.movie).map((item) => item?.movie),
   });
 };
