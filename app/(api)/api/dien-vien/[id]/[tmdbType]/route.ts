@@ -1,9 +1,10 @@
 import { castsApi } from "@/features/casts/api";
+import { moviesApi } from "@/features/movies/api";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (
   request: NextRequest,
-  { params }: { params: Promise<{ id: string; tmdbType: string }> },
+  { params }: { params: Promise<{ id: string; tmdbType: "tv" | "movie" }> },
 ) => {
   const { id, tmdbType } = await params;
   if (!["tv", "movie"].includes(tmdbType))
@@ -15,9 +16,13 @@ export const GET = async (
 
   const movies = await castsApi.movies(id, tmdbType);
 
+  const items = await Promise.all(
+    movies.map(({ id }) => moviesApi.detailsByTmdb(id, tmdbType)),
+  );
+
   return NextResponse.json({
     status: true,
     message: "success",
-    data: movies,
+    data: items.filter((item) => item?.movie),
   });
 };
