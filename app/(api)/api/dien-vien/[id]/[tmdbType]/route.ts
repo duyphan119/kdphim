@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (
   request: NextRequest,
-  { params }: { params: Promise<{ id: string; tmdbType: "tv" | "movie" }> },
+  { params }: { params: Promise<{ id: string; tmdbType: string }> },
 ) => {
   const { id, tmdbType } = await params;
   if (!["tv", "movie"].includes(tmdbType))
@@ -17,7 +17,9 @@ export const GET = async (
   const movies = await castsApi.movies(id, tmdbType);
 
   const items = await Promise.all(
-    movies.map(({ id }) => moviesApi.detailsByTmdb(id, tmdbType)),
+    movies.map(({ id }) =>
+      moviesApi.detailsByTmdb(id, tmdbType as "tv" | "movie"),
+    ),
   );
 
   return NextResponse.json({
