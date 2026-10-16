@@ -25,6 +25,6 @@ export const GET = async (
   return NextResponse.json({
     status: true,
     message: "success",
-    data: items.filter((item) => item?.movie),
+    data: items.filter((item) => item?.movie).map((item) => item.movie),
   });
 };
