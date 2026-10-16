@@ -273,8 +273,26 @@ const getCastDetails = async (id: string) => {
   return null;
 };
 
+const getCastMovies = async (castId: string, type: string) => {
+  if (!["tv", "movie"].includes(type)) return [];
+  const response = await fetch(
+    `${TMDB_API_DOMAIN}/person/${castId}/${type}_credits?language=vi-VN`,
+    {
+      headers: {
+        Authorization: `Bearer ${TMDB_API_KEY}`,
+        accept: "application/json",
+      },
+    },
+  );
+
+  const json = await response.json();
+
+  return json.cast as T_MovieCredit[] | T_TvCredit[];
+};
+
 export const castsApi = {
   casts: getCastsByVideoSlug,
   details: getCastDetails,
   profile: getProfile,
+  movies: getCastMovies,
 };
