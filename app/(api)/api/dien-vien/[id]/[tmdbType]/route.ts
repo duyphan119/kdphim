@@ -28,7 +28,9 @@ export const GET = async (
   const searchResults = await Promise.all(
     movies.map((item: any) =>
       moviesApi.search(item.name || item.title, {
-        year: (item.first_air_date || item.release_date).split("-")[0],
+        year:
+          (item.first_air_date || item.release_date)?.split("-")?.[0] ||
+          undefined,
       }),
     ),
   );
