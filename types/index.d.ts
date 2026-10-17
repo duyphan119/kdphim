@@ -155,6 +155,16 @@ type T_Cast = {
   order: number;
 };
 
+type T_CastImage = {
+  aspect_ratio: number;
+  height: number;
+  iso_639_1: string | null;
+  file_path: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+};
+
 type T_CastProfile = {
   biography?: string;
   birthday?: string | null; // có thể null nếu không rõ

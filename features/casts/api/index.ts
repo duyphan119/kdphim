@@ -290,9 +290,23 @@ const getCastMovies = async (castId: string, type: string) => {
   return json.cast as T_MovieCredit[] | T_TvCredit[];
 };
 
+const getImages = async (castId: string) => {
+  const response = await fetch(`${TMDB_API_DOMAIN}/person/${castId}/images`, {
+    headers: {
+      Authorization: `Bearer ${TMDB_API_KEY}`,
+      accept: "application/json",
+    },
+  });
+
+  const json = await response.json();
+
+  return json.profiles as T_CastImage[];
+};
+
 export const castsApi = {
   casts: getCastsByVideoSlug,
   details: getCastDetails,
   profile: getProfile,
   movies: getCastMovies,
+  images: getImages,
 };
