@@ -33,8 +33,10 @@ export const GET = async (
     (result, index) =>
       (result &&
         (result.items.length > 1
-          ? result.items.filter(
-              (item) => item.name === otherMovies[index].title,
+          ? result.items.filter((item) =>
+              item.name.lastIndexOf("(Phần") !== -1
+                ? item.name.includes(otherMovies[index].title + "(Phần")
+                : item.name === otherMovies[index].title,
             )
           : result.items)) ||
       [],
@@ -54,11 +56,7 @@ export const GET = async (
     }
   });
 
-  data.sort(
-    (a, b) =>
-      new Date(b?.created?.time || b.year).getTime() -
-      new Date(a?.created?.time || a.year).getTime(),
-  );
+  data.sort((a, b) => new Date(b.year).getTime() - new Date(a.year).getTime());
 
   return NextResponse.json({
     status: true,
