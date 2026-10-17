@@ -32,27 +32,23 @@ export const GET = async (
   ).map(
     (result, index) =>
       (result &&
-        (result.items.length > 1
-          ? result.items.filter((item) =>
-              item.name.lastIndexOf("(Phần") !== -1
-                ? item.name.includes(otherMovies[index].title + "(Phần")
-                : item.name === otherMovies[index].title,
-            )
-          : result.items)) ||
+        result.items.filter((item) =>
+          item.name.startsWith(otherMovies[index].title),
+        )) ||
       [],
   );
 
-  searchResults = searchResults.filter((result) => result.length === 1);
+  const videoResults = searchResults.flat();
 
   let data = tmdbMovies
     .filter((item) => item?.movie)
     .map((item) => item?.movie) as T_Movie[];
 
-  searchResults.forEach((items) => {
-    const index = data.findIndex((item) => item._id === items[0]._id);
+  videoResults.forEach((videoResult) => {
+    const index = data.findIndex((item) => item._id === videoResult._id);
 
     if (index === -1) {
-      data.push(items[0]);
+      data.push(videoResult);
     }
   });
 

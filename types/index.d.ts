@@ -166,6 +166,7 @@ type T_CastImage = {
 };
 
 type T_CastProfile = {
+  also_known_as: string[];
   biography?: string;
   birthday?: string | null; // có thể null nếu không rõ
   gender: number; // theo TMDB docs

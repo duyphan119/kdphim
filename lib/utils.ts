@@ -31,7 +31,7 @@ export function shuffleArray(items: string[]): string[] {
     [result[i], result[j]] = [result[j], result[i]];
   }
 
-  console.log("shuffle", result);
+  // console.log("shuffle", result);
 
   return result;
 }
