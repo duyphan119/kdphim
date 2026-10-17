@@ -63,6 +63,6 @@ export const GET = async (
   return NextResponse.json({
     status: true,
     message: "success",
-    data: data.map(({ name }) => name),
+    data,
   });
 };
