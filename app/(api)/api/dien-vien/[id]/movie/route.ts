@@ -67,7 +67,9 @@ export const GET = async (
     }
   });
 
-  data.sort((a, b) => new Date(b.year).getTime() - new Date(a.year).getTime());
+  finalItems.sort(
+    (a, b) => new Date(b.year).getTime() - new Date(a.year).getTime(),
+  );
 
   return NextResponse.json({
     status: true,
