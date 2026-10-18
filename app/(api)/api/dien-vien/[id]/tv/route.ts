@@ -66,7 +66,7 @@ export const GET = async (
   return NextResponse.json({
     status: true,
     message: "success",
-    // data: finalItems,
-    data: finalItems.map((item) => item.slug),
+    data: finalItems,
+    // data: finalItems.map((item) => item.slug),
   });
 };
