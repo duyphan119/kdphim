@@ -41,7 +41,7 @@ export const GET = async (
   let finalItems: T_Movie[] = [];
 
   data.forEach((dataItem) => {
-    const index = data.findIndex((item) => item._id === dataItem._id);
+    const index = finalItems.findIndex((item) => item._id === dataItem._id);
 
     if (index === -1) {
       finalItems.push(dataItem);
@@ -66,6 +66,7 @@ export const GET = async (
   return NextResponse.json({
     status: true,
     message: "success",
-    data: finalItems,
+    // data: finalItems,
+    data: finalItems.map((item) => item.slug),
   });
 };
