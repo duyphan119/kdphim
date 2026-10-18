@@ -85,6 +85,7 @@ type T_Movie = {
   director: string[];
   category: T_Category[];
   country: T_Country[];
+  last_episodes?: T_ServerDataItem[];
 };
 
 type T_ServerDataItem = {

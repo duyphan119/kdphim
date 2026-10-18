@@ -44,11 +44,26 @@ export const GET = async (
     .filter((item) => item?.movie)
     .map((item) => item?.movie) as T_Movie[];
 
-  videoResults.forEach((videoResult) => {
-    const index = data.findIndex((item) => item._id === videoResult._id);
+  let finalItems: T_Movie[] = [];
+
+  data.forEach((dataItem) => {
+    const index = data.findIndex((item) => item._id === dataItem._id);
 
     if (index === -1) {
-      data.push(videoResult);
+      finalItems.push(dataItem);
+    }
+  });
+
+  videoResults.forEach((videoResult) => {
+    const index = finalItems.findIndex((item) => item._id === videoResult._id);
+
+    if (
+      index === -1 &&
+      (videoResult.type === "single" ||
+        !videoResult.last_episodes ||
+        (videoResult.last_episodes && videoResult.last_episodes.length > 0))
+    ) {
+      finalItems.push(videoResult);
     }
   });
 
@@ -57,6 +72,6 @@ export const GET = async (
   return NextResponse.json({
     status: true,
     message: "success",
-    data,
+    data: finalItems,
   });
 };
