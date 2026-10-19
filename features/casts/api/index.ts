@@ -145,121 +145,155 @@ const getProfile = async (id: string): Promise<T_CastProfile | null> => {
   return null;
 };
 
+const getSeriesMovies = async (castId: string) => {
+  try {
+    let movies = (await getCastMovies(castId, "tv")) as T_TvCredit[];
+
+    const tmdbMovies = await Promise.all(
+      movies.map(({ id }) => moviesApi.detailsByTmdb(id, "tv")),
+    );
+    const otherMovies: T_TvCredit[] = [];
+
+    tmdbMovies.forEach((item, index) => {
+      if (item?.movie) return;
+
+      otherMovies.push(movies[index]);
+    });
+
+    let searchResults = (
+      await Promise.all(otherMovies.map((item) => moviesApi.search(item.name)))
+    ).map(
+      (result, index) =>
+        (result &&
+          result.items.filter((item) =>
+            item.name.startsWith(otherMovies[index].name),
+          )) ||
+        [],
+    );
+
+    const videoResults = searchResults.flat();
+
+    let data = tmdbMovies
+      .filter((item) => item?.movie)
+      .map((item) => item?.movie) as T_Movie[];
+
+    let finalItems: T_Movie[] = [];
+
+    data.forEach((dataItem) => {
+      const index = finalItems.findIndex((item) => item._id === dataItem._id);
+
+      if (index === -1) {
+        finalItems.push(dataItem);
+      }
+    });
+
+    videoResults.forEach((videoResult) => {
+      const index = finalItems.findIndex(
+        (item) => item._id === videoResult._id,
+      );
+
+      if (
+        index === -1 &&
+        (videoResult.type === "series" ||
+          !videoResult.last_episodes ||
+          (videoResult.last_episodes && videoResult.last_episodes.length > 0))
+      ) {
+        finalItems.push(videoResult);
+      }
+    });
+
+    finalItems.sort(
+      (a, b) => new Date(b.year).getTime() - new Date(a.year).getTime(),
+    );
+
+    return finalItems;
+  } catch (error) {
+    console.log("castsApi, getSeriesVideos, error", error);
+    return [];
+  }
+};
+
+const getSingleMovies = async (castId: string) => {
+  try {
+    let movies = (await getCastMovies(castId, "movie")) as T_MovieCredit[];
+
+    const tmdbMovies = await Promise.all(
+      movies.map(({ id }) => moviesApi.detailsByTmdb(id, "tv")),
+    );
+    const otherMovies: T_MovieCredit[] = [];
+
+    tmdbMovies.forEach((item, index) => {
+      if (item?.movie) return;
+
+      otherMovies.push(movies[index]);
+    });
+
+    let searchResults = (
+      await Promise.all(
+        otherMovies.map((item) =>
+          moviesApi.search(item.title, {
+            year: item.release_date?.split("-")?.[0] || undefined,
+          }),
+        ),
+      )
+    ).map(
+      (result, index) =>
+        (result &&
+          result.items.filter((item) =>
+            item.name.startsWith(otherMovies[index].title),
+          )) ||
+        [],
+    );
+
+    const videoResults = searchResults.flat();
+
+    let data = tmdbMovies
+      .filter((item) => item?.movie)
+      .map((item) => item?.movie) as T_Movie[];
+
+    let finalItems: T_Movie[] = [];
+
+    data.forEach((dataItem) => {
+      const index = finalItems.findIndex((item) => item._id === dataItem._id);
+
+      if (index === -1) {
+        finalItems.push(dataItem);
+      }
+    });
+
+    videoResults.forEach((videoResult) => {
+      const index = finalItems.findIndex(
+        (item) => item._id === videoResult._id,
+      );
+
+      if (
+        index === -1 &&
+        (videoResult.type === "single" ||
+          !videoResult.last_episodes ||
+          (videoResult.last_episodes && videoResult.last_episodes.length > 0))
+      ) {
+        finalItems.push(videoResult);
+      }
+    });
+
+    finalItems.sort(
+      (a, b) => new Date(b.year).getTime() - new Date(a.year).getTime(),
+    );
+
+    return finalItems;
+  } catch (error) {
+    console.log("castsApi,getSingleMovies,error", error);
+    return [];
+  }
+};
+
 const getCastDetails = async (id: string) => {
   try {
-    const [
-      seriesResponse,
-      singleResponse,
-      profileResponse,
-      countriesInTmdbResponse,
-    ] = await Promise.allSettled([
-      fetch(`${TMDB_API_DOMAIN}/person/${id}/tv_credits?language=vi-VN`, {
-        headers: {
-          Authorization: `Bearer ${TMDB_API_KEY}`,
-          accept: "application/json",
-        },
-      }),
-      fetch(`${TMDB_API_DOMAIN}/person/${id}/movie_credits?language=vi-VN`, {
-        headers: {
-          Authorization: `Bearer ${TMDB_API_KEY}`,
-          accept: "application/json",
-        },
-      }),
+    const [profile, seriesList, singleList] = await Promise.all([
       getProfile(id),
-      countriesApi.itemsInTmdb(),
+      getSeriesMovies(id),
+      getSingleMovies(id),
     ]);
-
-    let countriesInTmdb =
-      countriesInTmdbResponse.status === "fulfilled"
-        ? countriesInTmdbResponse.value
-        : [];
-    let seriesList: T_Movie[] = [];
-    let singleList: T_Movie[] = [];
-    let profile: T_CastProfile | null =
-      profileResponse.status === "fulfilled" ? profileResponse.value : null;
-
-    if (seriesResponse.status === "fulfilled") {
-      const value: any = await seriesResponse.value.json();
-      const list: T_TvCredit[] = value.cast;
-
-      for (let i = 0; i < list.length; i++) {
-        const tmdbItem = list[i];
-
-        // gọi thử api qua tmdb xem có phim không
-        const data = await moviesApi.detailsByTmdb(tmdbItem.id, "tv");
-
-        console.log("item tmdb tv", data?.movie.name);
-        if (data && data.movie) {
-          seriesList.push(data.movie);
-          continue;
-        }
-
-        const searchData = await moviesApi.search(tmdbItem.name);
-
-        console.log("search tv", searchData);
-
-        if (searchData && searchData.items.length > 0) {
-          const resultFind = searchData.items.find(
-            (searchItem) =>
-              searchItem.name === tmdbItem.name &&
-              isEqualArray(
-                countriesInTmdb
-                  .filter(
-                    (item) =>
-                      searchItem.country.findIndex(
-                        ({ name }) => item.native_name === name,
-                      ) !== -1,
-                  )
-                  .map((item) => item.iso_3166_1),
-                tmdbItem.origin_country,
-              ) &&
-              tmdbItem.first_air_date?.startsWith(searchItem.year + "") &&
-              searchItem.type === "series",
-          );
-
-          if (resultFind) {
-            seriesList.push(resultFind);
-            continue;
-          }
-        }
-      }
-
-      if (singleResponse.status === "fulfilled") {
-        const value: any = await singleResponse.value.json();
-        const list: T_MovieCredit[] = value.cast;
-
-        for (let i = 0; i < list.length; i++) {
-          const tmdbItem = list[i];
-
-          // gọi thử api qua tmdb xem có phim không
-          const data = await moviesApi.detailsByTmdb(tmdbItem.id, "tv");
-
-          console.log("item tmdb tv", data?.movie.name);
-          if (data && data.movie) {
-            seriesList.push(data.movie);
-            continue;
-          }
-
-          const searchData = await moviesApi.search(tmdbItem.title);
-
-          console.log("search tv", searchData);
-
-          if (searchData && searchData.items.length > 0) {
-            const resultFind = searchData.items.find(
-              (searchItem) =>
-                searchItem.name === tmdbItem.title &&
-                tmdbItem.release_date?.startsWith(searchItem.year + "") &&
-                searchItem.type === "single",
-            );
-
-            if (resultFind) {
-              seriesList.push(resultFind);
-              continue;
-            }
-          }
-        }
-      }
-    }
 
     return {
       seriesList,
@@ -309,4 +343,6 @@ export const castsApi = {
   profile: getProfile,
   movies: getCastMovies,
   images: getImages,
+  singleMovies: getSingleMovies,
+  seriesMovies: getSeriesMovies,
 };

@@ -52,7 +52,6 @@ export default async function Page({ params }: Props) {
 
   if (!profile) return <div className="container mx-auto p-4 lg:py-12"><Message /></div>;
 
-
   return (
     <div className="container mx-auto p-4 space-y-4">
       <Breadcrumb

@@ -1,103 +1,6 @@
 import { countriesApi } from "@/features/countries/api";
-import { API_DOMAIN } from "@/lib/constants";
-import { shuffleArray } from "@/lib/utils";
+import { API_DOMAIN, FEATURED_SLUG, HOT_SLUGS } from "@/lib/constants";
 import qs from "query-string";
-
-const banners = [
-  "thien-huong",
-  "cho-hoang-va-xuong",
-  "bach-nguyet-phan-tinh",
-  "tang-hai-truyen",
-  "trieu-tuyet-luc",
-  "tu-da-quy",
-  "rat-nho-rat-nho-anh",
-];
-
-const hotSlugs = shuffleArray([
-  "nhat-au-xuan",
-  "dau-xuan-tuoi-sang",
-  "tich-hoa-chi",
-  "bay-vao-trai-tim-anh-bay-vao-tim-anh",
-  "lan-huong-nhu-co",
-  "mac-ly",
-  "pha-ken-2025",
-  "duong-quy-ky-dam",
-  "duong-trieu-quy-su-luc",
-  "loi-nguyen-dong-cung",
-  "co-di-ma-lay-chong-toi-ban-nhat",
-  "toi-o-dinh-cao-doi-cau",
-  "giai-ngau-thien-thanh",
-  "phu-nhan-dai-quan-the-ky-21",
-  "khanh-du-nien-phan-2",
-  "ho-so-nam-bo",
-  "sau-hon-nhan",
-  "tram-nam-hoa-hop-uoc-dinh-mot-loi",
-  "con-duong-binh-pham",
-  "ngoc-minh-tra-cot",
-  "nhat-tieu-tuy-ca",
-  "gio-nam-hieu-long-toi",
-  "khanh-khanh-nga-tam",
-  "dung-rung-dong-vi-anh",
-  "gieo-hong-dau-noi-duoi-may-nang",
-  "nhat-niem-so-kien-cam-y-dao",
-  "tinh-yeu-co-phao-hoa",
-  "toi-ac-ngo-ngan-toi-pham-iq-thap",
-  "rat-nho-rat-nho-anh",
-  "luu-thuy-dieu-dieu",
-  "tan-len-nham-kieu-hoa-duoc-chong-nhu-y-kieu-hoa-hi-su",
-  "sau-hon-nhan",
-  "tang-hai-truyen",
-  "chi-la-quan-he-hon-nhan",
-  "ho-tam",
-  "tieng-yeu-nay-anh-dich-duoc-khong",
-  "giac-mo-nguoi-luat-su",
-  "chuyen-tinh-ma-quai",
-  "ke-thu-hoang-gia-cua-toi",
-  "su-huynh-qua-can-trong",
-  "chang-thu-ky-hoan-hao",
-  "bac-si-x",
-  "thieu-nien-babylon",
-  "thanh-xuan-cua-toi",
-  "anh-cung-co-ngay-nay",
-  "kieu-so",
-  "thien-huong",
-  "phuong-hoang-dai-thuong",
-  "duong-cung-ky-an-thanh-vu-phong-minh",
-  "quan-trang-than-yeu",
-  "em-la-niem-kieu-hanh-cua-anh",
-  "con-ra-the-thong-gi-nua",
-  "vu-lam-linh",
-  "nguoi-lam-an-lon",
-  "co-chau",
-  "nguyet-lan-y-ky",
-  "hoa-gian-lenh",
-  "than-den-oi-uoc-di",
-  "luong-ngon-ta-y",
-  "dau-la-dai-luc-nhien-hon-chien",
-  "thien-thu-lenh",
-  "gia-tri-tuyet-doi-cua-lang-man",
-  "phi-vu-chung-cu",
-  "xin-chao-1983",
-  "thien-doa-dao-hoa-nhat-the-khai",
-  "mot-tinh-yeu-bat-ngo-den",
-  "song-trang-hoan-menh",
-  "con-say-mua-xuan",
-  "dem-nguoc-noi-yeu-em",
-  "doan-xem-toi-la-ai",
-  "tu-da-quy",
-  "luat-su-cong-ich",
-  "khanh-du-nien-phan-1",
-  "luu-ly-my-nhan-sat",
-  "trieu-tuyet-luc",
-  "nhat-kien-khuynh-tam",
-  "khoi-lua-nhan-gian-cua-toi",
-  "ngu-dinh-dao",
-  "keo-ngot-tinh-yeu",
-  "tieu-nhan-phan-2",
-  "xung-dang-de-yeu",
-  "bach-nguyet-phan-tinh",
-  "dai-mong-quy-ly",
-]);
 
 const getDetailsBySlug = async (
   slug: string,
@@ -220,7 +123,7 @@ const getHotMovies = async (filter?: { page?: number; limit?: number }) => {
   const limit = Number(filter?.limit) || 6;
 
   try {
-    const slugs = hotSlugs.slice((page - 1) * limit, page * limit);
+    const slugs = HOT_SLUGS.slice((page - 1) * limit, page * limit);
 
     const response = await Promise.allSettled(
       slugs.map((slug) => getDetailsBySlug(slug)),
@@ -236,7 +139,7 @@ const getHotMovies = async (filter?: { page?: number; limit?: number }) => {
         totalItems: movies.length,
         totalItemsPerPage: limit,
         currentPage: page,
-        totalPages: Math.ceil(hotSlugs.length / limit),
+        totalPages: Math.ceil(HOT_SLUGS.length / limit),
       },
     };
   } catch (error) {
@@ -298,20 +201,14 @@ export const moviesApi = {
         new Date(a.modified.time).getTime(),
     );
 
-    const date = new Date();
-
-    const day = date.getDay();
-
     const response = await Promise.allSettled([
-      getDetailsBySlug(banners[day]),
+      getDetailsBySlug(FEATURED_SLUG),
       Promise.allSettled(
-        hotSlugs
-          .filter(
-            (slug) =>
-              chineseMovies.findIndex((item) => item.slug === slug) === -1 &&
-              koreanMovies.findIndex((item) => item.slug === slug) === -1,
-          )
-          .map((slug) => getDetailsBySlug(slug)),
+        HOT_SLUGS.filter(
+          (slug) =>
+            chineseMovies.findIndex((item) => item.slug === slug) === -1 &&
+            koreanMovies.findIndex((item) => item.slug === slug) === -1,
+        ).map((slug) => getDetailsBySlug(slug)),
       ),
     ]);
 
@@ -321,7 +218,7 @@ export const moviesApi = {
 
     const hotMovies: T_Movie[] = (data[1] as any)
       .map((item: any) =>
-        item.status === "fulfilled" ? item.value.movie : null,
+        item.status === "fulfilled" ? item.value?.movie || null : null,
       )
       .slice(0, LATEST_ITEMS_LENGTH);
 

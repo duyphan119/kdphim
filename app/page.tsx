@@ -28,7 +28,7 @@ export default async function Page() {
             </h2>
 
             <Link
-              href="/phim-moi-cap-nhat"
+              href={`/nam/${new Date().getFullYear()}?country=trung-quoc,han-quoc`}
               className="text-sm font-medium text-red-500 hover:text-red-400"
             >
               Xem tất cả →
